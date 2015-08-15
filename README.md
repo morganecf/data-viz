@@ -1,2 +1,2 @@
 # data-viz
-An accumulation of data visualizations. 
+An accumulation of data visualizations.
