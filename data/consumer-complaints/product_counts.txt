@@ -1,0 +1,12 @@
+29533 Bank account or service
+10600 Consumer loan
+28743 Credit card
+52875 Credit reporting
+68907 Debt collection
+2307 Money transfers
+86945 Mortgage
+ 227 Other financial service
+2655 Payday loan
+ 784 Prepaid card
+   1 Product
+8267 Student loan

@@ -1,0 +1,80 @@
+   2 AE
+   5 AK
+  19 AL
+  13 AR
+  51 AZ
+1500 Attempted to collect wrong amount
+ 106 Attempted to/Collected exempt funds
+ 360 CA
+  38 CO
+  47 CT
+ 239 Called after sent written cease of comm
+  92 Called outside of 8am-9pm
+ 203 Contacted employer after asked not to
+ 266 Contacted me after I asked not to
+  30 Contacted me instead of my attorney
+  30 DC
+  15 DE
+5909 Debt is not mine
+ 712 Debt resulted from identity theft
+ 291 Debt was discharged in bankruptcy
+2873 Debt was paid
+ 237 FL
+1483 Frequent or repeated calls
+ 100 GA
+   4 HI
+   7 IA
+   8 ID
+  84 IL
+  28 IN
+ 132 Impersonated an attorney or official
+ 128 Indicated committed crime not paying
+  39 Indicated shouldn't respond to lawsuit
+  12 KS
+  27 KY
+  22 LA
+  72 MA
+  81 MD
+   7 ME
+  44 MI
+  26 MN
+  23 MO
+   1 MP
+  14 MS
+   2 MT
+  77 NC
+   1 ND
+  13 NE
+  10 NH
+ 116 NJ
+  15 NM
+  28 NV
+ 230 NY
+ 206 Not disclosed as an attempt to collect
+2560 Not given enough info to verify debt
+  76 OH
+   9 OK
+  26 OR
+ 125 PA
+   7 PR
+   8 RI
+1126 Right to dispute notice not received
+  19 SC
+   2 SD
+  69 Seized/Attempted to seize property
+  64 Sued w/o proper notification of suit
+  28 Sued where didn't live/sign for debt
+  37 TN
+ 147 TX
+ 552 Talked to a third party about my debt
+ 188 Threatened arrest/jail if do not pay
+ 223 Threatened to sue on too old debt
+ 508 Threatened to take legal action
+  11 UT
+ 286 Used obscene/profane/abusive language
+  82 VA
+   8 VT
+  40 WA
+  20 WI
+   3 WV
+   1 ZIP code
