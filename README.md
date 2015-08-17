@@ -3,6 +3,7 @@ An accumulation of data visualizations.
 
 ### Data visualizations
 - US incarcerations by gender and ethnicity: http://cs.mcgill.ca/~mciot/incarceration.html 
+- Personal geolocation based on facebook messages: http://cs.mcgill.ca/~mciot/journey.html
 
 #### Data sources
 - Gov't data: http://catalog.data.gov/
