@@ -14,4 +14,5 @@ An accumulation of data visualizations.
 - Your location history: maps.google.com/locationhistory/
   - this guy wrote a python api for it: https://github.com/arank/location-tracker
 - NYC taxi trip data (2014-2015): http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml
+  - This guy did a cool visualization using it: http://www.danielforsyth.me/mapping-nyc-taxi-data/
 - TONS more: http://www.kdnuggets.com/datasets/index.html
