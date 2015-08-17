@@ -1,7 +1,7 @@
 # data-viz
 An accumulation of data visualizations.
 
-### Data visualizations
+### My data visualizations
 - US incarcerations by gender and ethnicity: http://cs.mcgill.ca/~mciot/incarceration.html 
 - Personal geolocation based on facebook messages: http://cs.mcgill.ca/~mciot/journey.html
 
@@ -16,3 +16,7 @@ An accumulation of data visualizations.
 - NYC taxi trip data (2014-2015): http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml
   - This guy did a cool visualization using it: http://www.danielforsyth.me/mapping-nyc-taxi-data/
 - TONS more: http://www.kdnuggets.com/datasets/index.html
+
+#### Data visualizations
+- A day in the life of a NYC taxi: http://nyctaxi.herokuapp.com/
+- 3D tour of NASDAQ: http://graphics.wsj.com/3d-nasdaq/
