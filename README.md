@@ -10,4 +10,6 @@ An accumulation of data visualizations.
   - natural language, songs, healthcare, finance, complex networks, etc.
 - Amazon public datasets: http://aws.amazon.com/public-data-sets/ (includes web crawl data and demographic data)
   - hosted by amazon block store or s3
+- Your location history: maps.google.com/locationhistory/
+  - this guy wrote a python api for it: https://github.com/arank/location-tracker
 - More: http://www.kdnuggets.com/datasets/index.html
