@@ -1,0 +1,13 @@
+Hispanic,Female,Hispanic,2000,73,1596
+Hispanic,Female,Hispanic,2001,75,1684
+Hispanic,Female,Hispanic,2002,81,1841
+Hispanic,Female,Hispanic,2003,84,1958
+Hispanic,Female,Hispanic,2004,89,2100
+Hispanic,Female,Hispanic,2005,94,2247
+Hispanic,Female,Hispanic,2006,99,2403
+Hispanic,Female,Hispanic,2007,100,2464
+Hispanic,Female,Hispanic,2008,94,2407
+Hispanic,Female,Hispanic,2009,88,2303
+Hispanic,Female,Hispanic,2010,78,2291
+Hispanic,Female,Hispanic,2011,71,2166
+Hispanic,Female,Hispanic,2012,60,1847

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+
+  <!-- Bootstrap css --> 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font: 10px sans-serif;
+    }
+    .axis path, .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+    .x.axis path {
+      display: none;
+    }
+    .btn-group-lg {
+      margin-top: 25px;
+    }
+    .btn-group-md {
+      font-size: 8px;
+    }
+    #white {
+      background-color: #333; /* DB7093*/
+    }
+    #black {
+      background-color: #44444d;  /* edaaba */
+    }
+    #hispanic {
+      background-color: #556;  /* FFE4E1 */
+    }
+    .ethnicity {
+      color: white;
+      text-align: center;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <!-- Title --> 
+    <div class="row">
+      <div class="col-lg-9">
+        <h2>U.S. Incarceration Numbers by Gender and Ethnicity</h2> 
+        <h4>2000-2012</h4>
+      </div>
+
+      <!-- Toggle gender --> 
+      <div class="col-lg-3">
+        <div class="btn-group btn-group-lg" role="group">
+          <button type="button" class="btn btn-default" id="male">Male</button>
+          <button type="button" class="btn btn-default" id="female">Female</button>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <!-- The chart --> 
+    <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10" id="svg-area"></div>
+      <div class="col-lg-1"></div>
+    </div>
+
+    <!-- The color->ethnicity key --> 
+    <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+        <div class="row">
+            <div class="col-md-4">
+              <div class="ethnicity" id="white">white</div>
+            </div>
+            <div class="col-md-4">
+              <div class="ethnicity" id="black">black</div>
+            </div>
+            <div class="col-md-4">
+              <div class="ethnicity" id="hispanic">hispanic</div>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-1"></div>
+    </div>
+  </div>
+</body>
+
+<!-- D3.js --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+<!-- Jquery --> 
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+
+<script type="text/javascript">
+
+  var raw_data = {
+    male: {
+      white: [55602, 57102, 58313, 56733, 55179, 52373, 49788, 47974, 47410, 46577, 45219, 43442, 40090],
+      black: [101521, 97890, 95276, 88175, 84670, 76800, 75759, 76236, 79183, 81033, 80813, 78647, 73224],
+      hispanic: [46949, 48352, 49174, 49180, 47798, 46265, 45848, 46830, 46023, 47140, 46546, 44268, 39631]
+    },
+    female: {
+      white: [3498, 3725, 4165, 4301, 4560, 4640, 4684, 4695, 4656, 4769, 4757, 4777, 4219],
+      black: [3500, 3575, 3561, 3466, 3408, 3100, 3021, 3031, 3104, 3207, 3182, 3097, 2745],
+      hispanic: [1596, 1684, 1841, 1958, 2100, 2247, 2403, 2464, 2407, 2303, 2291, 2166, 1847]
+    }
+  };
+
+  var ethnicities = ['white', 'black', 'hispanic'];
+
+  // Permute data to have stack layout-friendly format 
+  var male_data = [raw_data.male.white, raw_data.male.black, raw_data.male.hispanic];
+  male_data = male_data.map(function (d, i) {
+    return d.map(function (p, j) { return {x: j, y: p / 2, y0: 0, ethnicity: ethnicities[i]}; });
+  });
+
+  var female_data = [raw_data.female.white, raw_data.female.black, raw_data.female.hispanic];
+  female_data = female_data.map(function (d, i) {
+    return d.map(function (p, j) { return {x: j, y: p, y0: 0, ethnicity: ethnicities[i]}; });
+  });
+
+  // Set chart margins
+  var margin = {top: 20, right: 30, bottom: 30, left: 40},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+  // Colors for each layer
+  var male_colors = d3.scale.linear()
+    .domain([0, 2])
+    .range(["#333", "#556"]);
+
+  var female_colors = d3.scale.linear()
+    .domain([0, 2])
+    .range(["#DB7093", "#FFE4E1"]);
+
+  // x-axis scaler
+  var x = d3.scale.linear()
+      .range([0, width])
+      .domain([0, 12]);
+
+  // y-axis scaler 
+  var y = d3.scale.linear()
+      .range([height, 0])
+      .domain([0, 101521]);
+
+  // the x-axis
+  var x_axis = d3.svg.axis()
+    .scale(x)
+    .tickSize(0)
+    .tickPadding(6)
+    .orient("bottom");
+
+  // the y-axis
+  var y_axis = d3.svg.axis()
+    .scale(y)
+    .tickSize(0)
+    .tickPadding(6)
+    .orient("left");
+
+  var z = d3.scale.category20c();
+
+  // The svg area where the chart is appended
+  var svg = d3.select("#svg-area").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // The male and female stack layout
+  var male_stack = d3.layout.stack(); //.offset("wiggle")
+  var female_stack = d3.layout.stack();
+  
+  // Each ethnicity gets a layer
+  var male_layers = male_stack(male_data);
+  var female_layers = female_stack(female_data);
+
+  // Function mapping datapoints to point on chart 
+  var area = d3.svg.area()
+      .interpolate('cardinal')
+      .x(function (d, i) { return x(i); })
+      .y0(function (d) { return y(d.y0); })
+      .y1(function (d) { return y(d.y0 + d.y); });
+
+  // Function mapping datapoints to 0th layer 
+  var area0 = d3.svg.area()
+      .interpolate('cardinal')
+      .x(function (d, i) { return x(i); })
+      .y0(function (d) { return y(0); })
+      .y1(function (d) { return y(0); });
+
+  // Add the svg layers 
+  var male_layer = svg.selectAll(".mlayer")
+        .data(male_layers)
+        .enter().append("path")
+        .attr("class", "mlayer")
+        .attr("d", function (d) { return area(d); })
+        .style("fill", function (d, i) { return male_colors(i); });
+
+  var female_layer = svg.selectAll(".flayer")
+        .data(female_layers)
+        .enter().append("path")
+        .attr("class", "flayer")
+        .attr("d", function (d) { return area(d); })
+        .style("fill", function (d, i) { return female_colors(i); });
+
+  // Add the axes 
+  svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(x_axis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(y_axis);
+
+  // Hide the female layer
+  female_layer.transition().attr("d", function (d) {
+    return area0(d);
+  });
+
+  /* Functionality to transition between genders */
+
+  var gender = 'male';
+  $(".btn-default").click(function () {
+      var bid = $(this).attr('id');
+
+      // transition from male to female
+      if (gender === 'male' && bid === 'female') {
+        
+        // lower the male layer to 0
+        male_layer.transition().duration(500).attr("d", function (d) {
+          return area0(d);
+        });
+        // raise the female layer to its proper value
+        female_layer.transition().duration(500).attr("d", function (d) {
+          return area(d);
+        });
+
+        // change the key colors
+        $("#white").css("background-color", "#DB7093");
+        $("#black").css("background-color", "#edaaba");
+        $("#hispanic").css("background-color", "#FFE4E1");
+
+        gender = 'female';
+      }
+
+      // transition from female to male
+      else if (gender === 'female' && bid === 'male') {
+
+        // lower the female layer to 0
+        female_layer.transition().duration(500).attr("d", function (d) {
+          return area0(d);
+        });
+        // raise the male layer to its proper value
+        male_layer.transition().duration(500).attr("d", function (d) {
+          return area(d);
+        });
+
+        // change the key colors
+        $("#white").css("background-color", "#333");
+        $("#black").css("background-color", "#44444d");
+        $("#hispanic").css("background-color", "#556");
+
+
+        gender = 'male';
+      }
+
+      // otherwise do nothing
+  });
+
+</script>
+
+</html>
