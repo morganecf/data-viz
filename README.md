@@ -12,4 +12,5 @@ An accumulation of data visualizations.
   - hosted by amazon block store or s3
 - Your location history: maps.google.com/locationhistory/
   - this guy wrote a python api for it: https://github.com/arank/location-tracker
-- More: http://www.kdnuggets.com/datasets/index.html
+- NYC taxi trip data (2014-2015): http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml
+- TONS more: http://www.kdnuggets.com/datasets/index.html
