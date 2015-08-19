@@ -98,6 +98,17 @@
 
 <script type="text/javascript">
 
+  // Courtesy of the NAACP  
+  var fact_sheet = [
+    "African Americans now constitute nearly 1 million of the total 2.3 million incarcerated population",
+    "African Americans are incarcerated at nearly six times the rate of whites",
+    "Together, African American and Hispanics comprised 58% of all prisoners in 2008, even though African Americans and Hispanics make up approximately one quarter of the US population",
+    "According to Unlocking America, if African American and Hispanics were incarcerated at the same rates of whites, today's prison and jail populations would decline by approximately 50%",
+    "One in six black men had been incarcerated as of 2001. If current trends continue, one in three black males born today can expect to spend time in prison during his lifetime",
+    "1 in 100 African American women are in prison",
+    "Nationwide, African-Americans represent 26% of juvenile arrests, 44% of youth who are detained, 46% of the youth who are judicially waived to criminal court, and 58% of the youth admitted to state prisons (Center on Juvenile and Criminal Justice)."
+  ];
+
   var raw_data = {
     male: {
       white: [55602, 57102, 58313, 56733, 55179, 52373, 49788, 47974, 47410, 46577, 45219, 43442, 40090],
@@ -142,6 +153,7 @@
   var x = d3.scale.linear()
       .range([0, width])
       .domain([0, 12]);
+      //.rangePoints([2000, 2012], 1);
 
   // y-axis scaler 
   var y = d3.scale.linear()
@@ -153,6 +165,8 @@
     .scale(x)
     .tickSize(0)
     .tickPadding(6)
+    // .tickValues(raw_data.years)
+    // .tickFormat(10, "%Y")
     .orient("bottom");
 
   // the y-axis
@@ -271,6 +285,36 @@
       }
 
       // otherwise do nothing
+  });
+
+  /* Functionality to display facts */
+  var tooltips = [];
+  var tooltip;
+  for (var i = 0; i < fact_sheet.length; i++) {
+      tooltip = d3.select("#svg-area")
+        .append("div")
+        .style("width", "100px")
+        .style("height", "100px")
+        .style("color", "#fff")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .text(fact_sheet[i]);
+      tooltips.push(tooltip);
+  }
+
+  var curr_tooltip = tooltips[0];
+  d3.select("#svg-area").on("mouseover", function () {
+      // Select a random tooltip
+      curr_tooltip = tooltips[Math.round(Math.random() * tooltips.length) - 1].style('visibility', 'visible');
+  })
+  .on("mousemove", function () {
+      // Move tooltip to where the mouse is
+      curr_tooltip.style("top", (d3.event.pageY - 100) + "px").style("left", (d3.event.pageX - 100) + "px");
+  })
+  .on("mouseout", function () {
+      // Hide tooltip 
+      curr_tooltip.style("visibility", "hidden");
   });
 
 </script>
