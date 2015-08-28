@@ -209,7 +209,11 @@ def scrape_all_prof_details():
 			textbook-use,rater-interest,grade-received,#useful,#notuseful,tag:#
 '''
 def scrape_prof_ratings():
-	# Make sure remove tabs
+
+	# First get the table containing all the ratings
+	
+
+	#### Make sure remove tabs
 	pass 
 
 '''
