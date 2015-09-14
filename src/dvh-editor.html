@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+
+	<title> Dose-Volume Histogram Editor </title>
+
+	<!-- Bootstrap css --> 
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		.axis line, .axis path {
+			fill: none;
+			/*stroke: black;*/
+			shape-rendering: crispEdges;
+		}
+
+		.axis text {
+			font-family: sans-serif;
+			font-size: 11px;
+		}
+
+		.tick line {
+    		opacity: 0.2;
+    		stroke: black;
+  		}
+
+  		.crosshair {
+  			stroke: #CD5C5C;
+  			fill: none;
+  			stroke-width: 1;
+  		}
+
+  		.histogram-info {
+  			display: none;
+  		}
+  		.btn {
+  			color: #fff;
+  		}
+
+  		circle {
+  			cursor: move;
+  			fill: steelblue;
+  		}
+  		.selected {
+  			fill: purple;
+  		}
+
+  		/*.hist-line path, .hist-line line {
+			fill: none;
+			stroke: steelblue;
+			stroke-width: 4px;
+			shape-rendering: crispEdges;
+		}*/
+
+	</style>
+
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Title --> 
+    <div class="row">
+      <div class="col-lg-9">
+        <h2>Dose-Volume Histogram Editor</h2> 
+      </div>
+    </div>
+
+    <div class="row">
+    	<div class="col-lg-8">
+    		<!-- Where the chart will be rendered --> 
+    		<div id="svg-area"></div>
+    	</div>
+
+    	<div class="col-lg-1"></div>
+
+    	<div class="col-lg-3" id="histogram-area">
+    		<!-- To create a histogram --> 
+    		<button type="button" class="btn btn-primary" id="new-histogram">New Histogram</button>
+    		<br><br>
+
+    		<!-- The list of body parts --> 
+    		<ul class="list-group" id="histogram-list"></ul>
+    		<br>
+
+    		<div class="histogram-info">
+	    		<input type="text" placeholder="Histogram name" id="histogram-name">
+	    		<ul id="points">
+	    		</ul>
+	    		<button type="button" class="btn btn-success" id="save">Save</button>
+	    	</div>
+    	</div>
+    </div>
+
+  </div>
+</body>
+
+<!-- D3.js --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+<!-- JQuery --> 
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+
+<script type="text/javascript">
+
+	/* D3 functions and set-up */
+
+	// Set margins
+  	var margin = {top: 20, right: 30, bottom: 30, left: 40},
+      	width = 770 - margin.left - margin.right,
+      	height = 800 - margin.top - margin.bottom;
+
+    // Boundaries
+    var xmax = 8000, ymax = 1; 				// in whatever units we're using  
+    var xmax_px = 700, ymax_px = 500;		// in pixels 
+
+	// Start the x-scale with an input domain of 0-8000
+	var xscale = d3.scale.linear().domain([0, xmax]).range([0, xmax_px]);
+	var xscale_inverse = d3.scale.linear().domain([0, xmax_px]).range([0, xmax]);
+
+	// y-axis corresponds to %, so 0-1.0
+	var yscale = d3.scale.linear().domain([ymax, 0]).range([0, ymax_px]);
+	var yscale_inverse = d3.scale.linear().domain([0, ymax_px]).range([ymax, 0]);
+
+	// Create the x-axis 
+	var xaxis = d3.svg.axis()
+		.scale(xscale)
+		.innerTickSize(-height)
+    	.outerTickSize(0)
+    	.tickPadding(10)
+		.orient("bottom");
+
+	// Create the y-axis
+	var yaxis = d3.svg.axis()
+		.scale(yscale)
+		.innerTickSize(-width)
+	    .outerTickSize(0)
+	    .tickPadding(10)
+		.orient("left");
+
+	// The grid
+	var grid = d3.svg.line()
+    	.x(function (d) { return xscale(d.x); })
+    	.y(function (d) { return yscale(d.y); });
+
+    // Functions to draw the crosshair lines to indicate where the cursor is 
+	var lx = d3.svg.line().x(function (d) { return d.x; }).y(function (d) { return d.y; });
+	var ly = d3.svg.line().x(function (d) { return d.x; }).y(function (d) { return d.y; });
+
+	// Line connecting the points of the current histogram
+	var hist_line = d3.svg.line();
+
+
+	/* Rendering the SVG */
+
+	// The svg area where the histogram is appended
+  	var svg = d3.select("#svg-area").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	// Render the axes
+	svg.append("g")
+		.attr("class", "axis")
+		.call(yaxis);
+	svg.append("g")
+		.attr("class", "axis")
+		.attr("transform", "translate(0," + (height - 250) + ")")
+		.call(xaxis);
+
+	// Will contain the coordinates when client moves cursor 
+	var tooltip = svg.append("text")
+		.attr("x", 100).attr("y", 100)
+		.attr("text-anchor", "middle")
+		.attr("font-family", "sans-serif")
+		.attr("font-size", "11px")
+		.attr("fill", "#333");
+
+	// The crosshair lines 
+	var chx = svg.append("path")
+		.attr("d", lx([]))
+		.attr("class", "crosshair");
+	var chy = svg.append("path")
+		.attr("d", ly([]))
+		.attr("class", "crosshair");
+
+	// The path that will connect the points of the current histogram
+	svg.append("path").attr("class", "hist-line");
+		//
+
+	// Set interactive functionality   
+	d3.select(window).on('mousemove', mousemove) 	// Display coordinates
+					 .on('click', click);			// Put down a point 
+
+
+
+	/* Functions */
+
+	// Keeps track of if we're creating/editing a histogram
+	var editing = false;
+
+	// Keeps track of points 
+	var selected;		// being selected
+	var dragged;		// being dragged 
+
+	// Keeps track of histogram being edited
+	var histogram;
+
+	// Keeps track of the data of all the histograms the user has created 
+	var histograms = {};
+
+	/* Draw all of the histograms */
+	function draw () {
+		for (var hist in histograms) {
+			// Draw the line between the points -- for some reason css wasn't working so did it here 
+			svg.select("path").datum(histograms[hist])
+				.attr("d", hist_line)
+				.attr("fill", "none")
+				.attr("stroke", "steelblue")
+				.attr("stroke-width", 3);
+
+			// Join new points with old ones  
+			var circle = svg.selectAll("circle").data(histograms[hist], function (d) { return d; });
+
+			// Update with new points 
+			circle.enter().append("circle").attr("r", 1e-6);
+
+			// Apply these attributes to new and old points
+			circle.attr("cx", function (d) { return d[0]; })
+				.attr("cy", function (d) { return d[1]; })
+				.on("mousedown", function (d) { 
+					// This node is being both selected and dragged
+					selected = dragged = d;
+					draw();
+				})
+				.transition()
+				.duration(1000)
+				.ease("elastic")
+				.attr("r", 3);
+
+			// What to do when the point is selected
+			circle.classed("selected", function (d) { return d === selected; })
+				.attr("cx", function (d) { return d[0]; })
+				.attr("cy", function (d) { return d[1]; });
+
+			// Remove any no-longer existing elements 
+			circle.exit().remove();
+		}
+
+		if (d3.event) {
+			d3.event.preventDefault();
+			d3.event.stopPropagation();
+		}
+		
+	}
+
+	/* Get the x,y relative and absolute positions of mouse event */
+	function position () {
+		// Get the coordinates and map them 
+		var coords = d3.mouse(svg.node());
+		var x = xscale_inverse(coords[0]);
+		var y = yscale_inverse(coords[1]);
+		
+		// Round to nearest... ? 
+		x = Math.round(x);
+		y = Math.round(y * 1000) / 1000.0;
+
+		// If we're beyond the bounds round to nearest boundary
+		var outx = true; var outy = true;
+		if (x > xmax) {
+			x = xmax;
+			coords[0] = xmax_px;
+		}
+		else if (x < 0) {
+			x = 0;
+			coords[0] = 0;
+		}
+		else outx = false;
+		if (y > ymax) {
+			y = ymax;
+			coords[1] = 0;
+		}
+		else if (y < 0) {
+			y = 0;
+			coords[1] = ymax_px;
+		}
+		else outy = false;
+
+		return {x: coords[0], y: coords[1], xrel: x, yrel: y, out: outx || outy};
+	}
+
+	/* Function to set down a point when the client clicks */
+	function click () { 
+		if (!editing) return;
+
+		// Get mouse position
+		var pos = position();
+
+		// Don't put down points outside of boundaries 
+		if (pos.out) return;	
+		
+		// Set down a point 
+		histograms[histogram].push(selected = dragged = d3.mouse(svg.node()));
+
+		// Add to the side info 
+		$("#points").append($("<li>" + pos.xrel + ", " + pos.yrel + "</li>"));
+
+		draw();
+	}
+
+	/* Function to display the x,y coordinates when the client moves mouse */
+	function mousemove () {
+		if (!editing) return;
+
+		// Get mouse position 
+		var pos = position();
+
+		// Show tooltip containing coordinates 
+		tooltip.attr("x", pos.x - 10).attr("y", pos.y - 10).text(pos.xrel + ', ' + pos.yrel);
+
+		// Show the lines 
+		chx.attr("d", lx([{x: pos.x, y: pos.y}, {x: pos.x, y: 500}]));
+		chy.attr("d", ly([{x: pos.x, y: pos.y}, {x: 0, y: pos.y}]));
+	}
+
+
+	/* Textual histogram info functionality */
+
+
+	// Add a new histogram 
+	$("#new-histogram").click(function () {
+		// Display the input information area 
+		$(".histogram-info").first().show();
+
+		// Initialize the histogram
+		histogram = 'histogram' + Object.keys(histograms).length;	// the placeholder name 
+		histograms[histogram] = []; 
+
+		editing = true;
+	});
+
+	// Save a histogram
+	$("#save").click(function () {
+		// Get the histogram name 
+		var name = $("#histogram-name").val();
+
+		if (name.length == 0) {
+			alert("Please name your histogram.");
+			return;
+		} 
+
+		editing = false;
+
+		// Get all the points 
+		var points = $("li").map(function (i, li) {
+			var coords = $(li)[0].textContent.split(',');
+			return {x: parseFloat(coords[0].trim()), y: parseFloat(coords[1].trim())};
+		});
+		
+		// Save the histogram in list of histograms
+		histograms[name] = points;
+
+		// Minimize the editing view by name and # of points to list 
+		$("#histogram-list").append($("<li class='list-group-item'>" + name + " (" + points.length + ")" + "</li>"));
+		$(".histogram-info").first().hide();
+
+		// TODO: Smooth interpolation 
+
+		// TODO: Ajax call or something 
+	});
+
+</script>
+
+</html>
+
+<!-- 
+	TO DO 
+	- nicer tooltip (look at plot.ly tooltips)
+	- grids within each cell that appear on mouseover? 
+	- fix borders, crosshair shouldn't go past chart area 
+	- non-white area for histogram info area 
+	- double click to switch ends 
+	- x and y axes disappear? 
+	- for some reason .axis line/path is interfering with .hist-line line/path so didn't use css classes for these. fix this
+
+--> 
