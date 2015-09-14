@@ -9,6 +9,8 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 
 	<style>
+		/* D3 stuff */
+
 		.axis line, .axis path {
 			fill: none;
 			/*stroke: black;*/
@@ -31,19 +33,18 @@
   			stroke-width: 1;
   		}
 
-  		.histogram-info {
-  			display: none;
-  		}
   		.btn {
   			color: #fff;
   		}
 
   		circle {
   			cursor: move;
-  			fill: steelblue;
+  			stroke: steelblue;
+  			fill: none;
+  			stroke-width: 2px;
   		}
   		.selected {
-  			fill: purple;
+  			opacity: .5;
   		}
 
   		/*.hist-line path, .hist-line line {
@@ -52,6 +53,73 @@
 			stroke-width: 4px;
 			shape-rendering: crispEdges;
 		}*/
+
+		/* HTML stuff */
+
+		#histogram-area {
+			height: 500px;
+			background: steelblue;
+			padding: 10px;
+		}
+		#histogram-list-title {
+			color: steelblue;
+			background: white;
+			margin-left: 20px;
+			text-align: center;
+			width: 180px;
+			height: 39px;
+			font-size: 18px;
+			padding: 6px;
+			border: 1px solid white;
+		}
+
+		#new-histogram {
+			/*width: 100%;*/
+			background: steelblue;
+			border: 1px solid #fff;
+			border-radius: 0;
+			font-size: 18px;
+			width: 180px;
+			margin-left: -15px;
+		}
+		#new-histogram:hover {
+			background: white;
+			color: steelblue;
+		}
+		#save {
+			display: none;
+			border-radius: 100%;
+			background: steelblue;
+			border: 1px solid #fff;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			margin-bottom: 25px;
+			margin-right: 25px;
+		}
+		#save:hover {
+			background: white;
+			color: steelblue;
+		}
+		#save-container {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+		.histogram-name {
+			width: 100%;
+			border: 0;
+			font-size: 20px;
+			color: #333;
+		}
+
+		#left, #right {
+			margin-top: 10px;
+			height: 430px;
+		}
+		#left {
+			border-right: 1px solid #fff;
+		}
 
 	</style>
 
@@ -73,24 +141,49 @@
     		<div id="svg-area"></div>
     	</div>
 
-    	<div class="col-lg-1"></div>
+    	<div class="col-lg-4" id="histogram-area">
 
-    	<div class="col-lg-3" id="histogram-area">
-    		<!-- To create a histogram --> 
-    		<button type="button" class="btn btn-primary" id="new-histogram">New Histogram</button>
-    		<br><br>
+    		<div class="row">
 
-    		<!-- The list of body parts --> 
-    		<ul class="list-group" id="histogram-list"></ul>
-    		<br>
+    			<!-- All histograms header --> 
+    			<div class="col-md-6" id="histogram-list-title"> All histograms </div>
 
-    		<div class="histogram-info">
-	    		<input type="text" placeholder="Histogram name" id="histogram-name">
-	    		<ul id="points">
-	    		</ul>
-	    		<button type="button" class="btn btn-success" id="save">Save</button>
+    			<!-- To create a histogram --> 
+    			<div class="col-md-6">
+	    			<button type="button" class="btn btn-primary" id="new-histogram">New histogram</button>
+	    		</div>
 	    	</div>
+
+    		<div class="row">
+    			<!-- The list of histogram names --> 
+    			<div class="col-md-6" id="left">
+    				<ul class="list-group" id="histogram-list"></ul>
+    			</div>
+    				
+    			<!-- The input form --> 
+    			<div class="col-md-6" id="right">
+    				<div id="histogram-input"></div>
+    			</div>
+    		</div>
+
+
+    		<!-- The save button -->
+    		<div class="row">
+    			<div class="col-md-1"></div>
+    			<div class="col-md-10" id="save-container">
+	    			<button type="button" class="btn btn-success" id="save">
+	    				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+	    			</button>
+	    		</div>
+    			<div class="col-md-1"></div>
+    		</div>
+
     	</div>
+
+    </div>
+
+    <div class="row">
+    	
     </div>
 
   </div>
@@ -189,7 +282,7 @@
 
 	// The path that will connect the points of the current histogram
 	svg.append("path").attr("class", "hist-line");
-		//
+
 
 	// Set interactive functionality   
 	d3.select(window).on('mousemove', mousemove) 	// Display coordinates
@@ -212,43 +305,41 @@
 	// Keeps track of the data of all the histograms the user has created 
 	var histograms = {};
 
-	/* Draw all of the histograms */
+	/* Draw the current histogram */
 	function draw () {
-		for (var hist in histograms) {
-			// Draw the line between the points -- for some reason css wasn't working so did it here 
-			svg.select("path").datum(histograms[hist])
-				.attr("d", hist_line)
-				.attr("fill", "none")
-				.attr("stroke", "steelblue")
-				.attr("stroke-width", 3);
+		// Draw the line between the points -- for some reason css wasn't working so did styling here 
+		svg.select("path").datum(histograms[histogram])
+			.attr("d", hist_line)
+			.attr("fill", "none")
+			.attr("stroke", "steelblue")
+			.attr("stroke-width", 2);
 
-			// Join new points with old ones  
-			var circle = svg.selectAll("circle").data(histograms[hist], function (d) { return d; });
+		// Join new points with old ones  
+		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return d; });
 
-			// Update with new points 
-			circle.enter().append("circle").attr("r", 1e-6);
+		// Update with new points 
+		circle.enter().append("circle").attr("r", 1e-6);
 
-			// Apply these attributes to new and old points
-			circle.attr("cx", function (d) { return d[0]; })
-				.attr("cy", function (d) { return d[1]; })
-				.on("mousedown", function (d) { 
-					// This node is being both selected and dragged
-					selected = dragged = d;
-					draw();
-				})
-				.transition()
-				.duration(1000)
-				.ease("elastic")
-				.attr("r", 3);
+		// Apply these attributes to new and old points
+		circle.attr("cx", function (d) { return d[0]; })
+			.attr("cy", function (d) { return d[1]; })
+			.on("mousedown", function (d) { 
+				// This node is being both selected and dragged
+				selected = dragged = d;
+				draw();
+			})
+			.transition()
+			.duration(1000)
+			.ease("elastic")
+			.attr("r", 4);
 
-			// What to do when the point is selected
-			circle.classed("selected", function (d) { return d === selected; })
-				.attr("cx", function (d) { return d[0]; })
-				.attr("cy", function (d) { return d[1]; });
+		// What to do when the point is selected
+		circle.classed("selected", function (d) { return d === selected; })
+			.attr("cx", function (d) { return d[0]; })
+			.attr("cy", function (d) { return d[1]; });
 
-			// Remove any no-longer existing elements 
-			circle.exit().remove();
-		}
+		// Remove any no-longer existing elements 
+		circle.exit().remove();
 
 		if (d3.event) {
 			d3.event.preventDefault();
@@ -302,12 +393,13 @@
 		// Don't put down points outside of boundaries 
 		if (pos.out) return;	
 		
-		// Set down a point 
+		// Add a point 
 		histograms[histogram].push(selected = dragged = d3.mouse(svg.node()));
 
-		// Add to the side info 
-		$("#points").append($("<li>" + pos.xrel + ", " + pos.yrel + "</li>"));
+		// Add to the input form
+		$(".points").last().append($("<li>" + pos.xrel + ", " + pos.yrel + "</li>"));
 
+		// Draw everything
 		draw();
 	}
 
@@ -329,23 +421,32 @@
 
 	/* Textual histogram info functionality */
 
+	var histogramInput = function (hid) {
+		return $('<div class="histogram-info" id="' + hid + '"><input type="text" placeholder="Histogram name" class="histogram-name"><ul class="points"></ul></div>');
+	};
 
 	// Add a new histogram 
 	$("#new-histogram").click(function () {
-		// Display the input information area 
-		$(".histogram-info").first().show();
+		// Can only do one histogram at a time
+		if (editing) return;
 
 		// Initialize the histogram
 		histogram = 'histogram' + Object.keys(histograms).length;	// the placeholder name 
 		histograms[histogram] = []; 
 
+		// Add the histogram input form 
+		$("#histogram-input").append(histogramInput(histogram));
+
+		// Show save button 
+		$("#save").show();
+
 		editing = true;
 	});
 
-	// Save a histogram
+	// Save the current histogram
 	$("#save").click(function () {
 		// Get the histogram name 
-		var name = $("#histogram-name").val();
+		var name = $(".histogram-name").last().val();
 
 		if (name.length == 0) {
 			alert("Please name your histogram.");
@@ -355,7 +456,7 @@
 		editing = false;
 
 		// Get all the points 
-		var points = $("li").map(function (i, li) {
+		var points = $("ul").last().children().map(function (i, li) {
 			var coords = $(li)[0].textContent.split(',');
 			return {x: parseFloat(coords[0].trim()), y: parseFloat(coords[1].trim())};
 		});
@@ -365,11 +466,15 @@
 
 		// Minimize the editing view by name and # of points to list 
 		$("#histogram-list").append($("<li class='list-group-item'>" + name + " (" + points.length + ")" + "</li>"));
-		$(".histogram-info").first().hide();
+		$("#" + histogram).hide();
 
-		// TODO: Smooth interpolation 
+		// Hide the save button 
+		$("#save").hide();
 
-		// TODO: Ajax call or something 
+		// Make the curve smooth
+		hist_line.interpolate("cardinal");
+
+		// TODO: Ajax call or something to save values 
 	});
 
 </script>
@@ -385,5 +490,7 @@
 	- double click to switch ends 
 	- x and y axes disappear? 
 	- for some reason .axis line/path is interfering with .hist-line line/path so didn't use css classes for these. fix this
-
+	- change axes to percentages 
+	- add axis labels 
+	- clear crosshairs 
 --> 
