@@ -135,13 +135,13 @@
 			float: left;
 			border: 0;
 			text-align: center;
-			border-right: 2px solid #888;
+			border-right: 2px solid #CD5C5C;
 		}
 		.volume {
 			width: 40%;
 			border: 0;
 			text-align: center;
-			border-left: 2px solid #888;
+			border-left: 2px solid #CD5C5C;
 		}
 		.points {
 			margin-top: 10px;
@@ -150,6 +150,7 @@
 		}
 		.point {
 			margin-top: 5px;
+			/*cursor: move;*/
 		}
 
 		#add-point {
@@ -163,6 +164,48 @@
 		#add-point:hover {
 			background: white;
 			color: steelblue;
+		}
+
+		.histogram-list-item {
+			margin-left: 5px;
+		    width: 100%;
+		    height: 30px;
+		    border-radius: 0;
+		    border: 0;
+		    margin-bottom: 10px;
+		}
+		.histogram-item-name {
+			float: left;
+			color: #333;
+		}
+		/* Num points style #1 */
+		.num-points1 {
+			color: steelblue;
+		    border-radius: 100%;
+		    border: 2px solid steelblue;
+		    width: 17%;
+		    float: right;
+		    margin-top: -3px;
+		}
+		/* Num points style #2 */
+		.num-points2 {
+		    color: #fff;
+		    border-radius: 100%;
+		    width: 20%;
+		    float: right;
+		    margin-top: -1px;
+		    background: #CD5C5C;
+		}
+		/* Num points style #3 */
+		.num-points {
+		    color: #fff;
+		    width: 17%;
+		    float: right;
+		    height: 30px;
+		    padding-top: 5px;
+		    margin-top: -6px;
+		    margin-right: -12px;
+		    background: #CD5C5C;
 		}
 
 	</style>
@@ -206,23 +249,7 @@
     				
     			<!-- Where the input form will be injected --> 
     			<div class="col-md-6" id="right">
-    				<div id="histogram-input">
-
-    					<!-- <div class="histogram-info">
-    						<input type="text" placeholder="Histogram name" class="histogram-name">
-    						<div class="points">
-    							<div class="point">
-    								<input type="text" placeholder='5000' class="dv dose">
-    								<input type="text" placeholder='0.7' class="dv volume">
-    							</div>
-    							<div class="point">
-    								<input type="text" placeholder='1200' class="dv dose">
-    								<input type="text" placeholder='0.4' class="dv volume">
-    							</div>
-    						</div>
-    					</div> -->
-
-    				</div>
+    				<div id="histogram-input"></div>
     			</div>
     		</div>
 
@@ -253,6 +280,9 @@
 
 <!-- JQuery --> 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- JQuery UI --> 
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 
 <script type="text/javascript">
@@ -364,6 +394,9 @@
 	// Keeps track of the data of all the histograms the user has created 
 	var histograms = {};
 
+	// Keeps track of the ui histogram data 
+	var histogramsUI = {};
+
 	/* Draw the current histogram */
 	function draw () {
 		// Draw the line between the points -- for some reason css wasn't working so did styling here 
@@ -372,6 +405,8 @@
 			.attr("fill", "none")
 			.attr("stroke", "steelblue")
 			.attr("stroke-width", 2);
+
+		// TODO: will need to sort by id so that have correct spline? 
 
 		// Join new points with old ones  
 		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return d; });
@@ -496,6 +531,18 @@
 		
 		s += '<input type="text" ' + valType + '=' + x +' class="dv dose"><input type="text" ' + valType + '=' + y +' class="dv volume"></div>';
 
+		// TODO: Make the point draggable/sortable
+		var domObj = $(s);
+		//domObj.draggable();
+
+		return domObj;
+	};
+
+	// Creates a list group item for the list of histograms
+	var histogramItem = function (name, n) {
+		var s = '<button class="btn btn-default histogram-list-item" id=' + name + '>';
+		s += '<div class="histogram-item-name">' + name + '</div>'
+		s += '<div class="num-points">' + n + '</div></button>';
 		return $(s);
 	};
 
@@ -542,8 +589,6 @@
 						var x = xscale(dose);
 						var y = yscale(volume);
 
-						console.log("new pixel:", x, y);
-
 						// Add point 
 						histograms[histogram].push(selected = dragged = [x, y]);
 
@@ -551,8 +596,6 @@
 						draw();
 					}
 				}
-
-				// TODO: will need to sort by id so that have correct spline? 
 
 			});
 		}); 
@@ -568,20 +611,25 @@
 			alert("Please name your histogram.");
 			return;
 		} 
+		if (name in histogramsUI) {
+			alert("The name already exists.");
+			return;
+		}
 
 		editing = false;
 
 		// Get all the points 
-		var points = $("ul").last().children().map(function (i, li) {
-			var coords = $(li)[0].textContent.split(',');
-			return {x: parseFloat(coords[0].trim()), y: parseFloat(coords[1].trim())};
+		var points = $(".points").last().children().map(function (i, p) {
+			var dose = parseFloat($($(p).children()[0]).val().trim());
+			var volume = parseFloat($($(p).children()[1]).val().trim());
+			return {x: dose, y: volume};
 		});
 		
 		// Save the histogram in list of histograms
-		histograms[name] = points;
+		histogramsUI[name] = points;
 
-		// Minimize the editing view by name and # of points to list 
-		$("#histogram-list").append($("<li class='list-group-item'>" + name + " (" + points.length + ")" + "</li>"));
+		// Minimize the editing view by adding name and # of points to list 
+		$("#histogram-list").append(histogramItem(name, points.length));
 		$("#" + histogram).hide();
 
 		// Hide the save button 
@@ -610,6 +658,6 @@
 	- change axes to percentages 
 	- add axis labels 
 	- clear crosshairs 
-	- scroll point area 
-	- illegal argument for dose/volume input 
+	- list of points should be scrollable
+	- sortable list: http://devheart.org/articles/jquery-customizable-layout-using-drag-and-drop/
 --> 
