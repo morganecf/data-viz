@@ -57,7 +57,7 @@
 		/* HTML stuff */
 
 		#histogram-area {
-			height: 500px;
+			height: 520px;
 			background: steelblue;
 			padding: 10px;
 		}
@@ -106,19 +106,63 @@
 			bottom: 0;
 			right: 0;
 		}
-		.histogram-name {
-			width: 100%;
-			border: 0;
-			font-size: 20px;
-			color: #333;
-		}
 
 		#left, #right {
 			margin-top: 10px;
-			height: 430px;
+			height: 450px;
 		}
 		#left {
 			border-right: 1px solid #fff;
+		}
+
+		button:focus {
+			outline: 0;
+		}
+		textarea:focus, input:focus {
+		    outline: 0;
+		}
+		.histogram-name {
+			border: 0;
+			background: steelblue;
+			border-bottom: 1px solid #fff;
+			width: 90%;
+			color: #333;
+			font-size: 20px;
+		}
+
+		.dose {
+			width: 40%;
+			float: left;
+			border: 0;
+			text-align: center;
+			border-right: 2px solid #888;
+		}
+		.volume {
+			width: 40%;
+			border: 0;
+			text-align: center;
+			border-left: 2px solid #888;
+		}
+		.points {
+			margin-top: 10px;
+			margin-left: 15px;
+			margin-bottom: 10px;
+		}
+		.point {
+			margin-top: 5px;
+		}
+
+		#add-point {
+			border: 1px solid #fff;
+			color: #fff;
+			background: steelblue;
+			width: 90%;
+			border-radius: 0;
+			font-size: 13px;
+		}
+		#add-point:hover {
+			background: white;
+			color: steelblue;
 		}
 
 	</style>
@@ -160,12 +204,27 @@
     				<ul class="list-group" id="histogram-list"></ul>
     			</div>
     				
-    			<!-- The input form --> 
+    			<!-- Where the input form will be injected --> 
     			<div class="col-md-6" id="right">
-    				<div id="histogram-input"></div>
+    				<div id="histogram-input">
+
+    					<!-- <div class="histogram-info">
+    						<input type="text" placeholder="Histogram name" class="histogram-name">
+    						<div class="points">
+    							<div class="point">
+    								<input type="text" placeholder='5000' class="dv dose">
+    								<input type="text" placeholder='0.7' class="dv volume">
+    							</div>
+    							<div class="point">
+    								<input type="text" placeholder='1200' class="dv dose">
+    								<input type="text" placeholder='0.4' class="dv volume">
+    							</div>
+    						</div>
+    					</div> -->
+
+    				</div>
     			</div>
     		</div>
-
 
     		<!-- The save button -->
     		<div class="row">
@@ -323,6 +382,7 @@
 		// Apply these attributes to new and old points
 		circle.attr("cx", function (d) { return d[0]; })
 			.attr("cy", function (d) { return d[1]; })
+			.attr("id", function (d, i) { return 'point' + i; })
 			.on("mousedown", function (d) { 
 				// This node is being both selected and dragged
 				selected = dragged = d;
@@ -397,7 +457,8 @@
 		histograms[histogram].push(selected = dragged = d3.mouse(svg.node()));
 
 		// Add to the input form
-		$(".points").last().append($("<li>" + pos.xrel + ", " + pos.yrel + "</li>"));
+		var pid = 'point' + histograms[histogram].length;
+		$(".points").last().append(pointInput(pos.xrel, pos.yrel, pid));
 
 		// Draw everything
 		draw();
@@ -421,8 +482,21 @@
 
 	/* Textual histogram info functionality */
 
+	// Creates the input form for the name of the histogram 
 	var histogramInput = function (hid) {
-		return $('<div class="histogram-info" id="' + hid + '"><input type="text" placeholder="Histogram name" class="histogram-name"><ul class="points"></ul></div>');
+		return $('<div class="histogram-info" id="' + hid + '"><input type="text" placeholder="Histogram name" class="histogram-name"><div class="points"></div><button type="button" class="btn btn-default" id="add-point">New point</button></div>');
+	};
+
+	// Creates the input form for a point 
+	var pointInput = function (x, y, pid) {
+		var s = '<div class="point" id=' + pid + '>';
+		
+		var valType = 'value';
+		if (x === 'dose') valType = 'placeholder';
+		
+		s += '<input type="text" ' + valType + '=' + x +' class="dv dose"><input type="text" ' + valType + '=' + y +' class="dv volume"></div>';
+
+		return $(s);
 	};
 
 	// Add a new histogram 
@@ -441,6 +515,48 @@
 		$("#save").show();
 
 		editing = true;
+
+		// To add a new point to the input form
+		$("#add-point").click(function () {
+			// The point's id 
+			var pid = 'point' + histograms[histogram].length;
+			$(".points").last().append(pointInput('dose', 'volume', pid));
+
+			// To update the point graphically
+			$(".dv").change(function () {
+				// Get x and y (dose/volume) coordinates 
+				var point = $(this).parent().children();
+				var dose = parseFloat(point[0].value);
+				var volume = parseFloat(point[1].value);
+
+				// Only add a point to the list of points for this histogram
+				// if it's a valid number 
+				if (!isNaN(dose) && !isNaN(volume)) {
+
+					// And if it's within the boundaries
+					if (dose <= xmax && dose >= 0 && volume <= ymax && volume >= 0) {
+						// Point id
+						var pid = $(this).parent().attr('id');
+
+						// Convert to pixel values 
+						var x = xscale(dose);
+						var y = yscale(volume);
+
+						console.log("new pixel:", x, y);
+
+						// Add point 
+						histograms[histogram].push(selected = dragged = [x, y]);
+
+						// Update graph 
+						draw();
+					}
+				}
+
+				// TODO: will need to sort by id so that have correct spline? 
+
+			});
+		}); 
+
 	});
 
 	// Save the current histogram
@@ -472,10 +588,11 @@
 		$("#save").hide();
 
 		// Make the curve smooth
-		hist_line.interpolate("cardinal");
+		//hist_line.interpolate("cardinal");
 
 		// TODO: Ajax call or something to save values 
 	});
+
 
 </script>
 
@@ -493,4 +610,6 @@
 	- change axes to percentages 
 	- add axis labels 
 	- clear crosshairs 
+	- scroll point area 
+	- illegal argument for dose/volume input 
 --> 
