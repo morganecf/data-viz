@@ -28,6 +28,11 @@
   		}
 
   		.crosshair {
+  			stroke: dodgerblue;
+  			fill: none;
+  			stroke-width: 1;
+  		}
+  		.increasing {
   			stroke: #CD5C5C;
   			fill: none;
   			stroke-width: 1;
@@ -178,6 +183,7 @@
 			float: left;
 			color: #333;
 		}
+
 		/* Num points style #1 */
 		.num-points1 {
 			color: steelblue;
@@ -371,15 +377,13 @@
 		.attr("d", ly([]))
 		.attr("class", "crosshair");
 
-	// The path that will connect the points of the current histogram
-	//var curr_path = svg.append("path").attr("class", "hist-line");
-
 	// All of the svg histogram paths
 	var svg_paths = [];
 
 	// Set interactive functionality   
 	d3.select(window).on('mousemove', mousemove) 	// Display coordinates
-					 .on('click', click);			// Put down a point 
+					 .on('mousedown', click)		// Put down a point 
+					 .on('mouseup', mouseup);		// Release any points being dragged
 
 
 
@@ -388,6 +392,9 @@
 	// Keeps track of if we're creating/editing a histogram
 	var editing = false;
 	var reediting = false;
+
+	// Keeps track of if a point is legal
+	var legal = true;
 
 	// Keeps track of points 
 	var selected;		// being selected
@@ -415,7 +422,7 @@
 		// (if change things in form view)
 
 		// Join new points with old ones  
-		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return d; });
+		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return [d[0], d[1]]; });
 
 		// Update with new points 
 		circle.enter().append("circle").attr("r", 1e-6);
@@ -427,7 +434,6 @@
 			.on("mousedown", function (d) { 
 				// This node is being both selected and dragged
 				selected = dragged = d;
-				draw();
 			})
 			.transition()
 			.duration(1000)
@@ -484,9 +490,21 @@
 		return {x: coords[0], y: coords[1], xrel: x, yrel: y, out: outx || outy};
 	}
 
+	/* Determines if the point being added follows monotonicity constraint */
+	function monotonic (x) {
+		var points = histograms[histogram];
+		if (points.length > 0) {
+			return x > points[points.length - 1][0]
+		}
+		return true;
+	}
+
 	/* Function to set down a point when the client clicks */
 	function click () { 
 		if (!editing) return;
+
+		// If we're currently dragging a point don't add a new one
+		if (dragged) return;
 
 		// Get mouse position
 		var pos = position();
@@ -494,23 +512,41 @@
 		// Don't put down points outside of boundaries 
 		if (pos.out) return;	
 		
-		// Add a point 
-		histograms[histogram].push(selected = dragged = d3.mouse(svg.node()));
-
-		// Add to the input form
+		// Add a point to list and to input form 
 		var pid = 'point' + histograms[histogram].length;
-		$(".points").last().append(pointInput(pos.xrel, pos.yrel, pid));
+		var point = d3.mouse(svg.node());
+		point.push(pid);
+		histograms[histogram].push(point);
+
+		// Add point to the input form by simulating a click
+		$("#add-point").trigger('click', {dose: pos.xrel, volume: pos.yrel, pid: pid});
 
 		// Draw everything
 		draw();
 	}
 
-	/* Function to display the x,y coordinates when the client moves mouse */
+	/* Function to move a point as well as display the x,y coordinates */
 	function mousemove () {
 		if (!editing) return;
 
 		// Get mouse position 
 		var pos = position();
+
+		// If we're violating monoticity constraint, show crosshair as red 
+		if (!monotonic(pos.x)) {
+			chx.classed('increasing', true);
+			chy.classed('increasing', true);
+
+			chx.classed('crosshair', false);
+			chy.classed('crosshair', false);
+		}
+		else {
+			chx.classed('increasing', false);
+			chy.classed('increasing', false);
+
+			chx.classed('crosshair', true);
+			chy.classed('crosshair', true);
+		}
 
 		// Show tooltip containing coordinates 
 		tooltip.attr("x", pos.x - 10).attr("y", pos.y - 10).text(pos.xrel + ', ' + pos.yrel);
@@ -518,7 +554,24 @@
 		// Show the lines 
 		chx.attr("d", lx([{x: pos.x, y: pos.y}, {x: pos.x, y: 500}]));
 		chy.attr("d", ly([{x: pos.x, y: pos.y}, {x: 0, y: pos.y}]));
+
+		// This is all we need to do unless a point is being dragged
+		if (!dragged) return;
+
+		// Points can't go outside boundaries 
+		dragged[0] = Math.max(0, Math.min(xmax_px, pos.x));
+		dragged[1] = Math.max(0, Math.min(ymax_px, pos.y));
+
+		// Update the form UI
+		var form_point = $("div#" + dragged[2]).children();
+		$(form_point[0]).val(Math.round(xscale_inverse(dragged[0])));
+		$(form_point[1]).val(Math.round(yscale_inverse(dragged[1]) * 1000) / 1000);
+
+		draw();
 	}
+
+	/* Release any dragged points */
+	function mouseup () { dragged = selected = null; }
 
 
 	/* Textual histogram info functionality */
@@ -574,13 +627,23 @@
 		editing = true;
 
 		// To add a new point to the input form
-		$("#add-point").click(function () {
-			// The point's id 
-			var pid = 'point' + histograms[histogram].length;
-			$(".points").last().append(pointInput('dose', 'volume', pid));
+		$("#add-point").click(function (event, data) {
+
+			// New point initialized graphically
+			if (data) var new_point = pointInput(data.dose, data.volume, data.pid);
+			// New point initialized from form 
+			else var new_point = pointInput('dose', 'volume', 'point' + histograms[histogram].length);
+
+			$(".points").last().append(new_point);
 
 			// To update the point graphically
 			$(".dv").change(function () {
+				// Check to see if this point already has a graphical representation
+				// (in which case just needs to be updated)
+				var update = false;
+				var pid = $(this).parent().attr('id');
+				if ($("circle#" + pid).length > 0) update = true;
+
 				// Get x and y (dose/volume) coordinates 
 				var point = $(this).parent().children();
 				var dose = parseFloat(point[0].value);
@@ -592,15 +655,20 @@
 
 					// And if it's within the boundaries
 					if (dose <= xmax && dose >= 0 && volume <= ymax && volume >= 0) {
-						// Point id
-						var pid = $(this).parent().attr('id');
-
+						
 						// Convert to pixel values 
 						var x = xscale(dose);
 						var y = yscale(volume);
 
-						// Add point 
-						histograms[histogram].push(selected = dragged = [x, y]);
+						// If it needs to be updated, update point
+						if (update) {
+							// This seems like a really sketchy way of doing this...
+							var circle = d3.select("#" + pid)[0][0];
+							circle.__data__[0] = x;
+							circle.__data__[1] = y;
+						}
+						// Otherwise add a new point 
+						else histograms[histogram].push([x, y]);
 
 						// Update graph 
 						draw();
@@ -663,20 +731,13 @@
 				else $("#histogram" + j).hide();
 			}
 
-			//console.log(i);
-
 			if (i < 0) alert("couldn't select");	// this should never happen, but just in case.. 
-
-			console.log(svg_paths);
-			console.log(hist_lines);
 
 			// Now push the selected histogram to the back 
 			var a = hist_lines.splice(i);
 			var b = svg_paths.splice(i);
 			hist_lines.push(a);
 			svg_paths.push(b);
-			// console.log(hist_lines.length);
-			// console.log(svg_paths.length);
 
 			// Display the points 
 			$("#histogram" + i).show();
@@ -711,4 +772,6 @@
 	- spline labels 
 	- different colors
 	- monotonicity constraints
+	- make point selection colored 
+	- better selection
 --> 
