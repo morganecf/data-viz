@@ -332,7 +332,10 @@
 	var ly = d3.svg.line().x(function (d) { return d.x; }).y(function (d) { return d.y; });
 
 	// Line connecting the points of the current histogram
-	var hist_line = d3.svg.line();
+	//var hist_line = d3.svg.line();
+
+	// All of the histogram lines 
+	var hist_lines = [];
 
 
 	/* Rendering the SVG */
@@ -355,7 +358,6 @@
 
 	// Will contain the coordinates when client moves cursor 
 	var tooltip = svg.append("text")
-		.attr("x", 100).attr("y", 100)
 		.attr("text-anchor", "middle")
 		.attr("font-family", "sans-serif")
 		.attr("font-size", "11px")
@@ -370,8 +372,10 @@
 		.attr("class", "crosshair");
 
 	// The path that will connect the points of the current histogram
-	svg.append("path").attr("class", "hist-line");
+	//var curr_path = svg.append("path").attr("class", "hist-line");
 
+	// All of the svg histogram paths
+	var svg_paths = [];
 
 	// Set interactive functionality   
 	d3.select(window).on('mousemove', mousemove) 	// Display coordinates
@@ -383,6 +387,7 @@
 
 	// Keeps track of if we're creating/editing a histogram
 	var editing = false;
+	var reediting = false;
 
 	// Keeps track of points 
 	var selected;		// being selected
@@ -400,13 +405,14 @@
 	/* Draw the current histogram */
 	function draw () {
 		// Draw the line between the points -- for some reason css wasn't working so did styling here 
-		svg.select("path").datum(histograms[histogram])
-			.attr("d", hist_line)
+		svg_paths[svg_paths.length - 1].datum(histograms[histogram])
+			.attr("d", hist_lines[hist_lines.length - 1])
 			.attr("fill", "none")
 			.attr("stroke", "steelblue")
 			.attr("stroke-width", 2);
 
-		// TODO: will need to sort by id so that have correct spline? 
+		// TODO: can sort by id to make sure points are in correct order 
+		// (if change things in form view)
 
 		// Join new points with old ones  
 		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return d; });
@@ -555,6 +561,10 @@
 		histogram = 'histogram' + Object.keys(histograms).length;	// the placeholder name 
 		histograms[histogram] = []; 
 
+		// Initialize the histogram svg 
+		svg_paths.push(svg.append("path").attr("class", "hist-line"));
+		hist_lines.push(d3.svg.line().interpolate('cardinal'));
+
 		// Add the histogram input form 
 		$("#histogram-input").append(histogramInput(histogram));
 
@@ -612,8 +622,13 @@
 			return;
 		} 
 		if (name in histogramsUI) {
-			alert("The name already exists.");
-			return;
+			if (!reediting) {
+				alert("The name already exists.");
+				return;	
+			}
+			
+			// If we've been re-editing, destroy the old one
+			$("#" + name).remove();
 		}
 
 		editing = false;
@@ -635,10 +650,43 @@
 		// Hide the save button 
 		$("#save").hide();
 
-		// Make the curve smooth
-		//hist_line.interpolate("cardinal");
+		// Switch back to edit view when click on a histogram 
+		$(".histogram-list-item").click(function () {
+			var all_hists = $(this).parent().children();
 
-		// TODO: Ajax call or something to save values 
+			// Find rank of the selected histogram, and hide other points that may be displayed
+			var i = -1;
+			for (var j = 0; j < all_hists.length; j++) {
+				if ($(all_hists[j]).attr('id') == $(this).attr('id')) {
+					i = j;
+				}
+				else $("#histogram" + j).hide();
+			}
+
+			//console.log(i);
+
+			if (i < 0) alert("couldn't select");	// this should never happen, but just in case.. 
+
+			console.log(svg_paths);
+			console.log(hist_lines);
+
+			// Now push the selected histogram to the back 
+			var a = hist_lines.splice(i);
+			var b = svg_paths.splice(i);
+			hist_lines.push(a);
+			svg_paths.push(b);
+			// console.log(hist_lines.length);
+			// console.log(svg_paths.length);
+
+			// Display the points 
+			$("#histogram" + i).show();
+			$("#save").show();
+
+			editing = true;
+			reediting = true;
+		});
+
+		// TODO: Can place ajax call or something here to save the values 
 	});
 
 
@@ -660,4 +708,7 @@
 	- clear crosshairs 
 	- list of points should be scrollable
 	- sortable list: http://devheart.org/articles/jquery-customizable-layout-using-drag-and-drop/
+	- spline labels 
+	- different colors
+	- monotonicity constraints
 --> 
