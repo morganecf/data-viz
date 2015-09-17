@@ -422,7 +422,7 @@
 		// (if change things in form view)
 
 		// Join new points with old ones  
-		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return [d[0], d[1]]; });
+		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return d; });
 
 		// Update with new points 
 		circle.enter().append("circle").attr("r", 1e-6);
@@ -430,7 +430,7 @@
 		// Apply these attributes to new and old points
 		circle.attr("cx", function (d) { return d[0]; })
 			.attr("cy", function (d) { return d[1]; })
-			.attr("id", function (d, i) { return 'point' + i; })
+			.attr("id", function (d, i) { return d[2]; })
 			.on("mousedown", function (d) { 
 				// This node is being both selected and dragged
 				selected = dragged = d;
@@ -490,14 +490,13 @@
 		return {x: coords[0], y: coords[1], xrel: x, yrel: y, out: outx || outy};
 	}
 
-	/* Determines if the point being added follows monotonicity constraint */
-	function monotonic (x) {
-		var points = histograms[histogram];
-		if (points.length > 0) {
-			return x > points[points.length - 1][0]
-		}
-		return true;
-	}
+	/* 
+		Determines if the point doesn't violate monotonicity/function constraints.
+		Must always be montonically decreasing, and the curve must always be a 
+		function (any x must yield exactly one y). p1 is the point being added 
+		and p2 is the previous point. 
+	*/
+	function isMonotonicFunction (p1, p2) { return p1[1] > p2[1] && p1[0] > p2[0]; }
 
 	/* Function to set down a point when the client clicks */
 	function click () { 
@@ -511,6 +510,11 @@
 
 		// Don't put down points outside of boundaries 
 		if (pos.out) return;	
+
+		// Also don't put point down that violates constraints
+		var pi = histograms[histogram].length - 1;
+		var prev = histograms[histogram][pi];
+		if (prev && !isMonotonicFunction([pos.x, pos.y], prev)) return;
 		
 		// Add a point to list and to input form 
 		var pid = 'point' + histograms[histogram].length;
@@ -532,42 +536,86 @@
 		// Get mouse position 
 		var pos = position();
 
-		// If we're violating monoticity constraint, show crosshair as red 
-		if (!monotonic(pos.x)) {
-			chx.classed('increasing', true);
-			chy.classed('increasing', true);
+		// Show tooltip containing coordinates 
+		tooltip.attr("x", pos.x - 10).attr("y", pos.y - 10).text(pos.xrel + ', ' + pos.yrel);
 
-			chx.classed('crosshair', false);
-			chy.classed('crosshair', false);
+		// Show the crosshair lines 
+		chx.attr("d", lx([{x: pos.x, y: pos.y}, {x: pos.x, y: 500}]));
+		chy.attr("d", ly([{x: pos.x, y: pos.y}, {x: 0, y: pos.y}]));
+
+
+		// If we're not dragging, toggle crosshair colors depending on constraints 
+		if (!dragged) {
+			// If we're violating constraints, show crosshair as red 
+			var pi = histograms[histogram].length - 1;
+			var prev = histograms[histogram][pi];
+			if (prev && !isMonotonicFunction([pos.x, pos.y], prev)) {
+				chx.classed('increasing', true);
+				chy.classed('increasing', true);
+
+				chx.classed('crosshair', false);
+				chy.classed('crosshair', false);
+			}
+			else {
+				chx.classed('increasing', false);
+				chy.classed('increasing', false);
+
+				chx.classed('crosshair', true);
+				chy.classed('crosshair', true);
+			}
 		}
+
+		// Otherwise drag a point around
 		else {
+			// Where the point is being dragged 
+			var dragged_x = Math.max(0, Math.min(xmax_px, pos.x));
+			var dragged_y = Math.max(0, Math.min(ymax_px, pos.y));
+			var pos = [dragged_x, dragged_y];	
+
+			// Figure out if draggable or not, based on constraints
+			var draggable = true;
+
+			// Get the index of the selected point
+			var points = histograms[histogram];
+			var point = $("circle.selected").first().attr("id");
+			if (point) {
+				var index = parseInt(point.replace('point', ''));
+
+				// Boundary case #1: first point (look at constraints relative to second point)
+				if (index === 0) {
+					if (points.length > 1) draggable = isMonotonicFunction(points[1], pos);
+				}
+				// Boundary case #2: last point 
+				else if (index === points.length - 1) {
+					draggable = isMonotonicFunction(pos, points[index - 1]);
+				}
+				// Regular case: Determine constraints in relation to previous and subsequent points 
+				else {
+					draggable = isMonotonicFunction(pos, points[index - 1]);
+					draggable = draggable && isMonotonicFunction(points[index + 1], pos);
+				}
+			}
+
+			// Only drag to position if doesn't violate constraints
+			if (draggable) {
+				dragged[0] = dragged_x;
+				dragged[1] = dragged_y;
+			}
+
+			// Update the form UI
+			var form_point = $("div#" + dragged[2]).children();
+			$(form_point[0]).val(Math.round(xscale_inverse(dragged[0])));
+			$(form_point[1]).val(Math.round(yscale_inverse(dragged[1]) * 1000) / 1000);
+
+			// When dragging always show blue crosshairs 
 			chx.classed('increasing', false);
 			chy.classed('increasing', false);
 
 			chx.classed('crosshair', true);
 			chy.classed('crosshair', true);
+
+			draw();
 		}
-
-		// Show tooltip containing coordinates 
-		tooltip.attr("x", pos.x - 10).attr("y", pos.y - 10).text(pos.xrel + ', ' + pos.yrel);
-
-		// Show the lines 
-		chx.attr("d", lx([{x: pos.x, y: pos.y}, {x: pos.x, y: 500}]));
-		chy.attr("d", ly([{x: pos.x, y: pos.y}, {x: 0, y: pos.y}]));
-
-		// This is all we need to do unless a point is being dragged
-		if (!dragged) return;
-
-		// Points can't go outside boundaries 
-		dragged[0] = Math.max(0, Math.min(xmax_px, pos.x));
-		dragged[1] = Math.max(0, Math.min(ymax_px, pos.y));
-
-		// Update the form UI
-		var form_point = $("div#" + dragged[2]).children();
-		$(form_point[0]).val(Math.round(xscale_inverse(dragged[0])));
-		$(form_point[1]).val(Math.round(yscale_inverse(dragged[1]) * 1000) / 1000);
-
-		draw();
 	}
 
 	/* Release any dragged points */
@@ -649,6 +697,20 @@
 				var dose = parseFloat(point[0].value);
 				var volume = parseFloat(point[1].value);
 
+				// TODO
+
+				// If new point violates constraints, show pale red point
+				// on graphic side so user can see why it violates, as well 
+				// as pale red lines between point and nearest two points. 
+
+				// In addition, input form point violating the constraint should
+				// be highlighted red.  
+
+				// If user fixes constraint, red point should disappear 
+
+				// Do not count this point as part of graph/form
+				// remove and redraw w/out this point 
+
 				// Only add a point to the list of points for this histogram
 				// if it's a valid number 
 				if (!isNaN(dose) && !isNaN(volume)) {
@@ -668,7 +730,7 @@
 							circle.__data__[1] = y;
 						}
 						// Otherwise add a new point 
-						else histograms[histogram].push([x, y]);
+						else histograms[histogram].push([x, y, pid]);
 
 						// Update graph 
 						draw();
@@ -757,6 +819,8 @@
 
 <!-- 
 	TO DO 
+	- maybe just make the whole path red if violate constraints? instead of not letting them do anything 
+
 	- nicer tooltip (look at plot.ly tooltips)
 	- grids within each cell that appear on mouseover? 
 	- fix borders, crosshair shouldn't go past chart area 
@@ -774,4 +838,5 @@
 	- monotonicity constraints
 	- make point selection colored 
 	- better selection
+	- need to visually indicate correspoding form/svg points 
 --> 
