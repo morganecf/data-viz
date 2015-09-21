@@ -48,7 +48,7 @@
   			fill: none;
   			stroke-width: 2px;
   		}
-  		.selected {
+  		circle.selected {
   			opacity: .5;
   		}
 
@@ -234,43 +234,45 @@
     		<div id="svg-area"></div>
     	</div>
 
-    	<div class="col-lg-4" id="histogram-area">
+    	<form id="histogram-form" action="">
+	    	<div class="col-lg-4" id="histogram-area">
 
-    		<div class="row">
+	    		<div class="row">
 
-    			<!-- All histograms header --> 
-    			<div class="col-md-6" id="histogram-list-title"> All histograms </div>
+	    			<!-- All histograms header --> 
+	    			<div class="col-md-6" id="histogram-list-title"> All histograms </div>
 
-    			<!-- To create a histogram --> 
-    			<div class="col-md-6">
-	    			<button type="button" class="btn btn-primary" id="new-histogram">New histogram</button>
+	    			<!-- To create a histogram --> 
+	    			<div class="col-md-6">
+		    			<button type="button" class="btn btn-primary" id="new-histogram">New histogram</button>
+		    		</div>
+		    	</div>
+
+	    		<div class="row">
+	    			<!-- The list of histogram names --> 
+	    			<div class="col-md-6" id="left">
+	    				<ul class="list-group" id="histogram-list"></ul>
+	    			</div>
+	    				
+	    			<!-- Where the input form will be injected --> 
+	    			<div class="col-md-6" id="right">
+	    				<div id="histogram-input"></div>
+	    			</div>
 	    		</div>
+
+	    		<!-- The save button -->
+	    		<div class="row">
+	    			<div class="col-md-1"></div>
+	    			<div class="col-md-10" id="save-container">
+		    			<button type="button" class="btn btn-success" id="save">
+		    				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		    			</button>
+		    		</div>
+	    			<div class="col-md-1"></div>
+	    		</div>
+
 	    	</div>
-
-    		<div class="row">
-    			<!-- The list of histogram names --> 
-    			<div class="col-md-6" id="left">
-    				<ul class="list-group" id="histogram-list"></ul>
-    			</div>
-    				
-    			<!-- Where the input form will be injected --> 
-    			<div class="col-md-6" id="right">
-    				<div id="histogram-input"></div>
-    			</div>
-    		</div>
-
-    		<!-- The save button -->
-    		<div class="row">
-    			<div class="col-md-1"></div>
-    			<div class="col-md-10" id="save-container">
-	    			<button type="button" class="btn btn-success" id="save">
-	    				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-	    			</button>
-	    		</div>
-    			<div class="col-md-1"></div>
-    		</div>
-
-    	</div>
+	    </form>
 
     </div>
 
@@ -290,6 +292,11 @@
 <!-- JQuery UI --> 
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+<!-- JQuery form validation plugin --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
+
+<!-- JQuery scrollable area plugin --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.6/jquery.slimscroll.min.js"></script>
 
 <script type="text/javascript">
 
@@ -383,7 +390,8 @@
 	// Set interactive functionality   
 	d3.select(window).on('mousemove', mousemove) 	// Display coordinates
 					 .on('mousedown', click)		// Put down a point 
-					 .on('mouseup', mouseup);		// Release any points being dragged
+					 .on('mouseup', mouseup)		// Release any points being dragged
+					 .on('keydown', keydown);		// Delete a selected point 
 
 
 
@@ -395,6 +403,9 @@
 
 	// Keeps track of if a point is legal
 	var legal = true;
+
+	// Keeps track of if we can delete a point 
+	var deletable = true;
 
 	// Keeps track of points 
 	var selected;		// being selected
@@ -430,7 +441,14 @@
 		// Apply these attributes to new and old points
 		circle.attr("cx", function (d) { return d[0]; })
 			.attr("cy", function (d) { return d[1]; })
-			.attr("id", function (d, i) { return d[2]; })
+			.attr("id", function (d, i) { 
+				// id should correspond to position in the list
+				var id = 'point' + i;
+				d[2] = id;
+				// Corresponding form should have the same id
+				$($(".points").children()[i]).attr('id', id);
+				return id; 
+			})
 			.on("mousedown", function (d) { 
 				// This node is being both selected and dragged
 				selected = dragged = d;
@@ -459,12 +477,10 @@
 	function position () {
 		// Get the coordinates and map them 
 		var coords = d3.mouse(svg.node());
-		var x = xscale_inverse(coords[0]);
-		var y = yscale_inverse(coords[1]);
-		
-		// Round to nearest... ? 
-		x = Math.round(x);
-		y = Math.round(y * 1000) / 1000.0;
+		var euclidean_coords = pixelToCoord(coords);
+
+		var x = euclidean_coords[0];
+		var	y = euclidean_coords[1];
 
 		// If we're beyond the bounds round to nearest boundary
 		var outx = true; var outy = true;
@@ -498,6 +514,13 @@
 	*/
 	function isMonotonicFunction (p1, p2) { return p1[1] > p2[1] && p1[0] > p2[0]; }
 
+	/* Convert from pixel to coordinate value.  */
+	function pixelToCoord (px) {
+		var x = Math.round(xscale_inverse(px[0]));
+		var y = Math.round(yscale_inverse(px[1]) * 1000) / 1000;
+		return [x, y];
+	}
+
 	/* Function to set down a point when the client clicks */
 	function click () { 
 		if (!editing) return;
@@ -520,7 +543,7 @@
 		var pid = 'point' + histograms[histogram].length;
 		var point = d3.mouse(svg.node());
 		point.push(pid);
-		histograms[histogram].push(point);
+		histograms[histogram].push(selected = point);
 
 		// Add point to the input form by simulating a click
 		$("#add-point").trigger('click', {dose: pos.xrel, volume: pos.yrel, pid: pid});
@@ -604,8 +627,9 @@
 
 			// Update the form UI
 			var form_point = $("div#" + dragged[2]).children();
-			$(form_point[0]).val(Math.round(xscale_inverse(dragged[0])));
-			$(form_point[1]).val(Math.round(yscale_inverse(dragged[1]) * 1000) / 1000);
+			var coords = pixelToCoord(dragged);
+			$(form_point[0]).val(coords[0]);
+			$(form_point[1]).val(coords[1]);
 
 			// When dragging always show blue crosshairs 
 			chx.classed('increasing', false);
@@ -619,7 +643,28 @@
 	}
 
 	/* Release any dragged points */
-	function mouseup () { dragged = selected = null; }
+	function mouseup () { dragged = null; draw(); }
+
+	/* Delete a selected point */
+	function keydown() {
+		if (!selected || !deletable) return;
+
+		var points = histograms[histogram];
+		var key = d3.event.keyCode;
+
+		// User has pressed delete or backspace 
+		if (key === 8 || key === 46) {
+			// Remove from set of points 
+			var i = points.indexOf(selected);
+			var point = points.splice(i, 1);
+
+			// Remove from form UI
+			$("div#" + point[0][2]).remove();
+
+			// Update graphically 
+			draw();
+		}
+	}
 
 
 	/* Textual histogram info functionality */
@@ -636,7 +681,7 @@
 		var valType = 'value';
 		if (x === 'dose') valType = 'placeholder';
 		
-		s += '<input type="text" ' + valType + '=' + x +' class="dv dose"><input type="text" ' + valType + '=' + y +' class="dv volume"></div>';
+		s += '<input type="text" ' + valType + '=' + x +' class="dv dose" data-validation="x_in_range"><input type="text" ' + valType + '=' + y +' data-validation="y_in_range" class="dv volume"></div>';
 
 		// TODO: Make the point draggable/sortable
 		var domObj = $(s);
@@ -652,6 +697,10 @@
 		s += '<div class="num-points">' + n + '</div></button>';
 		return $(s);
 	};
+
+	// Keeps track of if current point in form UI has coordinates that 
+	// violate constraints or not 
+	var currentUIPointIsValid = [true, true];
 
 	// Add a new histogram 
 	$("#new-histogram").click(function () {
@@ -669,6 +718,10 @@
 		// Add the histogram input form 
 		$("#histogram-input").append(histogramInput(histogram));
 
+		// Add scrollable area
+		// $(".points").first().slimScroll({height: '300px'});	
+		$("#histogram-input").slimScroll({height: '350px'});	
+
 		// Show save button 
 		$("#save").show();
 
@@ -677,12 +730,20 @@
 		// To add a new point to the input form
 		$("#add-point").click(function (event, data) {
 
+			// If the last point is blank/incomplete, remove
+			var last = $($(".point")[$(".point").length - 1]);
+			if (!($(last.children()[0]).val() && $(last.children()[1]).val())) last.remove();
+
 			// New point initialized graphically
 			if (data) var new_point = pointInput(data.dose, data.volume, data.pid);
+
 			// New point initialized from form 
 			else var new_point = pointInput('dose', 'volume', 'point' + histograms[histogram].length);
 
 			$(".points").last().append(new_point);
+
+			// Refresh validation setup
+			$.validate();
 
 			// To update the point graphically
 			$(".dv").change(function () {
@@ -692,54 +753,187 @@
 				var pid = $(this).parent().attr('id');
 				if ($("circle#" + pid).length > 0) update = true;
 
+				// Figure out if this input is for volume or dose
+				var unit = $(this).attr('class').substring(3, 7);
+				if (unit !== 'dose') unit = 'volume';
+
+				var i = parseInt(pid.replace('point', ''));
+				var inputs = $(this).parent().children();
+
+				if (unit === 'dose' && !currentUIPointIsValid[0]) {
+
+					// If we're updating a point, revert to old value
+					if (update) inputs[0].value = pixelToCoord(histograms[histogram][i])[0];
+					else inputs[0].value = '';
+
+					//$("#histogram-form").get(0).reset();
+					currentUIPointIsValid[0] = true;
+
+					return;
+				}
+				else if (unit === 'volume' && !currentUIPointIsValid[1]) {
+
+					// If we're updating a point, revert to old value
+					if (update) inputs[1].value = pixelToCoord(histograms[histogram][i])[1];
+					else inputs[1].value = '';
+
+					//$("#histogram-form").get(0).reset();
+					currentUIPointIsValid[1] = true;
+
+					return;
+				}
+
+				if (!(currentUIPointIsValid[0] && currentUIPointIsValid[1])) return;
+
+				// At this point we have a valid change 
+
 				// Get x and y (dose/volume) coordinates 
 				var point = $(this).parent().children();
 				var dose = parseFloat(point[0].value);
 				var volume = parseFloat(point[1].value);
-
-				// TODO
-
-				// If new point violates constraints, show pale red point
-				// on graphic side so user can see why it violates, as well 
-				// as pale red lines between point and nearest two points. 
-
-				// In addition, input form point violating the constraint should
-				// be highlighted red.  
-
-				// If user fixes constraint, red point should disappear 
-
-				// Do not count this point as part of graph/form
-				// remove and redraw w/out this point 
-
-				// Only add a point to the list of points for this histogram
-				// if it's a valid number 
+				
 				if (!isNaN(dose) && !isNaN(volume)) {
+					// Convert to pixel values 
+					var x = xscale(dose);
+					var y = yscale(volume);
 
-					// And if it's within the boundaries
-					if (dose <= xmax && dose >= 0 && volume <= ymax && volume >= 0) {
-						
-						// Convert to pixel values 
-						var x = xscale(dose);
-						var y = yscale(volume);
-
-						// If it needs to be updated, update point
-						if (update) {
-							// This seems like a really sketchy way of doing this...
-							var circle = d3.select("#" + pid)[0][0];
-							circle.__data__[0] = x;
-							circle.__data__[1] = y;
-						}
-						// Otherwise add a new point 
-						else histograms[histogram].push([x, y, pid]);
-
-						// Update graph 
-						draw();
+					// If it needs to be updated, update point
+					if (update) {
+						// This seems like a really sketchy way of doing this...
+						var circle = d3.select("#" + pid)[0][0];
+						circle.__data__[0] = x;
+						circle.__data__[1] = y;
 					}
+					// Otherwise add a new point 
+					else histograms[histogram].push([x, y, pid]);
+
+					// Update graph 
+					draw();
 				}
 
 			});
+
+			// Disable delete when input box is focused 
+			$(".dv").focus(function () { 
+				var pid = $(this).parent().attr('id');
+				var i = parseInt(pid.replace('point', ''));
+				selected = histograms[histogram][i];
+				deletable = false;
+			});
+
 		}); 
 
+	});
+
+	// Form validation to ensure numbers are numeric
+	// $.formUtils.addValidator({
+	// 	name: 'is_number',
+	// 	validatorFunction: function (val, $el, config, language, $form) {
+	// 		var ptype = $el.attr('class');
+
+	// 		if (ptype === 'dv dose') currentUIPointIsValid[0] = !isNaN(val);
+	// 		else currentUIPointIsValid[1] = !isNaN(val);
+
+	// 		return currentUIPointIsValid[0] && currentUIPointIsValid[1];
+	// 	},
+	// 	errorMessage: 'Enter a number'
+	// });
+
+	// Form validation to ensure users only enter numbers that don't violate constraints
+	$.formUtils.addValidator({
+		name: 'x_in_range',
+		validatorFunction: function (val, $el, config, language, $form) {
+			// Only concerned with x value 
+			var ptype = $el.attr('class');
+			if (ptype === 'dv volume') return;
+
+			// Find previous point and next point
+			var pid = $el.parent().attr('id'),
+				n = parseInt(pid.replace('point', '')),
+				x = xscale(parseInt(val));
+
+			var points = histograms[histogram];
+
+			// Customize the error message
+			this.errorMessage = 'Possible range: ';
+
+			var inRange = true;
+
+			// Case 1: first point 
+			if (n === 0) {
+				if (points.length > 1) {
+					inRange = x < points[1][0];
+					this.errorMessage += '0 - ' + (pixelToCoord(points[1])[0] - 1);
+				}
+			}
+			// Case 2: last point OR point newly-added from form UI 
+			else if (n >= points.length - 1) {
+				inRange = x > points[n - 1][0];
+				this.errorMessage += (pixelToCoord(points[n - 1])[0] + 1) + ' - ' + xmax;
+			}
+			// Case 3: points in between first and last
+			else {
+				inRange = x > points[n - 1][0] && x < points[n + 1][0];
+				this.errorMessage += (pixelToCoord(points[n - 1])[0] + 1) + ' - ' + (pixelToCoord(points[n + 1])[0] - 1);
+			}
+
+			currentUIPointIsValid[0] = inRange;
+
+			return inRange;
+		},
+		errorMessageKey: 'badCoord'
+
+		// todo: formatting
+	});
+	$.formUtils.addValidator({
+		name: 'y_in_range',
+		validatorFunction: function (val, $el, config, language, $form) {
+			// Only concerned with x value 
+			var ptype = $el.attr('class');
+			if (ptype === 'dv dose') return;
+
+			// Find previous point and next point
+			var pid = $el.parent().attr('id'),
+				n = parseInt(pid.replace('point', '')),
+				y = yscale(parseFloat(val));
+
+			var points = histograms[histogram];
+
+			// Customize the error message
+			this.errorMessage = 'Possible range: ';
+
+			var inRange = true;
+
+			// Case 1: first point 
+			if (n === 0) {
+				if (points.length > 1) {
+					inRange = y < points[1][1];
+					this.errorMessage += pixelToCoord(points[1])[1] + ' - ' + ymax;
+				}
+			}
+			// Case 2: last point OR new point
+			else if (n >= points.length - 1) {
+				inRange = y > points[n - 1][1];
+				this.errorMessage += '0 - ' + pixelToCoord(points[n - 1])[1];
+			}
+			// Case 3: points in between first and last
+			else {
+				inRange = y < points[n + 1][1] && y > points[n - 1][1];
+				this.errorMessage += pixelToCoord(points[n + 1])[1] + ' - ' + pixelToCoord(points[n - 1])[1];
+			}
+
+			currentUIPointIsValid[1] = inRange;
+
+			return inRange;
+		},
+		errorMessageKey: 'badCoord'
+
+		// todo: formatting
+	});
+
+	$.validate({
+		form: '#histogram-form',
+		modules: 'toggleDisabled'
 	});
 
 	// Save the current histogram
