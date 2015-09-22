@@ -44,7 +44,7 @@
 
   		circle {
   			cursor: move;
-  			stroke: steelblue;
+  			/*stroke: steelblue;*/
   			fill: none;
   			stroke-width: 2px;
   		}
@@ -140,13 +140,13 @@
 			float: left;
 			border: 0;
 			text-align: center;
-			border-right: 2px solid #CD5C5C;
+			/*border-right: 2px solid #CD5C5C;*/
 		}
 		.volume {
 			width: 40%;
 			border: 0;
 			text-align: center;
-			border-left: 2px solid #CD5C5C;
+			/*border-left: 2px solid #CD5C5C;*/
 		}
 		.points {
 			margin-top: 10px;
@@ -210,8 +210,8 @@
 		    height: 30px;
 		    padding-top: 5px;
 		    margin-top: -6px;
-		    margin-right: -12px;
-		    background: #CD5C5C;
+		    margin-right: -7px;
+		    /*background: #CD5C5C;*/
 		}
 
 	</style>
@@ -351,6 +351,27 @@
 	var hist_lines = [];
 
 
+	/* Utility functions */
+
+	// Shuffle an array in-place
+	Array.prototype.shuffle = function () {
+		var l = this.length - 1;
+		var temp, i;
+
+		while (l > 0) {
+			// Pick a random element and swap with first 
+			i = Math.floor(Math.random() * l);
+			temp = this[i];
+			this[i] = this[l];
+			this[l] = temp;
+
+			l --;
+		}
+
+		return this;
+	};
+
+
 	/* Rendering the SVG */
 
 	// The svg area where the histogram is appended
@@ -414,11 +435,28 @@
 	// Keeps track of histogram being edited
 	var histogram;
 
+	// Keeps track of the current histogram color
+	var color;
+
 	// Keeps track of the data of all the histograms the user has created 
 	var histograms = {};
 
 	// Keeps track of the ui histogram data 
 	var histogramsUI = {};
+
+	// 60 possible histogram colors, randomized 
+	var colors = function () {
+		var color_scales = [d3.scale.category20(), d3.scale.category20c(), d3.scale.category20b()];
+		color_scales.shuffle();
+
+		var c = [], cs;
+		while (color_scales.length > 0) {
+			cs = color_scales.pop();
+			for (var i = 0; i < 20; i++) c.push(cs(i));
+		}
+
+		return c.shuffle();
+	}();
 
 	/* Draw the current histogram */
 	function draw () {
@@ -426,7 +464,7 @@
 		svg_paths[svg_paths.length - 1].datum(histograms[histogram])
 			.attr("d", hist_lines[hist_lines.length - 1])
 			.attr("fill", "none")
-			.attr("stroke", "steelblue")
+			.attr("stroke", color)
 			.attr("stroke-width", 2);
 
 		// TODO: can sort by id to make sure points are in correct order 
@@ -436,7 +474,7 @@
 		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return d; });
 
 		// Update with new points 
-		circle.enter().append("circle").attr("r", 1e-6);
+		circle.enter().append("circle").attr("r", 1e-6).attr("stroke", color);
 
 		// Apply these attributes to new and old points
 		circle.attr("cx", function (d) { return d[0]; })
@@ -715,6 +753,9 @@
 		svg_paths.push(svg.append("path").attr("class", "hist-line"));
 		hist_lines.push(d3.svg.line().interpolate('cardinal'));
 
+		// Pick color for this histogram (start over if we have over 60 histograms)
+		color = colors[(Object.keys(histograms).length - 1) % colors.length];
+
 		// Add the histogram input form 
 		$("#histogram-input").append(histogramInput(histogram));
 
@@ -741,6 +782,8 @@
 			else var new_point = pointInput('dose', 'volume', 'point' + histograms[histogram].length);
 
 			$(".points").last().append(new_point);
+			$(".dose").last().attr("style", "border-right:2px solid " + color);
+			$(".volume").last().attr("style", "border-left:2px solid " + color);
 
 			// Refresh validation setup
 			$.validate();
@@ -970,6 +1013,9 @@
 		// Minimize the editing view by adding name and # of points to list 
 		$("#histogram-list").append(histogramItem(name, points.length));
 		$("#" + histogram).hide();
+
+		// Indicate corresponding spline by its color
+		$(".num-points").last().attr("style", "background:" + color);
 
 		// Hide the save button 
 		$("#save").hide();
