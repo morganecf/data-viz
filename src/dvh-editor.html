@@ -214,6 +214,10 @@
 		    /*background: #CD5C5C;*/
 		}
 
+		.valid {
+			/*border: 2px solid black;*/
+		}
+
 	</style>
 
 </head>
@@ -787,11 +791,11 @@
 			else var new_point = pointInput('dose', 'volume', 'point' + histograms[histogram].length);
 
 			$("#" + histogram).find(".points").first().append(new_point);
-			$("#" + histogram).find(".dose").first().attr("style", "border-right:2px solid " + hist_colors[histogram]);
-			$("#" + histogram).find(".volume").first().attr("style", "border-left:2px solid " + hist_colors[histogram]);
+			$("#" + histogram).find(".dose").last().attr("style", "border-right:2px solid " + hist_colors[histogram]);
+			$("#" + histogram).find(".volume").last().attr("style", "border-left:2px solid " + hist_colors[histogram]);
 
 			// Refresh validation setup
-			$.validate();
+			$.validate({borderColorOnError : hist_colors[histogram]});
 
 			// To update the point graphically
 			$(".dv").change(function () {
@@ -814,7 +818,6 @@
 					if (update) inputs[0].value = pixelToCoord(histograms[histogram][i])[0];
 					else inputs[0].value = '';
 
-					//$("#histogram-form").get(0).reset();
 					currentUIPointIsValid[0] = true;
 
 					return;
@@ -825,7 +828,6 @@
 					if (update) inputs[1].value = pixelToCoord(histograms[histogram][i])[1];
 					else inputs[1].value = '';
 
-					//$("#histogram-form").get(0).reset();
 					currentUIPointIsValid[1] = true;
 
 					return;
@@ -863,13 +865,13 @@
 
 			// Disable delete when an input box is focused 
 			$("input").focus(function () { deletable = false; });
+			$("input").focusout(function () { deletable = true; })
 
 			// Highlight corresponding point when form point is focused
 			$(".dv").focus(function () { 
 				var pid = $(this).parent().attr('id');
 				var i = parseInt(pid.replace('point', ''));
 				selected = histograms[histogram][i];
-				deletable = false;
 			});
 
 		}); 
@@ -890,47 +892,77 @@
 	// 	errorMessage: 'Enter a number'
 	// });
 
+	// Function used to validate if a coordinate doesn't violate the constraints
+	var coordValidator = function (coordIndex, classType, scale, $el, val, validator) {
+		// Only concerned with x value 
+		var ptype = $el.attr('class');
+		if (ptype !== classType) return {isValid: false, errorMsg: null};
+
+		// Find previous point and next point
+		var pid = $el.parent().attr('id'),
+			n = parseInt(pid.replace('point', '')),
+			c = scale(parseFloat(val));
+
+		var points = histograms[histogram];
+
+		// Customize the error message
+		validator.errorMessage = 'Possible range: ';
+
+		var inRange = true;
+
+		// Case 1: first point 
+		if (n === 0) {
+			if (points.length > 1) {
+				
+				// x 
+				if (coordIndex === 0) {
+					inRange = c < points[1][0];
+					validator.errorMessage += '0 - ' + (pixelToCoord(points[1])[0] - 1);
+				}
+				// y
+				else {
+					inRange = c < points[1][1];
+					validator.errorMessage += pixelToCoord(points[1])[1] + ' - ' + ymax;
+				}
+			}
+		}
+		// Case 2: last point OR point newly-added from form UI 
+		else if (n >= points.length - 1) {
+			// x
+			if (coordIndex === 0) {
+				inRange = c > points[n - 1][0];
+				validator.errorMessage += (pixelToCoord(points[n - 1])[0] + 1) + ' - ' + xmax;
+			}
+			// y
+			else {
+				inRange = c > points[n - 1][1];
+				validator.errorMessage += '0 - ' + pixelToCoord(points[n - 1])[1];
+			}
+		}
+		// Case 3: points in between first and last
+		else {
+			
+			if (coordIndex === 0) {
+				inRange = c > points[n - 1][0] && c < points[n + 1][0];
+				validator.errorMessage += (pixelToCoord(points[n - 1])[coordIndex] + 1) + ' - ' + (pixelToCoord(points[n + 1])[coordIndex] - 1);
+			}
+			else {
+				inRange = c < points[n + 1][1] && c > points[n - 1][1];
+				validator.errorMessage += pixelToCoord(points[n + 1])[1] + ' - ' + pixelToCoord(points[n - 1])[1];
+			}
+		}
+
+		currentUIPointIsValid[coordIndex] = inRange;
+
+		return {isValid: inRange, errMsg: validator.errorMessage};
+	};
+
 	// Form validation to ensure users only enter numbers that don't violate constraints
 	$.formUtils.addValidator({
 		name: 'x_in_range',
 		validatorFunction: function (val, $el, config, language, $form) {
-			// Only concerned with x value 
-			var ptype = $el.attr('class');
-			if (ptype === 'dv volume') return;
-
-			// Find previous point and next point
-			var pid = $el.parent().attr('id'),
-				n = parseInt(pid.replace('point', '')),
-				x = xscale(parseInt(val));
-
-			var points = histograms[histogram];
-
-			// Customize the error message
-			this.errorMessage = 'Possible range: ';
-
-			var inRange = true;
-
-			// Case 1: first point 
-			if (n === 0) {
-				if (points.length > 1) {
-					inRange = x < points[1][0];
-					this.errorMessage += '0 - ' + (pixelToCoord(points[1])[0] - 1);
-				}
-			}
-			// Case 2: last point OR point newly-added from form UI 
-			else if (n >= points.length - 1) {
-				inRange = x > points[n - 1][0];
-				this.errorMessage += (pixelToCoord(points[n - 1])[0] + 1) + ' - ' + xmax;
-			}
-			// Case 3: points in between first and last
-			else {
-				inRange = x > points[n - 1][0] && x < points[n + 1][0];
-				this.errorMessage += (pixelToCoord(points[n - 1])[0] + 1) + ' - ' + (pixelToCoord(points[n + 1])[0] - 1);
-			}
-
-			currentUIPointIsValid[0] = inRange;
-
-			return inRange;
+			// Only validate the x value 
+			return coordValidator(0, 'dv dose', xscale, $el, val, this);
 		},
 		errorMessageKey: 'badCoord'
 
@@ -939,53 +971,19 @@
 	$.formUtils.addValidator({
 		name: 'y_in_range',
 		validatorFunction: function (val, $el, config, language, $form) {
-			// Only concerned with x value 
-			var ptype = $el.attr('class');
-			if (ptype === 'dv dose') return;
-
-			// Find previous point and next point
-			var pid = $el.parent().attr('id'),
-				n = parseInt(pid.replace('point', '')),
-				y = yscale(parseFloat(val));
-
-			var points = histograms[histogram];
-
-			// Customize the error message
-			this.errorMessage = 'Possible range: ';
-
-			var inRange = true;
-
-			// Case 1: first point 
-			if (n === 0) {
-				if (points.length > 1) {
-					inRange = y < points[1][1];
-					this.errorMessage += pixelToCoord(points[1])[1] + ' - ' + ymax;
-				}
-			}
-			// Case 2: last point OR new point
-			else if (n >= points.length - 1) {
-				inRange = y > points[n - 1][1];
-				this.errorMessage += '0 - ' + pixelToCoord(points[n - 1])[1];
-			}
-			// Case 3: points in between first and last
-			else {
-				inRange = y < points[n + 1][1] && y > points[n - 1][1];
-				this.errorMessage += pixelToCoord(points[n + 1])[1] + ' - ' + pixelToCoord(points[n - 1])[1];
-			}
-
-			currentUIPointIsValid[1] = inRange;
-
-			return inRange;
+			// Only validate the y value 
+			return coordValidator(1, 'dv volume', yscale, $el, val, this);
 		},
 		errorMessageKey: 'badCoord'
 
-		// todo: formatting
+		// TODO: formatting
 	});
 
-	// Ensure validation occurs as the user is typing 
+	// The form validation configuration 
 	$.validate({
 		form: '#histogram-form',
-		modules: 'toggleDisabled'
+		modules: 'toggleDisabled',		// Ensure validation occurs as the user is typing 
+		borderColorOnError: ''			// No error signaling except for text with suggested range
 	});
 
 	// Save all the add-point buttons - need to keep track of them
@@ -1057,9 +1055,7 @@
 	});
 
 	// Add a scrollable area to the histogram area 
-	$(function () {
-		$("#histogram-list").slimScroll({height: "400px"});
-	});
+	$(function () { $("#histogram-list").slimScroll({height: "400px"}); });
 
 </script>
 
@@ -1067,25 +1063,20 @@
 
 <!-- 
 	TO DO 
-	- maybe just make the whole path red if violate constraints? instead of not letting them do anything 
 
-	- nicer tooltip (look at plot.ly tooltips)
-	- grids within each cell that appear on mouseover? 
-	- fix borders, crosshair shouldn't go past chart area 
-	- non-white area for histogram info area 
-	- double click to switch ends 
-	- x and y axes disappear? 
-	- for some reason .axis line/path is interfering with .hist-line line/path so didn't use css classes for these. fix this
-	- change axes to percentages 
-	- add axis labels 
-	- clear crosshairs 
-	- list of points should be scrollable
-	- sortable list: http://devheart.org/articles/jquery-customizable-layout-using-drag-and-drop/
-	- spline labels 
-	- different colors
-	- monotonicity constraints
-	- make point selection colored 
+	important
+	- fix color problem that arises on form validation 
+	- can't have negative numbers 
+	- delete histogram functionality
+	- axis labels
+	- change x-axis to % 
+	- fix top of grid
+	- visual indication of form/svg point correspondence 
 	- better selection (make a point more easily grabbable)
-	- need to visually indicate correspoding form/svg points 
-	- delete a histogram 
+	- clear crosshairs when not in edit mode 
+
+	less important
+	- nicer tooltip (look at plot.ly tooltips)
+	- maybe just make the whole path red if violate constraints? instead of not letting them do anything 
+	
 --> 
