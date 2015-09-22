@@ -771,6 +771,8 @@
 		// To add a new point to the input form
 		$("#add-point").click(function (event, data) {
 
+			console.log('adding point');
+
 			// If the last point is blank/incomplete, remove
 			var last = $($(".point")[$(".point").length - 1]);
 			if (!($(last.children()[0]).val() && $(last.children()[1]).val())) last.remove();
@@ -1013,6 +1015,7 @@
 		// Minimize the editing view by adding name and # of points to list 
 		$("#histogram-list").append(histogramItem(name, points.length));
 		$("#" + histogram).hide();
+		$("#add-point").remove();
 
 		// Indicate corresponding spline by its color
 		$(".num-points").last().attr("style", "background:" + color);
@@ -1082,6 +1085,6 @@
 	- different colors
 	- monotonicity constraints
 	- make point selection colored 
-	- better selection
+	- better selection (make a point more easily grabbable)
 	- need to visually indicate correspoding form/svg points 
 --> 
