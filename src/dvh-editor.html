@@ -561,6 +561,8 @@
 
 	/* Function to set down a point when the client clicks */
 	function click () { 
+		console.log("in click");
+
 		if (!editing) return;
 
 		// If we're currently dragging a point don't add a new one
@@ -681,11 +683,15 @@
 	}
 
 	/* Release any dragged points */
-	function mouseup () { dragged = null; draw(); }
+	function mouseup () { 
+		if (!editing) return;
+		dragged = null; 
+		draw(); 
+	}
 
 	/* Delete a selected point */
 	function keydown() {
-		if (!selected || !deletable) return;
+		if (!selected || !deletable || !editing) return;
 
 		var points = histograms[histogram];
 		var key = d3.event.keyCode;
@@ -730,7 +736,8 @@
 
 	// Creates a list group item for the list of histograms
 	var histogramItem = function (name, n) {
-		var s = '<button class="btn btn-default histogram-list-item" id=' + name + '>';
+		var hid = histogram + '-item-name'
+		var s = '<button type="button" class="btn btn-default histogram-list-item" id=' + hid + '>';
 		s += '<div class="histogram-item-name">' + name + '</div>'
 		s += '<div class="num-points">' + n + '</div></button>';
 		return $(s);
@@ -770,8 +777,6 @@
 
 		// To add a new point to the input form
 		$("#add-point").click(function (event, data) {
-
-			console.log('adding point');
 
 			// If the last point is blank/incomplete, remove
 			var last = $($(".point")[$(".point").length - 1]);
@@ -858,7 +863,10 @@
 
 			});
 
-			// Disable delete when input box is focused 
+			// Disable delete when an input box is focused 
+			$("input").focus(function () { deletable = false; });
+
+			// Highlight corresponding point when form point is focused
 			$(".dv").focus(function () { 
 				var pid = $(this).parent().attr('id');
 				var i = parseInt(pid.replace('point', ''));
@@ -997,7 +1005,7 @@
 			}
 			
 			// If we've been re-editing, destroy the old one
-			$("#" + name).remove();
+			$("#" + histogram + "-item-name").remove();
 		}
 
 		editing = false;
@@ -1015,7 +1023,7 @@
 		// Minimize the editing view by adding name and # of points to list 
 		$("#histogram-list").append(histogramItem(name, points.length));
 		$("#" + histogram).hide();
-		$("#add-point").remove();
+		$("#add-point").detach();
 
 		// Indicate corresponding spline by its color
 		$(".num-points").last().attr("style", "background:" + color);
@@ -1025,31 +1033,15 @@
 
 		// Switch back to edit view when click on a histogram 
 		$(".histogram-list-item").click(function () {
-			var all_hists = $(this).parent().children();
+			// Hide current histogram
+			$("#" + histogram).hide();
 
-			// Find rank of the selected histogram, and hide other points that may be displayed
-			var i = -1;
-			for (var j = 0; j < all_hists.length; j++) {
-				if ($(all_hists[j]).attr('id') == $(this).attr('id')) {
-					i = j;
-				}
-				else $("#histogram" + j).hide();
-			}
-
-			if (i < 0) alert("couldn't select");	// this should never happen, but just in case.. 
-
-			// Now push the selected histogram to the back 
-			var a = hist_lines.splice(i);
-			var b = svg_paths.splice(i);
-			hist_lines.push(a);
-			svg_paths.push(b);
-
-			// Display the points 
-			$("#histogram" + i).show();
+			// Display the selected histogram
+			histogram = $(this).attr("id").replace("-item-name", "");
+			$("#" + histogram).show();
 			$("#save").show();
 
-			editing = true;
-			reediting = true;
+			editing = reediting = true;
 		});
 
 		// TODO: Can place ajax call or something here to save the values 
@@ -1059,7 +1051,6 @@
 	$(function () {
 		$("#histogram-list").slimScroll({height: "400px"});
 	});
-
 
 </script>
 
@@ -1087,4 +1078,5 @@
 	- make point selection colored 
 	- better selection (make a point more easily grabbable)
 	- need to visually indicate correspoding form/svg points 
+	- delete a histogram 
 --> 
