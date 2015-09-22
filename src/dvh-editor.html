@@ -435,8 +435,8 @@
 	// Keeps track of histogram being edited
 	var histogram;
 
-	// Keeps track of the current histogram color
-	var color;
+	// Keeps track of each histogram's color
+	var hist_colors = {};
 
 	// Keeps track of the data of all the histograms the user has created 
 	var histograms = {};
@@ -464,7 +464,7 @@
 		svg_paths[svg_paths.length - 1].datum(histograms[histogram])
 			.attr("d", hist_lines[hist_lines.length - 1])
 			.attr("fill", "none")
-			.attr("stroke", color)
+			.attr("stroke", hist_colors[histogram])
 			.attr("stroke-width", 2);
 
 		// TODO: can sort by id to make sure points are in correct order 
@@ -474,7 +474,7 @@
 		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return d; });
 
 		// Update with new points 
-		circle.enter().append("circle").attr("r", 1e-6).attr("stroke", color);
+		circle.enter().append("circle").attr("r", 1e-6).attr("stroke", hist_colors[histogram]);
 
 		// Apply these attributes to new and old points
 		circle.attr("cx", function (d) { return d[0]; })
@@ -561,8 +561,6 @@
 
 	/* Function to set down a point when the client clicks */
 	function click () { 
-		console.log("in click");
-
 		if (!editing) return;
 
 		// If we're currently dragging a point don't add a new one
@@ -586,7 +584,7 @@
 		histograms[histogram].push(selected = point);
 
 		// Add point to the input form by simulating a click
-		$("#add-point").trigger('click', {dose: pos.xrel, volume: pos.yrel, pid: pid});
+		$("#" + histogram).find("button").trigger("click", {dose: pos.xrel, volume: pos.yrel, pid: pid});
 
 		// Draw everything
 		draw();
@@ -761,7 +759,7 @@
 		hist_lines.push(d3.svg.line().interpolate('cardinal'));
 
 		// Pick color for this histogram (start over if we have over 60 histograms)
-		color = colors[(Object.keys(histograms).length - 1) % colors.length];
+		hist_colors[histogram] = colors[(Object.keys(histograms).length - 1) % colors.length];
 
 		// Add the histogram input form 
 		$("#histogram-input").append(histogramInput(histogram));
@@ -776,7 +774,7 @@
 		editing = true;
 
 		// To add a new point to the input form
-		$("#add-point").click(function (event, data) {
+		$("#" + histogram).find("button").click(function (event, data) {
 
 			// If the last point is blank/incomplete, remove
 			var last = $($(".point")[$(".point").length - 1]);
@@ -788,9 +786,9 @@
 			// New point initialized from form 
 			else var new_point = pointInput('dose', 'volume', 'point' + histograms[histogram].length);
 
-			$(".points").last().append(new_point);
-			$(".dose").last().attr("style", "border-right:2px solid " + color);
-			$(".volume").last().attr("style", "border-left:2px solid " + color);
+			$("#" + histogram).find(".points").first().append(new_point);
+			$("#" + histogram).find(".dose").first().attr("style", "border-right:2px solid " + hist_colors[histogram]);
+			$("#" + histogram).find(".volume").first().attr("style", "border-left:2px solid " + hist_colors[histogram]);
 
 			// Refresh validation setup
 			$.validate();
@@ -984,15 +982,21 @@
 		// todo: formatting
 	});
 
+	// Ensure validation occurs as the user is typing 
 	$.validate({
 		form: '#histogram-form',
 		modules: 'toggleDisabled'
 	});
 
+	// Save all the add-point buttons - need to keep track of them
+	// because detach them to prevent user from clicking multiple 
+	// times 
+	var add_points = {};
+
 	// Save the current histogram
 	$("#save").click(function () {
 		// Get the histogram name 
-		var name = $(".histogram-name").last().val();
+		var name = $("#" + histogram).find(".histogram-name").first().val();
 
 		if (name.length == 0) {
 			alert("Please name your histogram.");
@@ -1011,7 +1015,7 @@
 		editing = false;
 
 		// Get all the points 
-		var points = $(".points").last().children().map(function (i, p) {
+		var points = $("#" + histogram).find(".points").first().children().map(function (i, p) {
 			var dose = parseFloat($($(p).children()[0]).val().trim());
 			var volume = parseFloat($($(p).children()[1]).val().trim());
 			return {x: dose, y: volume};
@@ -1021,12 +1025,17 @@
 		histogramsUI[name] = points;
 
 		// Minimize the editing view by adding name and # of points to list 
-		$("#histogram-list").append(histogramItem(name, points.length));
+		var list_item = histogramItem(name, points.length);
+		var n = parseInt(histogram.replace('histogram', ''));
+		// Make sure to insert in proper position 
+		if (n < Object.keys(histograms).length - 1) list_item.insertBefore($("#histogram" + (n + 1) + "-item-name"));
+		else $("#histogram-list").append(list_item);
+
+		// Remove from editing view 
 		$("#" + histogram).hide();
-		$("#add-point").detach();
 
 		// Indicate corresponding spline by its color
-		$(".num-points").last().attr("style", "background:" + color);
+		$("#" + histogram + "-item-name").find(".num-points").first().attr("style", "background:" + hist_colors[histogram]);
 
 		// Hide the save button 
 		$("#save").hide();
