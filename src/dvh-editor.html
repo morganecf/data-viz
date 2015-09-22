@@ -348,9 +348,6 @@
 	var lx = d3.svg.line().x(function (d) { return d.x; }).y(function (d) { return d.y; });
 	var ly = d3.svg.line().x(function (d) { return d.x; }).y(function (d) { return d.y; });
 
-	// Line connecting the points of the current histogram
-	//var hist_line = d3.svg.line();
-
 	// All of the histogram lines 
 	var hist_lines = [];
 
@@ -465,14 +462,25 @@
 	/* Draw the current histogram */
 	function draw () {
 		// Draw the line between the points -- for some reason css wasn't working so did styling here 
-		svg_paths[svg_paths.length - 1].datum(histograms[histogram])
-			.attr("d", hist_lines[hist_lines.length - 1])
-			.attr("fill", "none")
-			.attr("stroke", hist_colors[histogram])
-			.attr("stroke-width", 2);
+		// svg_paths[svg_paths.length - 1].datum(histograms[histogram])
+		// 	.attr("d", hist_lines[hist_lines.length - 1])
+		// 	.attr("fill", "none")
+		// 	.attr("stroke", hist_colors[histogram])
+		// 	.attr("stroke-width", 2);
 
-		// TODO: can sort by id to make sure points are in correct order 
-		// (if change things in form view)
+		// Draw all histograms 
+		var hi = 0;
+		for (h in histograms) {
+			svg_paths[hi].datum(histograms[h])
+				.attr("d", hist_lines[hi])
+				.attr("fill", "none")
+				.attr("stroke", hist_colors[h])
+				.attr("stroke-width", 2);
+			hi++;
+		}
+
+		// Only draw points for currently-selected histogram, in editing mode 
+		if (!editing) return;
 
 		// Join new points with old ones  
 		var circle = svg.selectAll("circle").data(histograms[histogram], function (d) { return d; });
@@ -878,20 +886,6 @@
 
 	});
 
-	// Form validation to ensure numbers are numeric
-	// $.formUtils.addValidator({
-	// 	name: 'is_number',
-	// 	validatorFunction: function (val, $el, config, language, $form) {
-	// 		var ptype = $el.attr('class');
-
-	// 		if (ptype === 'dv dose') currentUIPointIsValid[0] = !isNaN(val);
-	// 		else currentUIPointIsValid[1] = !isNaN(val);
-
-	// 		return currentUIPointIsValid[0] && currentUIPointIsValid[1];
-	// 	},
-	// 	errorMessage: 'Enter a number'
-	// });
-
 	// Function used to validate if a coordinate doesn't violate the constraints
 	var coordValidator = function (coordIndex, classType, scale, $el, val, validator) {
 		// Only concerned with x value 
@@ -1049,6 +1043,8 @@
 			$("#save").show();
 
 			editing = reediting = true;
+
+			draw();
 		});
 
 		// TODO: Can place ajax call or something here to save the values 
@@ -1065,6 +1061,8 @@
 	TO DO 
 
 	important
+	- draw points when focus on one histogram 
+	- make sure histograms don't intermingle 
 	- fix color problem that arises on form validation 
 	- can't have negative numbers 
 	- delete histogram functionality
