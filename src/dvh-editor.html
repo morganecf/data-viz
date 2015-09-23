@@ -179,6 +179,18 @@
 		    border: 0;
 		    margin-bottom: 10px;
 		}
+		#delete-histogram {
+			width: 100%;
+			height: 30px;
+			margin-left: -12px;
+    		margin-top: -6px;
+		}
+		.btn-delete {
+			border: 0;
+			background: none;
+			height: 30px;
+			width: 30px;
+		}
 		.histogram-item-name {
 			float: left;
 			color: #333;
@@ -461,19 +473,13 @@
 
 	/* Draw the current histogram */
 	function draw () {
-		// Draw the line between the points -- for some reason css wasn't working so did styling here 
-		// svg_paths[svg_paths.length - 1].datum(histograms[histogram])
-		// 	.attr("d", hist_lines[hist_lines.length - 1])
-		// 	.attr("fill", "none")
-		// 	.attr("stroke", hist_colors[histogram])
-		// 	.attr("stroke-width", 2);
-
 		// Draw all histograms 
 		var hi = 0;
 		for (h in histograms) {
 			svg_paths[hi].datum(histograms[h])
 				.attr("d", hist_lines[hi])
 				.attr("fill", "none")
+				.attr("id", h + "-path")
 				.attr("stroke", hist_colors[h])
 				.attr("stroke-width", 2);
 			hi++;
@@ -499,6 +505,7 @@
 				$($(".points").children()[i]).attr('id', id);
 				return id; 
 			})
+			.attr("class", function (d) { return histogram + "-point" })
 			.on("mousedown", function (d) { 
 				// This node is being both selected and dragged
 				selected = dragged = d;
@@ -676,7 +683,7 @@
 			}
 
 			// Update the form UI
-			var form_point = $("div#" + dragged[2]).children();
+			var form_point = $("#" + histogram).find("#" + dragged[2]).children();
 			var coords = pixelToCoord(dragged);
 			$(form_point[0]).val(coords[0]);
 			$(form_point[1]).val(coords[1]);
@@ -1032,8 +1039,13 @@
 		// Hide the save button 
 		$("#save").hide();
 
+		// Keeps track of if we can click on a histogram to re-display it 
+		var show_hist = true;
+
 		// Switch back to edit view when click on a histogram 
 		$(".histogram-list-item").click(function () {
+			if (!show_hist) return; 
+
 			// Hide current histogram
 			$("#" + histogram).hide();
 
@@ -1046,6 +1058,69 @@
 
 			draw();
 		});
+
+		// Display delete button on hover 
+		$(".histogram-list-item").mouseenter(function () {
+			// Don't do anything if we've already initialized the delete button
+			if ($("#delete-histogram").length > 0) return;
+
+			// Overlay with div containing delete button 
+			var del = "<div id='delete-histogram'><button type='button' class='btn btn-default btn-delete'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div>";
+			$("#" + $(this).first().attr("id")).append($(del));
+
+			// Disable show histogram button 
+			$(".btn-delete").mouseenter(function () { show_hist = false; }).mouseleave(function () { show_hist = true; });
+
+			// Delete a histogram 
+			$(".btn-delete").click(function () {
+				var hist = $(this).parent().parent().attr("id");
+				var name = $(this).parent().parent().find(".histogram-item-name").first()[0].innerHTML; 
+					// no idea why val() isn't working
+
+				// Double check with user 
+				var deleteHist = confirm("Are you sure you want to delete this histogram?");
+				if (deleteHist) {
+					// Remove list item 
+					$("#" + hist).remove();
+
+					// Remove form points
+					hist = hist.replace('-item-name', '');
+					$("#" + hist).remove();
+
+					// Remove svg line 
+					$("#" + hist + "-path").remove();
+
+					// Remove data for svg line 
+					var index = parseInt(hist.replace('histogram', ''));
+					svg_paths.splice(index, 1);
+
+					// Remove function for svg line
+					hist_lines.splice(index, 1);
+
+					// Remove svg points 
+					$("." + hist + "-point").remove();
+
+					// Remove data points 
+					delete histograms[hist];
+
+					// Remove UI data points 
+					delete histogramsUI[name];
+
+					// Remove color 
+					delete hist_colors[hist];
+					colors.splice(index, 1)
+
+					// No histogram is currently selected
+					histogram = null;
+
+					// We are no longer in editing mode
+					editing = false;
+				}
+			});
+		});
+
+		// Hide delete button on mouseout 
+		$(".histogram-list-item").mouseleave(function () { $("#delete-histogram").remove(); });
 
 		// TODO: Can place ajax call or something here to save the values 
 	});
@@ -1061,17 +1136,17 @@
 	TO DO 
 
 	important
-	- draw points when focus on one histogram 
-	- make sure histograms don't intermingle 
-	- fix color problem that arises on form validation 
-	- can't have negative numbers 
 	- delete histogram functionality
+	- delete point functionality (in form)
+	- visual indication of form/svg point correspondence 
+	- can't have negative numbers
+	- fix color problem that arises on form validation  
 	- axis labels
 	- change x-axis to % 
 	- fix top of grid
-	- visual indication of form/svg point correspondence 
 	- better selection (make a point more easily grabbable)
 	- clear crosshairs when not in edit mode 
+	- reverse colors of form UI 
 
 	less important
 	- nicer tooltip (look at plot.ly tooltips)
