@@ -473,6 +473,7 @@
 
 	/* Draw the current histogram */
 	function draw () {
+
 		// Draw all histograms 
 		var hi = 0;
 		for (h in histograms) {
@@ -595,7 +596,7 @@
 		var pi = histograms[histogram].length - 1;
 		var prev = histograms[histogram][pi];
 		if (prev && !isMonotonicFunction([pos.x, pos.y], prev)) return;
-		
+
 		// Add a point to list and to input form 
 		var pid = 'point' + histograms[histogram].length;
 		var point = d3.mouse(svg.node());
@@ -1115,6 +1116,9 @@
 
 					// We are no longer in editing mode
 					editing = false;
+
+					// Relabel with new ids to ensure ordering stays the same
+					relabel(hist);
 				}
 			});
 		});
@@ -1128,6 +1132,29 @@
 	// Add a scrollable area to the histogram area 
 	$(function () { $("#histogram-list").slimScroll({height: "400px"}); });
 
+	// Function to relabel attributes with correct cardinal ordering 
+	// based on histogram that got deleted 
+	function relabel (deleted) {
+		var n = deleted.replace('histogram', '') + 1;
+
+		// Decrement id by 1 for all the ones after the histogram that got deleted
+		var hist, histnew, temp;
+		for (var i = n; i <= Object.keys(histograms).length; i++) {
+			hist = 'histogram' + i;
+			histnew = 'histogram' + (i - 1);
+			$('#' + hist).attr('id', histnew);
+			$('#' + hist + '-item-name').attr('id', histnew + '-item-name');
+			$('#' + hist + '-path').attr('id', histnew + '-path');
+			$('.histogram' + i + '-point').attr('class', '.histogram' + (i - 1) + '-point');
+
+			histograms[histnew] = histograms[hist];
+			delete histograms[hist];
+
+			hist_colors[histnew] = hist_colors[hist];
+			delete hist_colors[hist];
+		}
+	}
+
 </script>
 
 </html>
@@ -1135,8 +1162,11 @@
 <!-- 
 	TO DO 
 
+	bugs 
+	- first histogram doesn't delete
+	- first histogram gets deleted on save after reediting 
+
 	important
-	- delete histogram functionality
 	- delete point functionality (in form)
 	- visual indication of form/svg point correspondence 
 	- can't have negative numbers
