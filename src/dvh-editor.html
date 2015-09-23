@@ -336,10 +336,10 @@
       	height = 800 - margin.top - margin.bottom;
 
     // Boundaries
-    var xmax = 8000, ymax = 1; 				// in whatever units we're using  
+    var xmax = 1, ymax = 1; 				// in whatever units we're using  
     var xmax_px = 700, ymax_px = 500;		// in pixels 
 
-	// Start the x-scale with an input domain of 0-8000
+	// Start the x-scale with an input domain of 0-1.0
 	var xscale = d3.scale.linear().domain([0, xmax]).range([0, xmax_px]);
 	var xscale_inverse = d3.scale.linear().domain([0, xmax_px]).range([0, xmax]);
 
@@ -586,7 +586,7 @@
 
 	/* Convert from pixel to coordinate value.  */
 	function pixelToCoord (px) {
-		var x = Math.round(xscale_inverse(px[0]));
+		var x = Math.round(xscale_inverse(px[0]) * 1000) / 1000;
 		var y = Math.round(yscale_inverse(px[1]) * 1000) / 1000;
 		return [x, y];
 	}
@@ -1206,22 +1206,17 @@
 	- first histogram gets deleted on save after reediting 
 
 	important
-	- delete point functionality (in form) 
+	- change x-axis to % 
 	- can't have negative numbers  
 	- axis labels
-	- change x-axis to % 
 	- fix top of grid
-
-	medium importance
-	- fix color problem that arises on form validation
 	- better delete histogram button (on side)
+
+	less important
+	- fix color problem that arises on form validation
 	- visual indication of form/svg point correspondence
 	- better selection (make a point more easily grabbable)
 	- clear crosshairs when not in edit mode 
 	- reverse colors of form UI 
-
-	less important
-	- nicer tooltip (look at plot.ly tooltips)
-	- maybe just make the whole path red if violate constraints? instead of not letting them do anything 
 	
 --> 
