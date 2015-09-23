@@ -185,15 +185,27 @@
 			margin-left: -12px;
     		margin-top: -6px;
 		}
-		.btn-delete {
+		.histogram-item-name {
+			float: left;
+			color: #333;
+		}
+
+		.btn-delete-histogram {
 			border: 0;
 			background: none;
 			height: 30px;
 			width: 30px;
 		}
-		.histogram-item-name {
-			float: left;
-			color: #333;
+		.btn-delete-point {
+			position: absolute;
+		    margin-top: -26px;
+		    margin-left: 115px;
+		    border: 0;
+		    background: none;
+		}
+		.btn-delete-point:hover {
+			border: 0;
+			background: none;
 		}
 
 		/* Num points style #1 */
@@ -503,7 +515,7 @@
 				var id = 'point' + i;
 				d[2] = id;
 				// Corresponding form should have the same id
-				$($(".points").children()[i]).attr('id', id);
+				$($("#" + histogram).find(".points").children()[i]).attr('id', id);
 				return id; 
 			})
 			.attr("class", function (d) { return histogram + "-point" })
@@ -604,7 +616,7 @@
 		histograms[histogram].push(selected = point);
 
 		// Add point to the input form by simulating a click
-		$("#" + histogram).find("button").trigger("click", {dose: pos.xrel, volume: pos.yrel, pid: pid});
+		$("#" + histogram).find("#add-point").trigger("click", {dose: pos.xrel, volume: pos.yrel, pid: pid});
 
 		// Draw everything
 		draw();
@@ -708,11 +720,11 @@
 	}
 
 	/* Delete a selected point */
-	function keydown() {
+	function keydown(k) {
 		if (!selected || !deletable || !editing) return;
 
 		var points = histograms[histogram];
-		var key = d3.event.keyCode;
+		var key = d3.event ? d3.event.keyCode : k;
 
 		// User has pressed delete or backspace 
 		if (key === 8 || key === 46) {
@@ -794,7 +806,7 @@
 		editing = true;
 
 		// To add a new point to the input form
-		$("#" + histogram).find("button").click(function (event, data) {
+		$("#" + histogram).find("#add-point").click(function (event, data) {
 
 			// If the last point is blank/incomplete, remove
 			var last = $($(".point")[$(".point").length - 1]);
@@ -889,6 +901,33 @@
 				var i = parseInt(pid.replace('point', ''));
 				selected = histograms[histogram][i];
 			});
+
+			// To delete the point
+			$(".point").mouseenter(function () {
+				if ($("#delete-point").length > 0) return;
+
+				// Add a delete button
+				var d = $("<div id='delete-point'><button type='button' class='btn btn-default btn-delete-point'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div>");
+				$("div#" + $(this).attr("id")).append(d);
+
+				// Delete point on click
+				$(".btn-delete-point").click(function () {
+					// Select the point to be deleted 
+					var pid = $(this).parent().parent().attr('id');
+					selected = d3.select("#" + pid).data()[0];
+
+					// Update 
+					draw();
+
+					// Simulate graphical delete
+					keydown(8);
+
+					// We don't need you anymore
+					$("#delete-point").remove();
+
+				});
+
+			}).mouseleave(function () { $("#delete-point").remove(); });
 
 		}); 
 
@@ -1066,14 +1105,14 @@
 			if ($("#delete-histogram").length > 0) return;
 
 			// Overlay with div containing delete button 
-			var del = "<div id='delete-histogram'><button type='button' class='btn btn-default btn-delete'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div>";
+			var del = "<div id='delete-histogram'><button type='button' class='btn btn-default btn-delete-histogram'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div>";
 			$("#" + $(this).first().attr("id")).append($(del));
 
 			// Disable show histogram button 
-			$(".btn-delete").mouseenter(function () { show_hist = false; }).mouseleave(function () { show_hist = true; });
+			$(".btn-delete-histogram").mouseenter(function () { show_hist = false; }).mouseleave(function () { show_hist = true; });
 
 			// Delete a histogram 
-			$(".btn-delete").click(function () {
+			$(".btn-delete-histogram").click(function () {
 				var hist = $(this).parent().parent().attr("id");
 				var name = $(this).parent().parent().find(".histogram-item-name").first()[0].innerHTML; 
 					// no idea why val() isn't working
@@ -1167,13 +1206,16 @@
 	- first histogram gets deleted on save after reediting 
 
 	important
-	- delete point functionality (in form)
-	- visual indication of form/svg point correspondence 
-	- can't have negative numbers
-	- fix color problem that arises on form validation  
+	- delete point functionality (in form) 
+	- can't have negative numbers  
 	- axis labels
 	- change x-axis to % 
 	- fix top of grid
+
+	medium importance
+	- fix color problem that arises on form validation
+	- better delete histogram button (on side)
+	- visual indication of form/svg point correspondence
 	- better selection (make a point more easily grabbable)
 	- clear crosshairs when not in edit mode 
 	- reverse colors of form UI 
