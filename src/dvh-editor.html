@@ -52,6 +52,13 @@
   			opacity: .5;
   		}
 
+  		.label {
+  			stroke: none;
+  			fill: #333;
+  			font-size: 20px;
+  			opacity: 0.5;
+  		}
+
   		/*.hist-line path, .hist-line line {
 			fill: none;
 			stroke: steelblue;
@@ -339,6 +346,9 @@
     var xmax = 1, ymax = 1; 				// in whatever units we're using  
     var xmax_px = 700, ymax_px = 500;		// in pixels 
 
+    // Number of significant digits we want
+    var sig = 1000;
+
 	// Start the x-scale with an input domain of 0-1.0
 	var xscale = d3.scale.linear().domain([0, xmax]).range([0, xmax_px]);
 	var xscale_inverse = d3.scale.linear().domain([0, xmax_px]).range([0, xmax]);
@@ -350,17 +360,17 @@
 	// Create the x-axis 
 	var xaxis = d3.svg.axis()
 		.scale(xscale)
-		.innerTickSize(-height)
+		.innerTickSize(-ymax_px)
     	.outerTickSize(0)
-    	.tickPadding(10)
+    	.tickPadding(5)
 		.orient("bottom");
 
 	// Create the y-axis
 	var yaxis = d3.svg.axis()
 		.scale(yscale)
-		.innerTickSize(-width)
+		.innerTickSize(-xmax_px)
 	    .outerTickSize(0)
-	    .tickPadding(10)
+	    .tickPadding(5)
 		.orient("left");
 
 	// The grid
@@ -414,6 +424,24 @@
 		.attr("class", "axis")
 		.attr("transform", "translate(0," + (height - 250) + ")")
 		.call(xaxis);
+
+	// Create the x-axis label
+	svg.append("text")
+	    .attr("class", "x label")
+	    .attr("text-anchor", "end")
+	    .attr("x", width / 2)
+	    .attr("y", height - 210)
+	    .text("Dose");
+
+    // Create the y-axis label
+    svg.append("text")
+	    .attr("class", "y label")
+	    .attr("text-anchor", "end")
+	    .attr("y", -40)
+	    .attr("x", -(height / 3.3))
+	    .attr("dy", ".75em")
+	    .attr("transform", "rotate(-90)")
+	    .text("Volume");
 
 	// Will contain the coordinates when client moves cursor 
 	var tooltip = svg.append("text")
@@ -586,8 +614,8 @@
 
 	/* Convert from pixel to coordinate value.  */
 	function pixelToCoord (px) {
-		var x = Math.round(xscale_inverse(px[0]) * 1000) / 1000;
-		var y = Math.round(yscale_inverse(px[1]) * 1000) / 1000;
+		var x = Math.round(xscale_inverse(px[0]) * sig) / sig;
+		var y = Math.round(yscale_inverse(px[1]) * sig) / sig;
 		return [x, y];
 	}
 
@@ -951,6 +979,9 @@
 
 		var inRange = true;
 
+		// The smallest unit that can violate identity b/w 2 numbers
+		var u = 1 / sig;
+
 		// Case 1: first point 
 		if (n === 0) {
 			if (points.length > 1) {
@@ -958,12 +989,12 @@
 				// x 
 				if (coordIndex === 0) {
 					inRange = c < points[1][0];
-					validator.errorMessage += '0 - ' + (pixelToCoord(points[1])[0] - 1);
+					validator.errorMessage += '0 - ' + (pixelToCoord(points[1])[0] - u);
 				}
 				// y
 				else {
 					inRange = c < points[1][1];
-					validator.errorMessage += pixelToCoord(points[1])[1] + ' - ' + ymax;
+					validator.errorMessage += (pixelToCoord(points[1])[1] + u) + ' - ' + ymax;
 				}
 			}
 		}
@@ -972,12 +1003,12 @@
 			// x
 			if (coordIndex === 0) {
 				inRange = c > points[n - 1][0];
-				validator.errorMessage += (pixelToCoord(points[n - 1])[0] + 1) + ' - ' + xmax;
+				validator.errorMessage += (pixelToCoord(points[n - 1])[0] + u) + ' - ' + xmax;
 			}
 			// y
 			else {
 				inRange = c > points[n - 1][1];
-				validator.errorMessage += '0 - ' + pixelToCoord(points[n - 1])[1];
+				validator.errorMessage += '0 - ' + (pixelToCoord(points[n - 1])[1] - u);
 			}
 		}
 		// Case 3: points in between first and last
@@ -985,17 +1016,20 @@
 			
 			if (coordIndex === 0) {
 				inRange = c > points[n - 1][0] && c < points[n + 1][0];
-				validator.errorMessage += (pixelToCoord(points[n - 1])[coordIndex] + 1) + ' - ' + (pixelToCoord(points[n + 1])[coordIndex] - 1);
+				validator.errorMessage += (pixelToCoord(points[n - 1])[0] + u) + ' - ' + (pixelToCoord(points[n + 1])[0] - u);
 			}
 			else {
 				inRange = c < points[n + 1][1] && c > points[n - 1][1];
-				validator.errorMessage += pixelToCoord(points[n + 1])[1] + ' - ' + pixelToCoord(points[n - 1])[1];
+				validator.errorMessage += (pixelToCoord(points[n + 1])[1] + u) + ' - ' + (pixelToCoord(points[n - 1])[1] - u);
 			}
 		}
 
+		// No negative numbers allowed
+		inRange = inRange && c >= 0;
+
 		currentUIPointIsValid[coordIndex] = inRange;
 
-		return {isValid: inRange, errMsg: validator.errorMessage};
+		return inRange;
 	};
 
 	// Form validation to ensure users only enter numbers that don't violate constraints
@@ -1005,9 +1039,7 @@
 			// Only validate the x value 
 			return coordValidator(0, 'dv dose', xscale, $el, val, this);
 		},
-		errorMessageKey: 'badCoord'
-
-		// todo: formatting
+		errorMessageKey: 'badCoordX'
 	});
 	$.formUtils.addValidator({
 		name: 'y_in_range',
@@ -1015,9 +1047,7 @@
 			// Only validate the y value 
 			return coordValidator(1, 'dv volume', yscale, $el, val, this);
 		},
-		errorMessageKey: 'badCoord'
-
-		// TODO: formatting
+		errorMessageKey: 'badCoordY'
 	});
 
 	// The form validation configuration 
@@ -1200,17 +1230,15 @@
 
 <!-- 
 	TO DO 
-
 	bugs 
 	- first histogram doesn't delete
 	- first histogram gets deleted on save after reediting 
+	- delete point button shouldn't have background on click
+	- label spacing should be better 
 
-	important
-	- change x-axis to % 
-	- can't have negative numbers  
-	- axis labels
-	- fix top of grid
+	important 
 	- better delete histogram button (on side)
+	- form control warnings formatting
 
 	less important
 	- fix color problem that arises on form validation
