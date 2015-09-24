@@ -1210,8 +1210,6 @@
 			$("#delete-histogram").remove(); 
 			$("#" + $(this).attr("id")).find(".num-points").show();
 		});
-
-		// TODO: Can place ajax call or something here to save the values 
 	});
 
 	// Add a scrollable area to the histogram area 
@@ -1220,13 +1218,14 @@
 	// Function to relabel attributes with correct cardinal ordering 
 	// based on histogram that got deleted 
 	function relabel (deleted) {
-		var n = deleted.replace('histogram', '') + 1;
+		var n = parseInt(deleted.replace('histogram', '')) + 1;
 
 		// Decrement id by 1 for all the ones after the histogram that got deleted
 		var hist, histnew, temp;
 		for (var i = n; i <= Object.keys(histograms).length; i++) {
 			hist = 'histogram' + i;
 			histnew = 'histogram' + (i - 1);
+
 			$('#' + hist).attr('id', histnew);
 			$('#' + hist + '-item-name').attr('id', histnew + '-item-name');
 			$('#' + hist + '-path').attr('id', histnew + '-path');
