@@ -653,6 +653,12 @@
 
 	/* Function to move a point as well as display the x,y coordinates */
 	function mousemove () {
+		// Display/hide tooltip and crosshairs depending on edit mode
+		chx.style("visibility", function (d) { return editing ? "visible" : "hidden"; });
+		chy.style("visibility", function (d) { return editing ? "visible" : "hidden"; });
+		tooltip.style("visibility", function (d) { return editing ? "visible" : "hidden"; });
+
+		// Don't do anything else if not editing 
 		if (!editing) return;
 
 		// Get mouse position 
@@ -664,7 +670,6 @@
 		// Show the crosshair lines 
 		chx.attr("d", lx([{x: pos.x, y: pos.y}, {x: pos.x, y: 500}]));
 		chy.attr("d", ly([{x: pos.x, y: pos.y}, {x: 0, y: pos.y}]));
-
 
 		// If we're not dragging, toggle crosshair colors depending on constraints 
 		if (!dragged) {
@@ -1154,8 +1159,6 @@
 			$(".btn-delete-histogram").click(function () {
 				var hist = $(this).parent().attr("id");
 				var name = $(this).parent().parent().find(".histogram-item-name").first().attr('id'); 
-				console.log('name:', name);
-				console.log('hist:', hist);
 
 				// Double check with user 
 				var deleteHist = confirm("Are you sure you want to delete this histogram?");
@@ -1247,17 +1250,13 @@
 	- first histogram sometimes doesn't delete
 	- first histogram sometimes gets deleted on save after reediting 
 
-	important 
-	- form control warnings formatting
-	- truncate characters of histogram name so don't ruin formatting
-
 	less important
+	- form control warnings formatting
 	- delete histogram/points buttons should slide in and out
 	- label spacing should be better 
 	- visual indication of form/svg point correspondence
 	- fix color problem that arises on form validation
 	- reverse colors of form UI 
 	- better selection (make a point more easily grabbable)
-	- clear crosshairs when not in edit mode 
 	
 --> 
