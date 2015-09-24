@@ -795,9 +795,13 @@
 
 	// Creates a list group item for the list of histograms
 	var histogramItem = function (name, n) {
+		// Only keep the first 14 characters of the name
+		var display = name; 
+		if (display.length > 14) display = name.slice(0, 14) + '...';
+
 		var hid = histogram + '-item-name'
 		var s = '<button type="button" class="btn btn-default histogram-list-item" id=' + hid + '>';
-		s += '<div class="histogram-item-name">' + name + '</div>'
+		s += '<div class="histogram-item-name" id=' + name + '>' + display + '</div>'
 		s += '<div class="num-points">' + n + '</div></button>';
 		return $(s);
 	};
@@ -1063,16 +1067,12 @@
 		borderColorOnError: ''			// No error signaling except for text with suggested range
 	});
 
-	// Save all the add-point buttons - need to keep track of them
-	// because detach them to prevent user from clicking multiple 
-	// times 
-	var add_points = {};
-
 	// Save the current histogram
 	$("#save").click(function () {
 		// Get the histogram name 
 		var name = $("#" + histogram).find(".histogram-name").first().val();
 
+		// Basic validation
 		if (name.length == 0) {
 			alert("Please name your histogram.");
 			return;
@@ -1141,24 +1141,21 @@
 			if ($("#delete-histogram").length > 0) return;
 
 			// Hide the number of points (will be replaced by delete button)
-			$(".num-points").hide();
+			$('#' + $(this).attr('id')).find(".num-points").hide();
 
 			// Overlay with div containing delete button 
 			var del = $("<button id='delete-histogram' type='button' class='btn btn-default btn-delete-histogram'><span class='glyphicon glyphicon-remove remove-histogram' aria-hidden='true'></span></button>");
-			//del.hide();
 			$("#" + $(this).first().attr("id")).append(del);
-
-			// Slide the delete div in 
-			//del.slideToggle("fast");
 
 			// Disable show histogram button 
 			$(".btn-delete-histogram").mouseenter(function () { show_hist = false; }).mouseleave(function () { show_hist = true; });
 
 			// Delete a histogram 
 			$(".btn-delete-histogram").click(function () {
-				var hist = $(this).parent().parent().attr("id");
-				var name = $(this).parent().parent().find(".histogram-item-name").first()[0].innerHTML; 
-					// no idea why val() isn't working
+				var hist = $(this).parent().attr("id");
+				var name = $(this).parent().parent().find(".histogram-item-name").first().attr('id'); 
+				console.log('name:', name);
+				console.log('hist:', hist);
 
 				// Double check with user 
 				var deleteHist = confirm("Are you sure you want to delete this histogram?");
@@ -1208,9 +1205,7 @@
 		// Hide delete button on mouseout 
 		$(".histogram-list-item").mouseleave(function () { 
 			$("#delete-histogram").remove(); 
-			$(".num-points").show();
-
-			//$("#delete-histogram").slideToggle("fast");
+			$("#" + $(this).attr("id")).find(".num-points").show();
 		});
 
 		// TODO: Can place ajax call or something here to save the values 
@@ -1249,8 +1244,8 @@
 <!-- 
 	TO DO 
 	bugs 
-	- first histogram doesn't delete
-	- first histogram gets deleted on save after reediting 
+	- first histogram sometimes doesn't delete
+	- first histogram sometimes gets deleted on save after reediting 
 
 	important 
 	- form control warnings formatting
