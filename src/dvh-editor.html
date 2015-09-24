@@ -187,53 +187,54 @@
 		    margin-bottom: 10px;
 		}
 		#delete-histogram {
+			width: 17%;
+		    height: 30px;
+		    margin-right: -7px;
+		    margin-top: -6px;
+		    background: #CD5C5C;
+		    float: right;
+		    height: 30px;
+		    border-radius: 0;
+    	}
+		/*#delete-histogram {
 			width: 100%;
 			height: 30px;
 			margin-left: -12px;
     		margin-top: -6px;
-		}
+		}*/
 		.histogram-item-name {
 			float: left;
 			color: #333;
 		}
 
+		.remove-histogram {
+			margin-left: -6px;
+		}
 		.btn-delete-histogram {
 			border: 0;
 			background: none;
 			height: 30px;
 			width: 30px;
 		}
+
 		.btn-delete-point {
-			position: absolute;
-		    margin-top: -26px;
-		    margin-left: 115px;
+		    position: absolute;
+		    margin-top: -22px;
+		    margin-left: 126px;
 		    border: 0;
-		    background: none;
+		    background: #CD5C5C;
+		    border-radius: 0;
+		    width: 10px;
+		    height: 22px;
 		}
 		.btn-delete-point:hover {
-			border: 0;
-			background: none;
+			background: #CD5C5C;
+		}
+		.remove-point {
+		    margin-left: -7px;
+		    top: -3px;
 		}
 
-		/* Num points style #1 */
-		.num-points1 {
-			color: steelblue;
-		    border-radius: 100%;
-		    border: 2px solid steelblue;
-		    width: 17%;
-		    float: right;
-		    margin-top: -3px;
-		}
-		/* Num points style #2 */
-		.num-points2 {
-		    color: #fff;
-		    border-radius: 100%;
-		    width: 20%;
-		    float: right;
-		    margin-top: -1px;
-		    background: #CD5C5C;
-		}
-		/* Num points style #3 */
 		.num-points {
 		    color: #fff;
 		    width: 17%;
@@ -242,12 +243,12 @@
 		    padding-top: 5px;
 		    margin-top: -6px;
 		    margin-right: -7px;
-		    /*background: #CD5C5C;*/
 		}
 
-		.valid {
-			/*border: 2px solid black;*/
+		button:focus {
+ 			outline: 0 !important;
 		}
+		/*.btn:focus {outline: none;box-shadow: none;border:2px solid transparent;}*/
 
 	</style>
 
@@ -935,23 +936,28 @@
 				if ($("#delete-point").length > 0) return;
 
 				// Add a delete button
-				var d = $("<div id='delete-point'><button type='button' class='btn btn-default btn-delete-point'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div>");
+				var d = $("<div id='delete-point'><button type='button' class='btn btn-default btn-delete-point'><span class='glyphicon glyphicon-remove remove-point' aria-hidden='true'></span></button></div>");
 				$("div#" + $(this).attr("id")).append(d);
 
 				// Delete point on click
 				$(".btn-delete-point").click(function () {
-					// Select the point to be deleted 
 					var pid = $(this).parent().parent().attr('id');
-					selected = d3.select("#" + pid).data()[0];
 
-					// Update 
-					draw();
+					// Double check with user about deleting point
+					var deletePoint = confirm("Delete point?");
+					if (deletePoint) {
+						// Select the point to be deleted 
+						selected = d3.select("#" + pid).data()[0];
 
-					// Simulate graphical delete
-					keydown(8);
+						// Update 
+						draw();
 
-					// We don't need you anymore
-					$("#delete-point").remove();
+						// Simulate graphical delete
+						keydown(8);
+
+						// We don't need you anymore
+						$("#delete-point").remove();
+					}
 
 				});
 
@@ -1134,9 +1140,16 @@
 			// Don't do anything if we've already initialized the delete button
 			if ($("#delete-histogram").length > 0) return;
 
+			// Hide the number of points (will be replaced by delete button)
+			$(".num-points").hide();
+
 			// Overlay with div containing delete button 
-			var del = "<div id='delete-histogram'><button type='button' class='btn btn-default btn-delete-histogram'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div>";
-			$("#" + $(this).first().attr("id")).append($(del));
+			var del = $("<button id='delete-histogram' type='button' class='btn btn-default btn-delete-histogram'><span class='glyphicon glyphicon-remove remove-histogram' aria-hidden='true'></span></button>");
+			//del.hide();
+			$("#" + $(this).first().attr("id")).append(del);
+
+			// Slide the delete div in 
+			//del.slideToggle("fast");
 
 			// Disable show histogram button 
 			$(".btn-delete-histogram").mouseenter(function () { show_hist = false; }).mouseleave(function () { show_hist = true; });
@@ -1193,7 +1206,12 @@
 		});
 
 		// Hide delete button on mouseout 
-		$(".histogram-list-item").mouseleave(function () { $("#delete-histogram").remove(); });
+		$(".histogram-list-item").mouseleave(function () { 
+			$("#delete-histogram").remove(); 
+			$(".num-points").show();
+
+			//$("#delete-histogram").slideToggle("fast");
+		});
 
 		// TODO: Can place ajax call or something here to save the values 
 	});
@@ -1233,18 +1251,18 @@
 	bugs 
 	- first histogram doesn't delete
 	- first histogram gets deleted on save after reediting 
-	- delete point button shouldn't have background on click
-	- label spacing should be better 
 
 	important 
-	- better delete histogram button (on side)
 	- form control warnings formatting
+	- truncate characters of histogram name so don't ruin formatting
 
 	less important
-	- fix color problem that arises on form validation
+	- delete histogram/points buttons should slide in and out
+	- label spacing should be better 
 	- visual indication of form/svg point correspondence
+	- fix color problem that arises on form validation
+	- reverse colors of form UI 
 	- better selection (make a point more easily grabbable)
 	- clear crosshairs when not in edit mode 
-	- reverse colors of form UI 
 	
 --> 
