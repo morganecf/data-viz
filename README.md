@@ -4,6 +4,7 @@ An accumulation of data visualizations.
 ### My data visualizations
 - US incarcerations by gender and ethnicity: http://cs.mcgill.ca/~mciot/incarceration.html 
 - Personal geolocation based on facebook messages: http://cs.mcgill.ca/~mciot/journey.html
+- Dose-Volume histogram editor: http://cs.mcgill.ca/~mciot/dvh-editor.html
 
 #### Data sources
 - Gov't data: http://catalog.data.gov/
@@ -17,6 +18,7 @@ An accumulation of data visualizations.
   - This guy did a cool visualization using it: http://www.danielforsyth.me/mapping-nyc-taxi-data/
 - TONS more: http://www.kdnuggets.com/datasets/index.html
 
-#### Data visualizations
+#### Data visualizations I like
 - A day in the life of a NYC taxi: http://nyctaxi.herokuapp.com/
 - 3D tour of NASDAQ: http://graphics.wsj.com/3d-nasdaq/
+- Vocabulary of hip-hop artists: http://poly-graph.co/vocabulary.html
