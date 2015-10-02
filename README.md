@@ -7,6 +7,7 @@ An accumulation of data visualizations.
 - Dose-Volume histogram editor: http://cs.mcgill.ca/~mciot/dvh-editor.html
 
 #### Data sources
+- US University data: https://collegescorecard.ed.gov/
 - Gov't data: http://catalog.data.gov/
 - Public datasets: https://github.com/caesar0301/awesome-public-datasets
   - natural language, songs, healthcare, finance, complex networks, etc.
