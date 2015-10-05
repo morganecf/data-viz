@@ -5,8 +5,10 @@ An accumulation of data visualizations.
 - US incarcerations by gender and ethnicity: http://cs.mcgill.ca/~mciot/incarceration.html 
 - Personal geolocation based on facebook messages: http://cs.mcgill.ca/~mciot/journey.html
 - Dose-Volume histogram editor: http://cs.mcgill.ca/~mciot/dvh-editor.html
+- Buffy the Vampire Slayer characters by season breakdown: http://cs.mcgill.ca/~mciot/buffy/BTVS_character_chord_diagram.html
 
 #### Data sources
+- Who doctors get bribed by: https://openpaymentsdata.cms.gov/dataset/Research-Payment-Data-Detailed-Dataset-2014-Report/b22s-cyfg
 - US University data: https://collegescorecard.ed.gov/
 - Gov't data: http://catalog.data.gov/
 - Public datasets: https://github.com/caesar0301/awesome-public-datasets
