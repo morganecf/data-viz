@@ -1,0 +1,57 @@
+==================Astrid==================
+Name: Dr. Astrid O Peterson MD
+Location: Methuen, MA
+
+Overview: Dr. Astrid Peterson is a radiation oncologist in Methuen, Massachusetts and is affiliated with Lowell General Hospital. She received her medical degree from Boston University School of Medicine and has been in practice for 38 years. She is one of 2 doctors at Lowell General Hospital who specialize in Radiation Oncology.
+
+Address: 70 East Street Holy Family Hospital H. Methuen, MA 01844
+Phone: (978) 683-9209
+
+Subspecialties: General Radiation Oncology
+
+Hospital affiliations:
+	Lawrence General Hospital
+	http://health.usnews.com/best-hospitals/area/ma/lawrence-general-hospital-6141170
+	Awards:
+		None
+
+	Lowell General Hospital
+	http://health.usnews.com/best-hospitals/area/ma/lowell-general-hospital-6140428
+	Awards:
+		Regionally Ranked Hospital
+
+
+Languages:
+	None
+
+Education:
+	School: Boston University Medical Center
+	Description: Residency, General Surgery, 1977–1979
+
+	School: Boston University Medical Center
+	Description: Residency, Radiation Oncology, 1982–1985
+
+	School: Boston University Medical Center
+	Description: Residency, Radiology, 1979–1982
+
+	School: Boston University School of Medicine
+	Description: Class of 1977
+
+
+Licenses/certifications:
+	Name: American Board of Radiology
+	Description: Certified
+
+	Name: MA State Medical License
+	Description: Active through 2013
+
+
+Insurance:
+	None
+
+Awards:
+	None
+
+Publications:
+	None
+Doximity link to more publications: None

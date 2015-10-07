@@ -1,0 +1,45 @@
+==================Sun==================
+Name: Dr. Sun O. Gim MD
+Location: Los Angeles, CA
+
+Overview: Dr. Sun Gim is a radiation oncologist in Los Angeles, California. He received his medical degree from Seoul National University College of Medicine and has been in practice for 51 years.
+
+Address: 4733 W Sunset Blvd Los Angeles, CA 90027
+Phone: (323) 783-4011
+
+Subspecialties: General Radiation Oncology
+
+Hospital affiliations:
+	None
+
+Languages:
+	None
+
+Education:
+	School: Roswell Park Cancer Institute
+	Description: Residency, Radiation Oncology, 1974–1977
+
+	School: Bon Secours Cottage Health System
+	Description: Internship, Transitional Year, 1973–1974
+
+	School: Seoul National University College of Medicine
+	Description: Class of 1964
+
+
+Licenses/certifications:
+	Name: American Board of Radiology
+	Description: Certified
+
+	Name: CA State Medical License
+	Description: Active through 2013
+
+
+Insurance:
+	None
+
+Awards:
+	None
+
+Publications:
+	None
+Doximity link to more publications: None
