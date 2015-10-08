@@ -1,0 +1,707 @@
+==================New Hampshire==================
+10 cities
+	Concord 7 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/concord
+	Dover 4 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/dover
+	Franklin 1 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/franklin
+	Keene 1 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/keene
+	Lebanon 7 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/lebanon
+	Manchester 9 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/manchester
+	Nashua 22 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/nashua
+	Portsmouth 4 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/portsmouth
+	Rochester 4 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/rochester
+	Somersworth 4 http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/somersworth
+
+==================California==================
+397 cities
+	Adelanto 1 http://health.usnews.com/doctors/radiation-oncologists/california/adelanto
+	Agoura Hills 47 http://health.usnews.com/doctors/radiation-oncologists/california/agoura-hills
+	Alameda 85 http://health.usnews.com/doctors/radiation-oncologists/california/alameda
+	Albany 74 http://health.usnews.com/doctors/radiation-oncologists/california/albany
+	Alhambra 153 http://health.usnews.com/doctors/radiation-oncologists/california/alhambra
+	Aliso Viejo 41 http://health.usnews.com/doctors/radiation-oncologists/california/aliso-viejo
+	American Canyon 22 http://health.usnews.com/doctors/radiation-oncologists/california/american-canyon
+	Anaheim 82 http://health.usnews.com/doctors/radiation-oncologists/california/anaheim
+	Anderson 6 http://health.usnews.com/doctors/radiation-oncologists/california/anderson
+	Antioch 18 http://health.usnews.com/doctors/radiation-oncologists/california/antioch
+	Apple Valley 1 http://health.usnews.com/doctors/radiation-oncologists/california/apple-valley
+	Arcadia 110 http://health.usnews.com/doctors/radiation-oncologists/california/arcadia
+	Arcata 2 http://health.usnews.com/doctors/radiation-oncologists/california/arcata
+	Arroyo Grande 6 http://health.usnews.com/doctors/radiation-oncologists/california/arroyo-grande
+	Artesia 154 http://health.usnews.com/doctors/radiation-oncologists/california/artesia
+	Arvin 4 http://health.usnews.com/doctors/radiation-oncologists/california/arvin
+	Atascadero 4 http://health.usnews.com/doctors/radiation-oncologists/california/atascadero
+	Atherton 82 http://health.usnews.com/doctors/radiation-oncologists/california/atherton
+	Atwater 4 http://health.usnews.com/doctors/radiation-oncologists/california/atwater
+	Auburn 9 http://health.usnews.com/doctors/radiation-oncologists/california/auburn
+	Azusa 63 http://health.usnews.com/doctors/radiation-oncologists/california/azusa
+	Baldwin Park 96 http://health.usnews.com/doctors/radiation-oncologists/california/baldwin-park
+	Banning 4 http://health.usnews.com/doctors/radiation-oncologists/california/banning
+	Beaumont 19 http://health.usnews.com/doctors/radiation-oncologists/california/beaumont
+	Bell 174 http://health.usnews.com/doctors/radiation-oncologists/california/bell
+	Bellflower 177 http://health.usnews.com/doctors/radiation-oncologists/california/bellflower
+	Bell Gardens 176 http://health.usnews.com/doctors/radiation-oncologists/california/bell-gardens
+	Belmont 114 http://health.usnews.com/doctors/radiation-oncologists/california/belmont
+	Belvedere 62 http://health.usnews.com/doctors/radiation-oncologists/california/belvedere
+	Benicia 52 http://health.usnews.com/doctors/radiation-oncologists/california/benicia
+	Berkeley 76 http://health.usnews.com/doctors/radiation-oncologists/california/berkeley
+	Beverly Hills 144 http://health.usnews.com/doctors/radiation-oncologists/california/beverly-hills
+	Big Bear Lake 1 http://health.usnews.com/doctors/radiation-oncologists/california/big-bear-lake
+	Brawley 2 http://health.usnews.com/doctors/radiation-oncologists/california/brawley
+	Brea 90 http://health.usnews.com/doctors/radiation-oncologists/california/brea
+	Brentwood 11 http://health.usnews.com/doctors/radiation-oncologists/california/brentwood
+	Brisbane 121 http://health.usnews.com/doctors/radiation-oncologists/california/brisbane
+	Buellton 1 http://health.usnews.com/doctors/radiation-oncologists/california/buellton
+	Buena Park 132 http://health.usnews.com/doctors/radiation-oncologists/california/buena-park
+	Burbank 138 http://health.usnews.com/doctors/radiation-oncologists/california/burbank
+	Burlingame 113 http://health.usnews.com/doctors/radiation-oncologists/california/burlingame
+	Calabasas 68 http://health.usnews.com/doctors/radiation-oncologists/california/calabasas
+	Calexico 2 http://health.usnews.com/doctors/radiation-oncologists/california/calexico
+	Calimesa 21 http://health.usnews.com/doctors/radiation-oncologists/california/calimesa
+	Calistoga 10 http://health.usnews.com/doctors/radiation-oncologists/california/calistoga
+	Camarillo 10 http://health.usnews.com/doctors/radiation-oncologists/california/camarillo
+	Campbell 67 http://health.usnews.com/doctors/radiation-oncologists/california/campbell
+	Canyon Lake 9 http://health.usnews.com/doctors/radiation-oncologists/california/canyon-lake
+	Capitola 5 http://health.usnews.com/doctors/radiation-oncologists/california/capitola
+	Carlsbad 35 http://health.usnews.com/doctors/radiation-oncologists/california/carlsbad
+	Carmel By The Sea 7 http://health.usnews.com/doctors/radiation-oncologists/california/carmel-by-the-sea
+	Carpinteria 8 http://health.usnews.com/doctors/radiation-oncologists/california/carpinteria
+	Carson 148 http://health.usnews.com/doctors/radiation-oncologists/california/carson
+	Cathedral City 9 http://health.usnews.com/doctors/radiation-oncologists/california/cathedral-city
+	Ceres 7 http://health.usnews.com/doctors/radiation-oncologists/california/ceres
+	Cerritos 153 http://health.usnews.com/doctors/radiation-oncologists/california/cerritos
+	Chico 5 http://health.usnews.com/doctors/radiation-oncologists/california/chico
+	Chino 48 http://health.usnews.com/doctors/radiation-oncologists/california/chino
+	Chino Hills 55 http://health.usnews.com/doctors/radiation-oncologists/california/chino-hills
+	Chowchilla 3 http://health.usnews.com/doctors/radiation-oncologists/california/chowchilla
+	Chula Vista 49 http://health.usnews.com/doctors/radiation-oncologists/california/chula-vista
+	Citrus Heights 37 http://health.usnews.com/doctors/radiation-oncologists/california/citrus-heights
+	Claremont 34 http://health.usnews.com/doctors/radiation-oncologists/california/claremont
+	Clayton 26 http://health.usnews.com/doctors/radiation-oncologists/california/clayton
+	Clovis 9 http://health.usnews.com/doctors/radiation-oncologists/california/clovis
+	Coachella 7 http://health.usnews.com/doctors/radiation-oncologists/california/coachella
+	Colton 28 http://health.usnews.com/doctors/radiation-oncologists/california/colton
+	Commerce 172 http://health.usnews.com/doctors/radiation-oncologists/california/commerce
+	Compton 175 http://health.usnews.com/doctors/radiation-oncologists/california/compton
+	Concord 27 http://health.usnews.com/doctors/radiation-oncologists/california/concord
+	Corcoran 4 http://health.usnews.com/doctors/radiation-oncologists/california/corcoran
+	Corning 1 http://health.usnews.com/doctors/radiation-oncologists/california/corning
+	Corona 48 http://health.usnews.com/doctors/radiation-oncologists/california/corona
+	Coronado 49 http://health.usnews.com/doctors/radiation-oncologists/california/coronado
+	Corte Madera 62 http://health.usnews.com/doctors/radiation-oncologists/california/corte-madera
+	Costa Mesa 48 http://health.usnews.com/doctors/radiation-oncologists/california/costa-mesa
+	Cotati 10 http://health.usnews.com/doctors/radiation-oncologists/california/cotati
+	Covina 65 http://health.usnews.com/doctors/radiation-oncologists/california/covina
+	Cudahy 177 http://health.usnews.com/doctors/radiation-oncologists/california/cudahy
+	Culver City 148 http://health.usnews.com/doctors/radiation-oncologists/california/culver-city
+	Cupertino 71 http://health.usnews.com/doctors/radiation-oncologists/california/cupertino
+	Cypress 123 http://health.usnews.com/doctors/radiation-oncologists/california/cypress
+	Daly City 114 http://health.usnews.com/doctors/radiation-oncologists/california/daly-city
+	Dana Point 24 http://health.usnews.com/doctors/radiation-oncologists/california/dana-point
+	Danville 29 http://health.usnews.com/doctors/radiation-oncologists/california/danville
+	Davis 28 http://health.usnews.com/doctors/radiation-oncologists/california/davis
+	Del Mar 54 http://health.usnews.com/doctors/radiation-oncologists/california/del-mar
+	Desert Hot Springs 10 http://health.usnews.com/doctors/radiation-oncologists/california/desert-hot-springs
+	Diamond Bar 63 http://health.usnews.com/doctors/radiation-oncologists/california/diamond-bar
+	Dinuba 4 http://health.usnews.com/doctors/radiation-oncologists/california/dinuba
+	Dixon 15 http://health.usnews.com/doctors/radiation-oncologists/california/dixon
+	Downey 174 http://health.usnews.com/doctors/radiation-oncologists/california/downey
+	Duarte 89 http://health.usnews.com/doctors/radiation-oncologists/california/duarte
+	Dublin 73 http://health.usnews.com/doctors/radiation-oncologists/california/dublin
+	East Palo Alto 83 http://health.usnews.com/doctors/radiation-oncologists/california/east-palo-alto
+	El Cajon 53 http://health.usnews.com/doctors/radiation-oncologists/california/el-cajon
+	El Centro 2 http://health.usnews.com/doctors/radiation-oncologists/california/el-centro
+	El Cerrito 74 http://health.usnews.com/doctors/radiation-oncologists/california/el-cerrito
+	Elk Grove 30 http://health.usnews.com/doctors/radiation-oncologists/california/elk-grove
+	El Monte 124 http://health.usnews.com/doctors/radiation-oncologists/california/el-monte
+	El Segundo 142 http://health.usnews.com/doctors/radiation-oncologists/california/el-segundo
+	Emeryville 79 http://health.usnews.com/doctors/radiation-oncologists/california/emeryville
+	Encinitas 39 http://health.usnews.com/doctors/radiation-oncologists/california/encinitas
+	Escalon 10 http://health.usnews.com/doctors/radiation-oncologists/california/escalon
+	Escondido 36 http://health.usnews.com/doctors/radiation-oncologists/california/escondido
+	Eureka 2 http://health.usnews.com/doctors/radiation-oncologists/california/eureka
+	Exeter 3 http://health.usnews.com/doctors/radiation-oncologists/california/exeter
+	Fairfax 57 http://health.usnews.com/doctors/radiation-oncologists/california/fairfax
+	Fairfield 9 http://health.usnews.com/doctors/radiation-oncologists/california/fairfield
+	Farmersville 3 http://health.usnews.com/doctors/radiation-oncologists/california/farmersville
+	Fillmore 11 http://health.usnews.com/doctors/radiation-oncologists/california/fillmore
+	Folsom 37 http://health.usnews.com/doctors/radiation-oncologists/california/folsom
+	Fontana 30 http://health.usnews.com/doctors/radiation-oncologists/california/fontana
+	Fortuna 1 http://health.usnews.com/doctors/radiation-oncologists/california/fortuna
+	Foster City 122 http://health.usnews.com/doctors/radiation-oncologists/california/foster-city
+	Fountain Valley 54 http://health.usnews.com/doctors/radiation-oncologists/california/fountain-valley
+	Fowler 9 http://health.usnews.com/doctors/radiation-oncologists/california/fowler
+	Fremont 83 http://health.usnews.com/doctors/radiation-oncologists/california/fremont
+	Fullerton 102 http://health.usnews.com/doctors/radiation-oncologists/california/fullerton
+	Galt 14 http://health.usnews.com/doctors/radiation-oncologists/california/galt
+	Gardena 161 http://health.usnews.com/doctors/radiation-oncologists/california/gardena
+	Garden Grove 73 http://health.usnews.com/doctors/radiation-oncologists/california/garden-grove
+	Glendale 149 http://health.usnews.com/doctors/radiation-oncologists/california/glendale
+	Glendora 51 http://health.usnews.com/doctors/radiation-oncologists/california/glendora
+	Goleta 6 http://health.usnews.com/doctors/radiation-oncologists/california/goleta
+	Gonzales 2 http://health.usnews.com/doctors/radiation-oncologists/california/gonzales
+	Grand Terrace 28 http://health.usnews.com/doctors/radiation-oncologists/california/grand-terrace
+	Grass Valley 3 http://health.usnews.com/doctors/radiation-oncologists/california/grass-valley
+	Gridley 2 http://health.usnews.com/doctors/radiation-oncologists/california/gridley
+	Grover Beach 6 http://health.usnews.com/doctors/radiation-oncologists/california/grover-beach
+	Guadalupe 3 http://health.usnews.com/doctors/radiation-oncologists/california/guadalupe
+	Half Moon Bay 64 http://health.usnews.com/doctors/radiation-oncologists/california/half-moon-bay
+	Hanford 4 http://health.usnews.com/doctors/radiation-oncologists/california/hanford
+	Hawaiian Gardens 127 http://health.usnews.com/doctors/radiation-oncologists/california/hawaiian-gardens
+	Hawthorne 150 http://health.usnews.com/doctors/radiation-oncologists/california/hawthorne
+	Hayward 97 http://health.usnews.com/doctors/radiation-oncologists/california/hayward
+	Healdsburg 8 http://health.usnews.com/doctors/radiation-oncologists/california/healdsburg
+	Hemet 4 http://health.usnews.com/doctors/radiation-oncologists/california/hemet
+	Hercules 68 http://health.usnews.com/doctors/radiation-oncologists/california/hercules
+	Hermosa Beach 131 http://health.usnews.com/doctors/radiation-oncologists/california/hermosa-beach
+	Hesperia 4 http://health.usnews.com/doctors/radiation-oncologists/california/hesperia
+	Highland 23 http://health.usnews.com/doctors/radiation-oncologists/california/highland
+	Hillsborough 113 http://health.usnews.com/doctors/radiation-oncologists/california/hillsborough
+	Hollister 2 http://health.usnews.com/doctors/radiation-oncologists/california/hollister
+	Holtville 2 http://health.usnews.com/doctors/radiation-oncologists/california/holtville
+	Hughson 7 http://health.usnews.com/doctors/radiation-oncologists/california/hughson
+	Huntington Beach 55 http://health.usnews.com/doctors/radiation-oncologists/california/huntington-beach
+	Huntington Park 176 http://health.usnews.com/doctors/radiation-oncologists/california/huntington-park
+	Imperial 2 http://health.usnews.com/doctors/radiation-oncologists/california/imperial
+	Imperial Beach 24 http://health.usnews.com/doctors/radiation-oncologists/california/imperial-beach
+	Indian Wells 9 http://health.usnews.com/doctors/radiation-oncologists/california/indian-wells
+	Indio 9 http://health.usnews.com/doctors/radiation-oncologists/california/indio
+	Inglewood 151 http://health.usnews.com/doctors/radiation-oncologists/california/inglewood
+	Ione 3 http://health.usnews.com/doctors/radiation-oncologists/california/ione
+	Irvine 45 http://health.usnews.com/doctors/radiation-oncologists/california/irvine
+	Kerman 8 http://health.usnews.com/doctors/radiation-oncologists/california/kerman
+	Kingsburg 5 http://health.usnews.com/doctors/radiation-oncologists/california/kingsburg
+	Lafayette 76 http://health.usnews.com/doctors/radiation-oncologists/california/lafayette
+	Laguna Beach 35 http://health.usnews.com/doctors/radiation-oncologists/california/laguna-beach
+	Laguna Hills 36 http://health.usnews.com/doctors/radiation-oncologists/california/laguna-hills
+	Laguna Niguel 32 http://health.usnews.com/doctors/radiation-oncologists/california/laguna-niguel
+	Laguna Woods 38 http://health.usnews.com/doctors/radiation-oncologists/california/laguna-woods
+	La Habra 98 http://health.usnews.com/doctors/radiation-oncologists/california/la-habra
+	La Habra Heights 126 http://health.usnews.com/doctors/radiation-oncologists/california/la-habra-heights
+	Lake Elsinore 11 http://health.usnews.com/doctors/radiation-oncologists/california/lake-elsinore
+	Lake Forest 36 http://health.usnews.com/doctors/radiation-oncologists/california/lake-forest
+	Lakeport 1 http://health.usnews.com/doctors/radiation-oncologists/california/lakeport
+	Lakewood 165 http://health.usnews.com/doctors/radiation-oncologists/california/lakewood
+	La Mesa 53 http://health.usnews.com/doctors/radiation-oncologists/california/la-mesa
+	La Mirada 137 http://health.usnews.com/doctors/radiation-oncologists/california/la-mirada
+	Lancaster 2 http://health.usnews.com/doctors/radiation-oncologists/california/lancaster
+	La Palma 142 http://health.usnews.com/doctors/radiation-oncologists/california/la-palma
+	La Puente 104 http://health.usnews.com/doctors/radiation-oncologists/california/la-puente
+	La Quinta 9 http://health.usnews.com/doctors/radiation-oncologists/california/la-quinta
+	Larkspur 62 http://health.usnews.com/doctors/radiation-oncologists/california/larkspur
+	Lathrop 9 http://health.usnews.com/doctors/radiation-oncologists/california/lathrop
+	La Verne 34 http://health.usnews.com/doctors/radiation-oncologists/california/la-verne
+	Lawndale 145 http://health.usnews.com/doctors/radiation-oncologists/california/lawndale
+	Lemon Grove 51 http://health.usnews.com/doctors/radiation-oncologists/california/lemon-grove
+	Lemoore 1 http://health.usnews.com/doctors/radiation-oncologists/california/lemoore
+	Lincoln 11 http://health.usnews.com/doctors/radiation-oncologists/california/lincoln
+	Lindsay 3 http://health.usnews.com/doctors/radiation-oncologists/california/lindsay
+	Live Oak 2 http://health.usnews.com/doctors/radiation-oncologists/california/live-oak
+	Livermore 14 http://health.usnews.com/doctors/radiation-oncologists/california/livermore
+	Livingston 9 http://health.usnews.com/doctors/radiation-oncologists/california/livingston
+	Lodi 4 http://health.usnews.com/doctors/radiation-oncologists/california/lodi
+	Loma Linda 24 http://health.usnews.com/doctors/radiation-oncologists/california/loma-linda
+	Lomita 94 http://health.usnews.com/doctors/radiation-oncologists/california/lomita
+	Lompoc 4 http://health.usnews.com/doctors/radiation-oncologists/california/lompoc
+	Long Beach 115 http://health.usnews.com/doctors/radiation-oncologists/california/long-beach
+	Loomis 35 http://health.usnews.com/doctors/radiation-oncologists/california/loomis
+	Los Alamitos 97 http://health.usnews.com/doctors/radiation-oncologists/california/los-alamitos
+	Los Altos 78 http://health.usnews.com/doctors/radiation-oncologists/california/los-altos
+	Los Altos Hills 73 http://health.usnews.com/doctors/radiation-oncologists/california/los-altos-hills
+	Los Gatos 68 http://health.usnews.com/doctors/radiation-oncologists/california/los-gatos
+	Lynwood 175 http://health.usnews.com/doctors/radiation-oncologists/california/lynwood
+	Madera 9 http://health.usnews.com/doctors/radiation-oncologists/california/madera
+	Malibu 44 http://health.usnews.com/doctors/radiation-oncologists/california/malibu
+	Manhattan Beach 138 http://health.usnews.com/doctors/radiation-oncologists/california/manhattan-beach
+	Manteca 9 http://health.usnews.com/doctors/radiation-oncologists/california/manteca
+	Marina 7 http://health.usnews.com/doctors/radiation-oncologists/california/marina
+	Martinez 67 http://health.usnews.com/doctors/radiation-oncologists/california/martinez
+	Marysville 2 http://health.usnews.com/doctors/radiation-oncologists/california/marysville
+	Maywood 177 http://health.usnews.com/doctors/radiation-oncologists/california/maywood
+	Menifee 5 http://health.usnews.com/doctors/radiation-oncologists/california/menifee
+	Menlo Park 82 http://health.usnews.com/doctors/radiation-oncologists/california/menlo-park
+	Merced 3 http://health.usnews.com/doctors/radiation-oncologists/california/merced
+	Millbrae 113 http://health.usnews.com/doctors/radiation-oncologists/california/millbrae
+	Mill Valley 62 http://health.usnews.com/doctors/radiation-oncologists/california/mill-valley
+	Milpitas 72 http://health.usnews.com/doctors/radiation-oncologists/california/milpitas
+	Mission Viejo 30 http://health.usnews.com/doctors/radiation-oncologists/california/mission-viejo
+	Monrovia 92 http://health.usnews.com/doctors/radiation-oncologists/california/monrovia
+	Montclair 36 http://health.usnews.com/doctors/radiation-oncologists/california/montclair
+	Montebello 164 http://health.usnews.com/doctors/radiation-oncologists/california/montebello
+	Monterey 7 http://health.usnews.com/doctors/radiation-oncologists/california/monterey
+	Monterey Park 168 http://health.usnews.com/doctors/radiation-oncologists/california/monterey-park
+	Monte Sereno 68 http://health.usnews.com/doctors/radiation-oncologists/california/monte-sereno
+	Moorpark 15 http://health.usnews.com/doctors/radiation-oncologists/california/moorpark
+	Moraga 77 http://health.usnews.com/doctors/radiation-oncologists/california/moraga
+	Moreno Valley 25 http://health.usnews.com/doctors/radiation-oncologists/california/moreno-valley
+	Morgan Hill 19 http://health.usnews.com/doctors/radiation-oncologists/california/morgan-hill
+	Morro Bay 4 http://health.usnews.com/doctors/radiation-oncologists/california/morro-bay
+	Mountain View 79 http://health.usnews.com/doctors/radiation-oncologists/california/mountain-view
+	Murrieta 5 http://health.usnews.com/doctors/radiation-oncologists/california/murrieta
+	Napa 8 http://health.usnews.com/doctors/radiation-oncologists/california/napa
+	National City 49 http://health.usnews.com/doctors/radiation-oncologists/california/national-city
+	Needles 1 http://health.usnews.com/doctors/radiation-oncologists/california/needles
+	Nevada City 2 http://health.usnews.com/doctors/radiation-oncologists/california/nevada-city
+	Newark 83 http://health.usnews.com/doctors/radiation-oncologists/california/newark
+	Newman 1 http://health.usnews.com/doctors/radiation-oncologists/california/newman
+	Newport Beach 46 http://health.usnews.com/doctors/radiation-oncologists/california/newport-beach
+	Norco 44 http://health.usnews.com/doctors/radiation-oncologists/california/norco
+	Norwalk 156 http://health.usnews.com/doctors/radiation-oncologists/california/norwalk
+	Novato 24 http://health.usnews.com/doctors/radiation-oncologists/california/novato
+	Oakdale 7 http://health.usnews.com/doctors/radiation-oncologists/california/oakdale
+	Oakland 82 http://health.usnews.com/doctors/radiation-oncologists/california/oakland
+	Oakley 17 http://health.usnews.com/doctors/radiation-oncologists/california/oakley
+	Oceanside 10 http://health.usnews.com/doctors/radiation-oncologists/california/oceanside
+	Ojai 6 http://health.usnews.com/doctors/radiation-oncologists/california/ojai
+	Ontario 36 http://health.usnews.com/doctors/radiation-oncologists/california/ontario
+	Orange 62 http://health.usnews.com/doctors/radiation-oncologists/california/orange
+	Orinda 76 http://health.usnews.com/doctors/radiation-oncologists/california/orinda
+	Orland 5 http://health.usnews.com/doctors/radiation-oncologists/california/orland
+	Pacifica 107 http://health.usnews.com/doctors/radiation-oncologists/california/pacifica
+	Pacific Grove 7 http://health.usnews.com/doctors/radiation-oncologists/california/pacific-grove
+	Palmdale 2 http://health.usnews.com/doctors/radiation-oncologists/california/palmdale
+	Palm Desert 9 http://health.usnews.com/doctors/radiation-oncologists/california/palm-desert
+	Palm Springs 9 http://health.usnews.com/doctors/radiation-oncologists/california/palm-springs
+	Palo Alto 83 http://health.usnews.com/doctors/radiation-oncologists/california/palo-alto
+	Palos Verdes Estates 49 http://health.usnews.com/doctors/radiation-oncologists/california/palos-verdes-estates
+	Paradise 5 http://health.usnews.com/doctors/radiation-oncologists/california/paradise
+	Paramount 183 http://health.usnews.com/doctors/radiation-oncologists/california/paramount
+	Parlier 12 http://health.usnews.com/doctors/radiation-oncologists/california/parlier
+	Pasadena 146 http://health.usnews.com/doctors/radiation-oncologists/california/pasadena
+	Patterson 7 http://health.usnews.com/doctors/radiation-oncologists/california/patterson
+	Perris 24 http://health.usnews.com/doctors/radiation-oncologists/california/perris
+	Petaluma 11 http://health.usnews.com/doctors/radiation-oncologists/california/petaluma
+	Pico Rivera 150 http://health.usnews.com/doctors/radiation-oncologists/california/pico-rivera
+	Piedmont 82 http://health.usnews.com/doctors/radiation-oncologists/california/piedmont
+	Pinole 68 http://health.usnews.com/doctors/radiation-oncologists/california/pinole
+	Pismo Beach 6 http://health.usnews.com/doctors/radiation-oncologists/california/pismo-beach
+	Pittsburg 25 http://health.usnews.com/doctors/radiation-oncologists/california/pittsburg
+	Placentia 92 http://health.usnews.com/doctors/radiation-oncologists/california/placentia
+	Placerville 3 http://health.usnews.com/doctors/radiation-oncologists/california/placerville
+	Pleasant Hill 36 http://health.usnews.com/doctors/radiation-oncologists/california/pleasant-hill
+	Pleasanton 61 http://health.usnews.com/doctors/radiation-oncologists/california/pleasanton
+	Pomona 43 http://health.usnews.com/doctors/radiation-oncologists/california/pomona
+	Porterville 3 http://health.usnews.com/doctors/radiation-oncologists/california/porterville
+	Port Hueneme 9 http://health.usnews.com/doctors/radiation-oncologists/california/port-hueneme
+	Portola Valley 77 http://health.usnews.com/doctors/radiation-oncologists/california/portola-valley
+	Poway 55 http://health.usnews.com/doctors/radiation-oncologists/california/poway
+	Rancho Cordova 36 http://health.usnews.com/doctors/radiation-oncologists/california/rancho-cordova
+	Rancho Cucamonga 32 http://health.usnews.com/doctors/radiation-oncologists/california/rancho-cucamonga
+	Rancho Mirage 9 http://health.usnews.com/doctors/radiation-oncologists/california/rancho-mirage
+	Rancho Palos Verdes 44 http://health.usnews.com/doctors/radiation-oncologists/california/rancho-palos-verdes
+	Rancho Santa Margarita 31 http://health.usnews.com/doctors/radiation-oncologists/california/rancho-santa-margarita
+	Red Bluff 1 http://health.usnews.com/doctors/radiation-oncologists/california/red-bluff
+	Redding 6 http://health.usnews.com/doctors/radiation-oncologists/california/redding
+	Redlands 21 http://health.usnews.com/doctors/radiation-oncologists/california/redlands
+	Redondo Beach 134 http://health.usnews.com/doctors/radiation-oncologists/california/redondo-beach
+	Redwood City 95 http://health.usnews.com/doctors/radiation-oncologists/california/redwood-city
+	Reedley 12 http://health.usnews.com/doctors/radiation-oncologists/california/reedley
+	Rialto 28 http://health.usnews.com/doctors/radiation-oncologists/california/rialto
+	Richmond 72 http://health.usnews.com/doctors/radiation-oncologists/california/richmond
+	Rio Dell 1 http://health.usnews.com/doctors/radiation-oncologists/california/rio-dell
+	Rio Vista 14 http://health.usnews.com/doctors/radiation-oncologists/california/rio-vista
+	Ripon 10 http://health.usnews.com/doctors/radiation-oncologists/california/ripon
+	Riverbank 8 http://health.usnews.com/doctors/radiation-oncologists/california/riverbank
+	Rocklin 35 http://health.usnews.com/doctors/radiation-oncologists/california/rocklin
+	Rohnert Park 10 http://health.usnews.com/doctors/radiation-oncologists/california/rohnert-park
+	Rolling Hills Estates 49 http://health.usnews.com/doctors/radiation-oncologists/california/rolling-hills-estates
+	Rosemead 137 http://health.usnews.com/doctors/radiation-oncologists/california/rosemead
+	Roseville 35 http://health.usnews.com/doctors/radiation-oncologists/california/roseville
+	Ross 57 http://health.usnews.com/doctors/radiation-oncologists/california/ross
+	Saint Helena 11 http://health.usnews.com/doctors/radiation-oncologists/california/saint-helena
+	Salinas 7 http://health.usnews.com/doctors/radiation-oncologists/california/salinas
+	San Anselmo 57 http://health.usnews.com/doctors/radiation-oncologists/california/san-anselmo
+	San Bernardino 28 http://health.usnews.com/doctors/radiation-oncologists/california/san-bernardino
+	San Bruno 114 http://health.usnews.com/doctors/radiation-oncologists/california/san-bruno
+	San Carlos 109 http://health.usnews.com/doctors/radiation-oncologists/california/san-carlos
+	San Clemente 22 http://health.usnews.com/doctors/radiation-oncologists/california/san-clemente
+	San Dimas 46 http://health.usnews.com/doctors/radiation-oncologists/california/san-dimas
+	San Fernando 120 http://health.usnews.com/doctors/radiation-oncologists/california/san-fernando
+	San Gabriel 120 http://health.usnews.com/doctors/radiation-oncologists/california/san-gabriel
+	Sanger 9 http://health.usnews.com/doctors/radiation-oncologists/california/sanger
+	San Jacinto 18 http://health.usnews.com/doctors/radiation-oncologists/california/san-jacinto
+	San Juan Capistrano 30 http://health.usnews.com/doctors/radiation-oncologists/california/san-juan-capistrano
+	San Leandro 127 http://health.usnews.com/doctors/radiation-oncologists/california/san-leandro
+	San Luis Obispo 4 http://health.usnews.com/doctors/radiation-oncologists/california/san-luis-obispo
+	San Marcos 35 http://health.usnews.com/doctors/radiation-oncologists/california/san-marcos
+	San Marino 138 http://health.usnews.com/doctors/radiation-oncologists/california/san-marino
+	San Mateo 116 http://health.usnews.com/doctors/radiation-oncologists/california/san-mateo
+	San Pablo 67 http://health.usnews.com/doctors/radiation-oncologists/california/san-pablo
+	San Rafael 57 http://health.usnews.com/doctors/radiation-oncologists/california/san-rafael
+	San Ramon 32 http://health.usnews.com/doctors/radiation-oncologists/california/san-ramon
+	Santa Ana 57 http://health.usnews.com/doctors/radiation-oncologists/california/santa-ana
+	Santa Barbara 6 http://health.usnews.com/doctors/radiation-oncologists/california/santa-barbara
+	Santa Clara 69 http://health.usnews.com/doctors/radiation-oncologists/california/santa-clara
+	Santa Clarita 22 http://health.usnews.com/doctors/radiation-oncologists/california/santa-clarita
+	Santa Cruz 5 http://health.usnews.com/doctors/radiation-oncologists/california/santa-cruz
+	Santa Fe Springs 151 http://health.usnews.com/doctors/radiation-oncologists/california/santa-fe-springs
+	Santa Maria 4 http://health.usnews.com/doctors/radiation-oncologists/california/santa-maria
+	Santa Monica 132 http://health.usnews.com/doctors/radiation-oncologists/california/santa-monica
+	Santa Paula 9 http://health.usnews.com/doctors/radiation-oncologists/california/santa-paula
+	Santa Rosa 10 http://health.usnews.com/doctors/radiation-oncologists/california/santa-rosa
+	Santee 55 http://health.usnews.com/doctors/radiation-oncologists/california/santee
+	Saratoga 71 http://health.usnews.com/doctors/radiation-oncologists/california/saratoga
+	Sausalito 62 http://health.usnews.com/doctors/radiation-oncologists/california/sausalito
+	Scotts Valley 8 http://health.usnews.com/doctors/radiation-oncologists/california/scotts-valley
+	Seal Beach 65 http://health.usnews.com/doctors/radiation-oncologists/california/seal-beach
+	Seaside 7 http://health.usnews.com/doctors/radiation-oncologists/california/seaside
+	Sebastopol 10 http://health.usnews.com/doctors/radiation-oncologists/california/sebastopol
+	Selma 11 http://health.usnews.com/doctors/radiation-oncologists/california/selma
+	Shafter 4 http://health.usnews.com/doctors/radiation-oncologists/california/shafter
+	Shasta Lake 6 http://health.usnews.com/doctors/radiation-oncologists/california/shasta-lake
+	Sierra Madre 110 http://health.usnews.com/doctors/radiation-oncologists/california/sierra-madre
+	Signal Hill 147 http://health.usnews.com/doctors/radiation-oncologists/california/signal-hill
+	Simi Valley 52 http://health.usnews.com/doctors/radiation-oncologists/california/simi-valley
+	Solana Beach 54 http://health.usnews.com/doctors/radiation-oncologists/california/solana-beach
+	Soledad 2 http://health.usnews.com/doctors/radiation-oncologists/california/soledad
+	Solvang 1 http://health.usnews.com/doctors/radiation-oncologists/california/solvang
+	Sonoma 11 http://health.usnews.com/doctors/radiation-oncologists/california/sonoma
+	South El Monte 132 http://health.usnews.com/doctors/radiation-oncologists/california/south-el-monte
+	South Gate 177 http://health.usnews.com/doctors/radiation-oncologists/california/south-gate
+	South Lake Tahoe 1 http://health.usnews.com/doctors/radiation-oncologists/california/south-lake-tahoe
+	South Pasadena 154 http://health.usnews.com/doctors/radiation-oncologists/california/south-pasadena
+	South San Francisco 114 http://health.usnews.com/doctors/radiation-oncologists/california/south-san-francisco
+	Stanton 79 http://health.usnews.com/doctors/radiation-oncologists/california/stanton
+	Suisun City 16 http://health.usnews.com/doctors/radiation-oncologists/california/suisun-city
+	Sunnyvale 73 http://health.usnews.com/doctors/radiation-oncologists/california/sunnyvale
+	Sutter Creek 2 http://health.usnews.com/doctors/radiation-oncologists/california/sutter-creek
+	Temecula 5 http://health.usnews.com/doctors/radiation-oncologists/california/temecula
+	Temple City 119 http://health.usnews.com/doctors/radiation-oncologists/california/temple-city
+	Thousand Oaks 15 http://health.usnews.com/doctors/radiation-oncologists/california/thousand-oaks
+	Tiburon 62 http://health.usnews.com/doctors/radiation-oncologists/california/tiburon
+	Torrance 130 http://health.usnews.com/doctors/radiation-oncologists/california/torrance
+	Tracy 7 http://health.usnews.com/doctors/radiation-oncologists/california/tracy
+	Truckee 4 http://health.usnews.com/doctors/radiation-oncologists/california/truckee
+	Tulare 4 http://health.usnews.com/doctors/radiation-oncologists/california/tulare
+	Turlock 7 http://health.usnews.com/doctors/radiation-oncologists/california/turlock
+	Tustin 51 http://health.usnews.com/doctors/radiation-oncologists/california/tustin
+	Twentynine Palms 1 http://health.usnews.com/doctors/radiation-oncologists/california/twentynine-palms
+	Ukiah 1 http://health.usnews.com/doctors/radiation-oncologists/california/ukiah
+	Union City 85 http://health.usnews.com/doctors/radiation-oncologists/california/union-city
+	Upland 31 http://health.usnews.com/doctors/radiation-oncologists/california/upland
+	Vacaville 4 http://health.usnews.com/doctors/radiation-oncologists/california/vacaville
+	Vallejo 23 http://health.usnews.com/doctors/radiation-oncologists/california/vallejo
+	Victorville 1 http://health.usnews.com/doctors/radiation-oncologists/california/victorville
+	Villa Park 64 http://health.usnews.com/doctors/radiation-oncologists/california/villa-park
+	Visalia 3 http://health.usnews.com/doctors/radiation-oncologists/california/visalia
+	Vista 9 http://health.usnews.com/doctors/radiation-oncologists/california/vista
+	Walnut 75 http://health.usnews.com/doctors/radiation-oncologists/california/walnut
+	Walnut Creek 31 http://health.usnews.com/doctors/radiation-oncologists/california/walnut-creek
+	Wasco 4 http://health.usnews.com/doctors/radiation-oncologists/california/wasco
+	Waterford 7 http://health.usnews.com/doctors/radiation-oncologists/california/waterford
+	Watsonville 5 http://health.usnews.com/doctors/radiation-oncologists/california/watsonville
+	West Covina 79 http://health.usnews.com/doctors/radiation-oncologists/california/west-covina
+	West Hollywood 146 http://health.usnews.com/doctors/radiation-oncologists/california/west-hollywood
+	Westlake Village 17 http://health.usnews.com/doctors/radiation-oncologists/california/westlake-village
+	Westminster 62 http://health.usnews.com/doctors/radiation-oncologists/california/westminster
+	Westmorland 1 http://health.usnews.com/doctors/radiation-oncologists/california/westmorland
+	West Sacramento 34 http://health.usnews.com/doctors/radiation-oncologists/california/west-sacramento
+	Wheatland 8 http://health.usnews.com/doctors/radiation-oncologists/california/wheatland
+	Whittier 135 http://health.usnews.com/doctors/radiation-oncologists/california/whittier
+	Wildomar 8 http://health.usnews.com/doctors/radiation-oncologists/california/wildomar
+	Willits 1 http://health.usnews.com/doctors/radiation-oncologists/california/willits
+	Willows 5 http://health.usnews.com/doctors/radiation-oncologists/california/willows
+	Windsor 10 http://health.usnews.com/doctors/radiation-oncologists/california/windsor
+	Winters 4 http://health.usnews.com/doctors/radiation-oncologists/california/winters
+	Woodlake 3 http://health.usnews.com/doctors/radiation-oncologists/california/woodlake
+	Woodland 25 http://health.usnews.com/doctors/radiation-oncologists/california/woodland
+	Woodside 79 http://health.usnews.com/doctors/radiation-oncologists/california/woodside
+	Yorba Linda 73 http://health.usnews.com/doctors/radiation-oncologists/california/yorba-linda
+	Yountville 11 http://health.usnews.com/doctors/radiation-oncologists/california/yountville
+	Yuba City 2 http://health.usnews.com/doctors/radiation-oncologists/california/yuba-city
+	Yucaipa 21 http://health.usnews.com/doctors/radiation-oncologists/california/yucaipa
+	Yucca Valley 1 http://health.usnews.com/doctors/radiation-oncologists/california/yucca-valley
+
+==================Montana==================
+15 cities
+	Belgrade 1 http://health.usnews.com/doctors/radiation-oncologists/montana/belgrade
+	Billings 3 http://health.usnews.com/doctors/radiation-oncologists/montana/billings
+	Boulder 1 http://health.usnews.com/doctors/radiation-oncologists/montana/boulder
+	Bozeman 1 http://health.usnews.com/doctors/radiation-oncologists/montana/bozeman
+	Columbia Falls 4 http://health.usnews.com/doctors/radiation-oncologists/montana/columbia-falls
+	East Helena 1 http://health.usnews.com/doctors/radiation-oncologists/montana/east-helena
+	Great Falls 3 http://health.usnews.com/doctors/radiation-oncologists/montana/great-falls
+	Helena 1 http://health.usnews.com/doctors/radiation-oncologists/montana/helena
+	Kalispell 4 http://health.usnews.com/doctors/radiation-oncologists/montana/kalispell
+	Laurel 3 http://health.usnews.com/doctors/radiation-oncologists/montana/laurel
+	Manhattan 1 http://health.usnews.com/doctors/radiation-oncologists/montana/manhattan
+	Missoula 4 http://health.usnews.com/doctors/radiation-oncologists/montana/missoula
+	Sidney 1 http://health.usnews.com/doctors/radiation-oncologists/montana/sidney
+	Whitefish 4 http://health.usnews.com/doctors/radiation-oncologists/montana/whitefish
+	Whitehall 2 http://health.usnews.com/doctors/radiation-oncologists/montana/whitehall
+
+==================New York==================
+274 cities
+	Airmont 68 http://health.usnews.com/doctors/radiation-oncologists/new-york/airmont
+	Akron 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/akron
+	Albion 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/albion
+	Alden 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/alden
+	Alfred 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/alfred
+	Amityville 57 http://health.usnews.com/doctors/radiation-oncologists/new-york/amityville
+	Amsterdam 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/amsterdam
+	Angola 12 http://health.usnews.com/doctors/radiation-oncologists/new-york/angola
+	Arcade 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/arcade
+	Ardsley 205 http://health.usnews.com/doctors/radiation-oncologists/new-york/ardsley
+	Attica 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/attica
+	Avon 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/avon
+	Babylon 58 http://health.usnews.com/doctors/radiation-oncologists/new-york/babylon
+	Baldwinsville 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/baldwinsville
+	Ballston Spa 6 http://health.usnews.com/doctors/radiation-oncologists/new-york/ballston-spa
+	Batavia 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/batavia
+	Bath 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/bath
+	Bayville 120 http://health.usnews.com/doctors/radiation-oncologists/new-york/bayville
+	Beacon 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/beacon
+	Bellport 23 http://health.usnews.com/doctors/radiation-oncologists/new-york/bellport
+	Binghamton 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/binghamton
+	Blasdell 24 http://health.usnews.com/doctors/radiation-oncologists/new-york/blasdell
+	Brewster 13 http://health.usnews.com/doctors/radiation-oncologists/new-york/brewster
+	Briarcliff Manor 60 http://health.usnews.com/doctors/radiation-oncologists/new-york/briarcliff-manor
+	Brightwaters 44 http://health.usnews.com/doctors/radiation-oncologists/new-york/brightwaters
+	Brockport 19 http://health.usnews.com/doctors/radiation-oncologists/new-york/brockport
+	Bronxville 241 http://health.usnews.com/doctors/radiation-oncologists/new-york/bronxville
+	Brookville 225 http://health.usnews.com/doctors/radiation-oncologists/new-york/brookville
+	Buchanan 30 http://health.usnews.com/doctors/radiation-oncologists/new-york/buchanan
+	Caledonia 19 http://health.usnews.com/doctors/radiation-oncologists/new-york/caledonia
+	Camden 5 http://health.usnews.com/doctors/radiation-oncologists/new-york/camden
+	Canajoharie 6 http://health.usnews.com/doctors/radiation-oncologists/new-york/canajoharie
+	Canandaigua 21 http://health.usnews.com/doctors/radiation-oncologists/new-york/canandaigua
+	Canastota 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/canastota
+	Canisteo 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/canisteo
+	Canton 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/canton
+	Carthage 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/carthage
+	Catskill 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/catskill
+	Cazenovia 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/cazenovia
+	Cedarhurst 222 http://health.usnews.com/doctors/radiation-oncologists/new-york/cedarhurst
+	Chester 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/chester
+	Chestnut Ridge 70 http://health.usnews.com/doctors/radiation-oncologists/new-york/chestnut-ridge
+	Chittenango 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/chittenango
+	Clifton Springs 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/clifton-springs
+	Clyde 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/clyde
+	Cobleskill 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/cobleskill
+	Cohoes 13 http://health.usnews.com/doctors/radiation-oncologists/new-york/cohoes
+	Cold Spring 9 http://health.usnews.com/doctors/radiation-oncologists/new-york/cold-spring
+	Colonie 14 http://health.usnews.com/doctors/radiation-oncologists/new-york/colonie
+	Corinth 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/corinth
+	Corning 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/corning
+	Cornwall on Hudson 11 http://health.usnews.com/doctors/radiation-oncologists/new-york/cornwall-on-hudson
+	Cortland 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/cortland
+	Coxsackie 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/coxsackie
+	Croton on Hudson 38 http://health.usnews.com/doctors/radiation-oncologists/new-york/croton-on-hudson
+	Dannemora 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/dannemora
+	Dansville 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/dansville
+	Delhi 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/delhi
+	Depew 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/depew
+	Dobbs Ferry 205 http://health.usnews.com/doctors/radiation-oncologists/new-york/dobbs-ferry
+	East Aurora 24 http://health.usnews.com/doctors/radiation-oncologists/new-york/east-aurora
+	East Hills 230 http://health.usnews.com/doctors/radiation-oncologists/new-york/east-hills
+	East Rochester 21 http://health.usnews.com/doctors/radiation-oncologists/new-york/east-rochester
+	East Rockaway 214 http://health.usnews.com/doctors/radiation-oncologists/new-york/east-rockaway
+	East Syracuse 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/east-syracuse
+	East Williston 224 http://health.usnews.com/doctors/radiation-oncologists/new-york/east-williston
+	Ellenville 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/ellenville
+	Elmira 6 http://health.usnews.com/doctors/radiation-oncologists/new-york/elmira
+	Elmira Heights 6 http://health.usnews.com/doctors/radiation-oncologists/new-york/elmira-heights
+	Elmsford 97 http://health.usnews.com/doctors/radiation-oncologists/new-york/elmsford
+	Endicott 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/endicott
+	Fairport 21 http://health.usnews.com/doctors/radiation-oncologists/new-york/fairport
+	Falconer 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/falconer
+	Farmingdale 63 http://health.usnews.com/doctors/radiation-oncologists/new-york/farmingdale
+	Fayetteville 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/fayetteville
+	Fishkill 6 http://health.usnews.com/doctors/radiation-oncologists/new-york/fishkill
+	Floral Park 227 http://health.usnews.com/doctors/radiation-oncologists/new-york/floral-park
+	Florida 6 http://health.usnews.com/doctors/radiation-oncologists/new-york/florida
+	Fort Edward 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/fort-edward
+	Fort Plain 5 http://health.usnews.com/doctors/radiation-oncologists/new-york/fort-plain
+	Frankfort 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/frankfort
+	Freeport 157 http://health.usnews.com/doctors/radiation-oncologists/new-york/freeport
+	Fulton 17 http://health.usnews.com/doctors/radiation-oncologists/new-york/fulton
+	Garden City 213 http://health.usnews.com/doctors/radiation-oncologists/new-york/garden-city
+	Geneseo 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/geneseo
+	Geneva 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/geneva
+	Glen Cove 231 http://health.usnews.com/doctors/radiation-oncologists/new-york/glen-cove
+	Glens Falls 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/glens-falls
+	Gloversville 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/gloversville
+	Goshen 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/goshen
+	Granville 5 http://health.usnews.com/doctors/radiation-oncologists/new-york/granville
+	Great Neck 245 http://health.usnews.com/doctors/radiation-oncologists/new-york/great-neck
+	Great Neck Estates 242 http://health.usnews.com/doctors/radiation-oncologists/new-york/great-neck-estates
+	Great Neck Plaza 242 http://health.usnews.com/doctors/radiation-oncologists/new-york/great-neck-plaza
+	Green Island 13 http://health.usnews.com/doctors/radiation-oncologists/new-york/green-island
+	Greenport 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/greenport
+	Greenwood Lake 15 http://health.usnews.com/doctors/radiation-oncologists/new-york/greenwood-lake
+	Groton 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/groton
+	Hamburg 24 http://health.usnews.com/doctors/radiation-oncologists/new-york/hamburg
+	Hamilton 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/hamilton
+	Harriman 15 http://health.usnews.com/doctors/radiation-oncologists/new-york/harriman
+	Harrison 215 http://health.usnews.com/doctors/radiation-oncologists/new-york/harrison
+	Hastings on Hudson 212 http://health.usnews.com/doctors/radiation-oncologists/new-york/hastings-on-hudson
+	Haverstraw 39 http://health.usnews.com/doctors/radiation-oncologists/new-york/haverstraw
+	Hempstead 208 http://health.usnews.com/doctors/radiation-oncologists/new-york/hempstead
+	Herkimer 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/herkimer
+	Highland Falls 17 http://health.usnews.com/doctors/radiation-oncologists/new-york/highland-falls
+	Hilton 19 http://health.usnews.com/doctors/radiation-oncologists/new-york/hilton
+	Homer 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/homer
+	Honeoye Falls 19 http://health.usnews.com/doctors/radiation-oncologists/new-york/honeoye-falls
+	Hoosick Falls 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/hoosick-falls
+	Hornell 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/hornell
+	Horseheads 6 http://health.usnews.com/doctors/radiation-oncologists/new-york/horseheads
+	Hudson 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/hudson
+	Hudson Falls 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/hudson-falls
+	Ilion 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/ilion
+	Irvington 160 http://health.usnews.com/doctors/radiation-oncologists/new-york/irvington
+	Islandia 29 http://health.usnews.com/doctors/radiation-oncologists/new-york/islandia
+	Island Park 209 http://health.usnews.com/doctors/radiation-oncologists/new-york/island-park
+	Ithaca 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/ithaca
+	Jamestown 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/jamestown
+	Johnson City 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/johnson-city
+	Johnstown 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/johnstown
+	Kaser 68 http://health.usnews.com/doctors/radiation-oncologists/new-york/kaser
+	Kenmore 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/kenmore
+	Kings Point 249 http://health.usnews.com/doctors/radiation-oncologists/new-york/kings-point
+	Kingston 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/kingston
+	Kiryas Joel 15 http://health.usnews.com/doctors/radiation-oncologists/new-york/kiryas-joel
+	Lackawanna 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/lackawanna
+	Lake Grove 27 http://health.usnews.com/doctors/radiation-oncologists/new-york/lake-grove
+	Lake Success 230 http://health.usnews.com/doctors/radiation-oncologists/new-york/lake-success
+	Lakewood 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/lakewood
+	Lancaster 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/lancaster
+	Lansing 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/lansing
+	Larchmont 236 http://health.usnews.com/doctors/radiation-oncologists/new-york/larchmont
+	Lawrence 221 http://health.usnews.com/doctors/radiation-oncologists/new-york/lawrence
+	Le Roy 16 http://health.usnews.com/doctors/radiation-oncologists/new-york/le-roy
+	Lewiston 24 http://health.usnews.com/doctors/radiation-oncologists/new-york/lewiston
+	Lima 19 http://health.usnews.com/doctors/radiation-oncologists/new-york/lima
+	Lindenhurst 57 http://health.usnews.com/doctors/radiation-oncologists/new-york/lindenhurst
+	Liverpool 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/liverpool
+	Lloyd Harbor 67 http://health.usnews.com/doctors/radiation-oncologists/new-york/lloyd-harbor
+	Lockport 24 http://health.usnews.com/doctors/radiation-oncologists/new-york/lockport
+	Long Beach 201 http://health.usnews.com/doctors/radiation-oncologists/new-york/long-beach
+	Lynbrook 218 http://health.usnews.com/doctors/radiation-oncologists/new-york/lynbrook
+	Lyons 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/lyons
+	Malverne 218 http://health.usnews.com/doctors/radiation-oncologists/new-york/malverne
+	Mamaroneck 223 http://health.usnews.com/doctors/radiation-oncologists/new-york/mamaroneck
+	Manlius 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/manlius
+	Manorhaven 242 http://health.usnews.com/doctors/radiation-oncologists/new-york/manorhaven
+	Massapequa Park 64 http://health.usnews.com/doctors/radiation-oncologists/new-york/massapequa-park
+	Maybrook 8 http://health.usnews.com/doctors/radiation-oncologists/new-york/maybrook
+	Mechanicville 13 http://health.usnews.com/doctors/radiation-oncologists/new-york/mechanicville
+	Medina 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/medina
+	Menands 13 http://health.usnews.com/doctors/radiation-oncologists/new-york/menands
+	Middletown 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/middletown
+	Mineola 223 http://health.usnews.com/doctors/radiation-oncologists/new-york/mineola
+	Minoa 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/minoa
+	Mohawk 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/mohawk
+	Monroe 15 http://health.usnews.com/doctors/radiation-oncologists/new-york/monroe
+	Montebello 65 http://health.usnews.com/doctors/radiation-oncologists/new-york/montebello
+	Montgomery 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/montgomery
+	Monticello 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/monticello
+	Morrisville 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/morrisville
+	Mount Kisco 40 http://health.usnews.com/doctors/radiation-oncologists/new-york/mount-kisco
+	Mount Vernon 249 http://health.usnews.com/doctors/radiation-oncologists/new-york/mount-vernon
+	Muttontown 104 http://health.usnews.com/doctors/radiation-oncologists/new-york/muttontown
+	Newark 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/newark
+	Newburgh 8 http://health.usnews.com/doctors/radiation-oncologists/new-york/newburgh
+	New Hempstead 68 http://health.usnews.com/doctors/radiation-oncologists/new-york/new-hempstead
+	New Hyde Park 229 http://health.usnews.com/doctors/radiation-oncologists/new-york/new-hyde-park
+	New Paltz 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/new-paltz
+	New Rochelle 242 http://health.usnews.com/doctors/radiation-oncologists/new-york/new-rochelle
+	New Square 68 http://health.usnews.com/doctors/radiation-oncologists/new-york/new-square
+	New York Mills 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/new-york-mills
+	Niagara Falls 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/niagara-falls
+	North Hills 227 http://health.usnews.com/doctors/radiation-oncologists/new-york/north-hills
+	Northport 61 http://health.usnews.com/doctors/radiation-oncologists/new-york/northport
+	North Syracuse 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/north-syracuse
+	North Tonawanda 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/north-tonawanda
+	Nyack 73 http://health.usnews.com/doctors/radiation-oncologists/new-york/nyack
+	Ogdensburg 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/ogdensburg
+	Old Brookville 225 http://health.usnews.com/doctors/radiation-oncologists/new-york/old-brookville
+	Old Westbury 199 http://health.usnews.com/doctors/radiation-oncologists/new-york/old-westbury
+	Olean 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/olean
+	Oneida 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/oneida
+	Oneonta 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/oneonta
+	Orchard Park 24 http://health.usnews.com/doctors/radiation-oncologists/new-york/orchard-park
+	Ossining 58 http://health.usnews.com/doctors/radiation-oncologists/new-york/ossining
+	Owego 6 http://health.usnews.com/doctors/radiation-oncologists/new-york/owego
+	Oyster Bay Cove 103 http://health.usnews.com/doctors/radiation-oncologists/new-york/oyster-bay-cove
+	Palmyra 8 http://health.usnews.com/doctors/radiation-oncologists/new-york/palmyra
+	Patchogue 24 http://health.usnews.com/doctors/radiation-oncologists/new-york/patchogue
+	Pawling 9 http://health.usnews.com/doctors/radiation-oncologists/new-york/pawling
+	Peekskill 24 http://health.usnews.com/doctors/radiation-oncologists/new-york/peekskill
+	Pelham 244 http://health.usnews.com/doctors/radiation-oncologists/new-york/pelham
+	Pelham Manor 244 http://health.usnews.com/doctors/radiation-oncologists/new-york/pelham-manor
+	Penn Yan 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/penn-yan
+	Perry 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/perry
+	Phoenix 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/phoenix
+	Piermont 158 http://health.usnews.com/doctors/radiation-oncologists/new-york/piermont
+	Plattsburgh 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/plattsburgh
+	Pleasantville 65 http://health.usnews.com/doctors/radiation-oncologists/new-york/pleasantville
+	Pomona 44 http://health.usnews.com/doctors/radiation-oncologists/new-york/pomona
+	Port Chester 197 http://health.usnews.com/doctors/radiation-oncologists/new-york/port-chester
+	Port Jefferson 26 http://health.usnews.com/doctors/radiation-oncologists/new-york/port-jefferson
+	Port Jervis 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/port-jervis
+	Ravena 12 http://health.usnews.com/doctors/radiation-oncologists/new-york/ravena
+	Rensselaer 13 http://health.usnews.com/doctors/radiation-oncologists/new-york/rensselaer
+	Rhinebeck 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/rhinebeck
+	Rockville Centre 210 http://health.usnews.com/doctors/radiation-oncologists/new-york/rockville-centre
+	Rome 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/rome
+	Roslyn 234 http://health.usnews.com/doctors/radiation-oncologists/new-york/roslyn
+	Rouses Point 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/rouses-point
+	Rye 209 http://health.usnews.com/doctors/radiation-oncologists/new-york/rye
+	Rye Brook 197 http://health.usnews.com/doctors/radiation-oncologists/new-york/rye-brook
+	Sag Harbor 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/sag-harbor
+	Salamanca 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/salamanca
+	Sands Point 242 http://health.usnews.com/doctors/radiation-oncologists/new-york/sands-point
+	Saratoga Springs 6 http://health.usnews.com/doctors/radiation-oncologists/new-york/saratoga-springs
+	Saugerties 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/saugerties
+	Scarsdale 209 http://health.usnews.com/doctors/radiation-oncologists/new-york/scarsdale
+	Schenectady 14 http://health.usnews.com/doctors/radiation-oncologists/new-york/schenectady
+	Scotia 14 http://health.usnews.com/doctors/radiation-oncologists/new-york/scotia
+	Scottsville 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/scottsville
+	Sea Cliff 237 http://health.usnews.com/doctors/radiation-oncologists/new-york/sea-cliff
+	Seneca Falls 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/seneca-falls
+	Sherrill 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/sherrill
+	Sidney 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/sidney
+	Skaneateles 17 http://health.usnews.com/doctors/radiation-oncologists/new-york/skaneateles
+	Sleepy Hollow 83 http://health.usnews.com/doctors/radiation-oncologists/new-york/sleepy-hollow
+	Sloan 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/sloan
+	Sloatsburg 48 http://health.usnews.com/doctors/radiation-oncologists/new-york/sloatsburg
+	Solvay 18 http://health.usnews.com/doctors/radiation-oncologists/new-york/solvay
+	Southampton 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/southampton
+	South Glens Falls 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/south-glens-falls
+	South Nyack 73 http://health.usnews.com/doctors/radiation-oncologists/new-york/south-nyack
+	Spencerport 19 http://health.usnews.com/doctors/radiation-oncologists/new-york/spencerport
+	Spring Valley 68 http://health.usnews.com/doctors/radiation-oncologists/new-york/spring-valley
+	Suffern 65 http://health.usnews.com/doctors/radiation-oncologists/new-york/suffern
+	Tarrytown 83 http://health.usnews.com/doctors/radiation-oncologists/new-york/tarrytown
+	Thomaston 242 http://health.usnews.com/doctors/radiation-oncologists/new-york/thomaston
+	Tonawanda 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/tonawanda
+	Troy 13 http://health.usnews.com/doctors/radiation-oncologists/new-york/troy
+	Tuckahoe 229 http://health.usnews.com/doctors/radiation-oncologists/new-york/tuckahoe
+	Upper Nyack 73 http://health.usnews.com/doctors/radiation-oncologists/new-york/upper-nyack
+	Utica 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/utica
+	Valley Stream 216 http://health.usnews.com/doctors/radiation-oncologists/new-york/valley-stream
+	Victor 21 http://health.usnews.com/doctors/radiation-oncologists/new-york/victor
+	Voorheesville 13 http://health.usnews.com/doctors/radiation-oncologists/new-york/voorheesville
+	Walden 8 http://health.usnews.com/doctors/radiation-oncologists/new-york/walden
+	Wappingers Falls 5 http://health.usnews.com/doctors/radiation-oncologists/new-york/wappingers-falls
+	Warsaw 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/warsaw
+	Warwick 12 http://health.usnews.com/doctors/radiation-oncologists/new-york/warwick
+	Washingtonville 7 http://health.usnews.com/doctors/radiation-oncologists/new-york/washingtonville
+	Waterloo 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/waterloo
+	Watertown 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/watertown
+	Watervliet 13 http://health.usnews.com/doctors/radiation-oncologists/new-york/watervliet
+	Waverly 5 http://health.usnews.com/doctors/radiation-oncologists/new-york/waverly
+	Webster 20 http://health.usnews.com/doctors/radiation-oncologists/new-york/webster
+	Wellsville 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/wellsville
+	Wesley Hills 68 http://health.usnews.com/doctors/radiation-oncologists/new-york/wesley-hills
+	Westbury 173 http://health.usnews.com/doctors/radiation-oncologists/new-york/westbury
+	West Carthage 1 http://health.usnews.com/doctors/radiation-oncologists/new-york/west-carthage
+	Westfield 2 http://health.usnews.com/doctors/radiation-oncologists/new-york/westfield
+	West Haverstraw 38 http://health.usnews.com/doctors/radiation-oncologists/new-york/west-haverstraw
+	Whitehall 4 http://health.usnews.com/doctors/radiation-oncologists/new-york/whitehall
+	White Plains 174 http://health.usnews.com/doctors/radiation-oncologists/new-york/white-plains
+	Whitesboro 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/whitesboro
+	Williamsville 25 http://health.usnews.com/doctors/radiation-oncologists/new-york/williamsville
+	Williston Park 224 http://health.usnews.com/doctors/radiation-oncologists/new-york/williston-park
+	Woodbury 88 http://health.usnews.com/doctors/radiation-oncologists/new-york/woodbury
+	Yonkers 230 http://health.usnews.com/doctors/radiation-oncologists/new-york/yonkers
+	Yorkville 3 http://health.usnews.com/doctors/radiation-oncologists/new-york/yorkville

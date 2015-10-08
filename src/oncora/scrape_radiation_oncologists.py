@@ -1,10 +1,43 @@
 ''' Script to scrape health.usnews.com for their radiation oncology data '''
 
+import re
+import math
+import json
+import time
+import random
+import urllib2
 import requests
 from bs4 import BeautifulSoup
 
+
+''' Global variables ''' 
+
 # List of states 
 states = open('states.txt').read().splitlines()
+
+# List of state abbreviations
+abbreviations = open('state-abbreviations.txt').read().splitlines()
+
+# Regex for link to a doctor's info
+doctor_link_regex = re.compile(r'^/doctors/[\w\d-]+$')
+
+# Hardcode urls for hawaii and washington dc since they only have one associated city
+hardcoded = {
+	'hawaii': 'http://health.usnews.com/doctors/radiation-oncologists/honolulu-hi',
+	'district-of-colombia': 'http://health.usnews.com/doctors/radiation-oncologists/washington-dc'
+}
+
+# Save the data 
+out = open('radiation-oncologists.txt', 'a')
+
+# Save the urls that couldn't be scraped here 
+missing = open('missing-urls.txt', 'a')
+
+# Record any new data that we haven't encountered yet
+new_data = open('new-data.tsv', 'a')
+
+
+''' URL/text formatting methods ''' 
 
 def state_url(state):
 	return "http://health.usnews.com/doctors/city-index/" + state + "/radiation-oncologists"
@@ -12,21 +45,37 @@ def state_url(state):
 def city_url(city_part):
 	return "http://health.usnews.com" + city_part
 
+def doctor_page_url(city, state, abbreviation, page):
+	city_hyphen = '-'.join(city.lower().split())
+	city_plus = '+'.join(city.split())
+	url = "http://health.usnews.com/doctors/radiation-oncologists/"
+	url += state + "/" + city_hyphen
+	url += "?sort=name&city=" + city_plus + "&loc=" + city_plus + "%2C+" 
+	url += abbreviation + "&specialty=radiation-oncologists&state=" + abbreviation
+	url += "&page=" + str(page)
+	return url
+
 def doctor_url(dr_part):
 	return "http://health.usnews.com" + dr_part
 
 def clean(elem):
 	return ' '.join(elem.text.split())
 
-def hospital_content(hospital_url):
-	pass
 
-# Grab all the hospital affiliation information from a doctor's page 
+
+''' Helper functions to grab doctor-related content from a doctor's page '''
+
+# Helper function for doctors_hospital_affiliations
 def doctors_hospital_affiliation(hospital_div):
 	hospital = {}
+	
+	# If there isn't a link to the hospital just get the hospital name
+	hlink = hospital_div.find("a")
+	if hlink is None:
+		hospital['name'] = clean(hospital_div)
+		return hospital
 
 	# Hospital name and link 
-	hlink = hospital_div.find("a")
 	hospital['name'] = clean(hlink)
 	hospital['url'] = hlink.get('href')
 
@@ -50,210 +99,218 @@ def doctors_hospital_affiliation(hospital_div):
 	hospital['awards'] = awards
 	return hospital
 
-# Grab a doctor's education credentials from the doctor's page
-def doctors_education(ed_div):
+# Helper function for doctors_education
+def doctors_school(ed_div):
 	school = clean(ed_div.find(class_="t-strong"))
 	description = ' '.join(map(clean, ed_div.findAll(class_="t-dim")))
 	return {'school': school, 'description': description}
 
-# Grab a doctor's certifications/licenses from the doctor's page
+# Helper function for doctors_licenses
 def doctors_license(div):
 	license = clean(div.find(class_="t-strong"))
 	description = clean(div.find(class_="t-dim"))
 	return {'name': license, 'description': description}
 
-# Segregate for ease of testing 
+# Helper function for doctors_procedures
+def doctors_procedure(div, headings):
+	procedure = {}
+	tds = div.findAll("td")
+	for i, heading in enumerate(headings):
+		procedure[heading] = clean(tds[i])
+	return procedure
+
+
+''' Functions to grab doctor-related content from each section of the doctor's page ''' 
+
+# Publications and link to more publications
+def doctors_publications(div):
+	publications = map(lambda p: clean(p), div.findAll(class_="block-close"))
+	doximity_link = div.findAll('a')[-1].get('href')
+	if doximity_link == 'javascript:void(0);':
+		doximity_link = None
+	return {'publications': publications, 'doximity-link': doximity_link}
+
+# Awards, honors and recognitions
+def doctors_awards(div):
+	awards = map(lambda p: clean(p), div.findAll(class_="block-taut"))
+	return {'awards': awards}
+
+# Insurances accepted by doctor 
+def doctors_insurances(div):
+	insurances = map(lambda li: clean(li), div.findAll("li"))
+	return {'insurances': insurances}
+
+# Certifications, licenses/licensures 
+def doctors_licenses(div):
+	cert_divs = div.findAll("p")
+	licenses = map(doctors_license, cert_divs)
+	return {'licenses': licenses}
+
+# Education and medical training 
+def doctors_education(div):
+	school_divs = div.findAll("p")
+	education = map(doctors_school, school_divs)
+	return {'education': education}
+
+# Doctor potentially speaks other languages besides english 
+def doctors_languages(div):
+	languages = map(lambda l: clean(l), div.findAll("li"))
+	return {'languages': languages}
+
+# Procedures doctor performs
+def doctors_procedures(div):
+	headings = map(lambda th: '-'.join(clean(th).split()), div.find("thead").findAll('th'))
+	procedures = map(lambda tr: doctors_procedure(tr, headings), div.find(class_="procedure-data").findAll('tr'))
+	return {'procedures': procedures}
+
+# Hospitals doctor is affiliated with 
+def doctors_hospital_affiliations(div):
+	hospital_divs = div.findAll(class_="block-slack sep")
+	hospitals = map(doctors_hospital_affiliation, hospital_divs)
+	return {'hospitals': hospitals}
+
+# Specialties and qualifications - we only care about subspecialties, since these are all radiation oncologists
+def doctors_specialties(div):
+	subspecialties = clean(div.findAll(class_="block-taut")[1]).replace('Subspecialties: ', '')
+	return {'subspecialties': subspecialties}
+
+# Contact information includes address, phone, sometimes fax 
+def doctors_contact(div):
+	contact = div.findAll("p")
+	try:
+		address = clean(contact[0])
+	except IndexError:
+		address = None
+	try:
+		phone = clean(contact[1]).replace('Phone:', '').strip()
+	except IndexError:
+		phone = None
+	return {'address': address, 'phone': phone}
+
+# Overview - textual summary of all of doctor's information
+def doctors_overview(div):
+	return {'overview': clean(div.find("p"))}
+
+
+# Mapping of section header to appropriate scraping function
+scraping_functions = {
+	'overview': doctors_overview,
+	'office': doctors_contact,
+	'location': doctors_contact,
+	'contact': doctors_contact,
+	'specialties': doctors_specialties,
+	'qualifications': doctors_specialties,
+	'hospital': doctors_hospital_affiliations,
+	'affiliation': doctors_hospital_affiliations,
+	'affiliations': doctors_hospital_affiliations,
+	'certifications': doctors_licenses,
+	'licenses': doctors_licenses,
+	'licensure': doctors_licenses,
+	'insurance': doctors_insurances,
+	'insurances': doctors_insurances,
+	'publications': doctors_publications,
+	'presentations': doctors_publications,
+	'education': doctors_education,
+	'training': doctors_education,
+	'awards': doctors_awards,
+	'honors': doctors_awards,
+	'recognition': doctors_awards,
+	'languages': doctors_languages,
+	'spoken': doctors_languages,
+	'procedures': doctors_procedures,
+	'performs': doctors_procedures
+}
+
+# See if access was denied for a link
+def access_denied(soup):
+	return clean(soup.find("title")) == 'Access Denied'
+
+
+''' Scrape a doctor's information ''' 
 def doctor_content(dr_url):
+	data = {}
+
 	dr_req = requests.get(dr_url)
 	dr_soup = BeautifulSoup(dr_req.text)
 
-	# Now gather the doctor's data - all contained in these 9 divs 
+	if access_denied(dr_soup):
+		missing.write(dr_url + '\n')
+		return
+
+	# Now gather the doctor's data - all contained in these divs. Some may be missing 
 	content_panels = dr_soup.findAll(class_="separated-solid")
 
-	# The current panel we're scraping from
-	p = 0
+ 	# Name and location 
+	header = content_panels[0].find(class_="content")
+	data['name'] = clean(header.find("h4"))
+	data['location'] = clean(header.find(class_='t-subdued'))
 
-	# Name and location 
-	header = content_panels[p].find(class_="content")
-	name = clean(header.find("h4"))
-	location = clean(header.find(class_='t-subdued'))
+	print '\t\t\t', data['name'], data['location']
+	print '\t\t\t', dr_url
 
-	print 'Name:', name
-	print 'Location:', location
+	for cp in content_panels[1:]:
+		# Find which section this is 
+		sections = clean(cp.find("h2")).lower().split()
 
-	p += 1
+		# Find the appropriate function to call to parse this section
+		functions = filter(lambda s: scraping_functions.get(s) is not None, sections)
+		if len(functions) > 0:
+			function = scraping_functions[functions[0]]
 
-	# Overview
-	overview = clean(content_panels[p].find("p"))
-
-	print '\nOverview:', overview
-
-	p += 1
-
-	# Contact information
-	contact = content_panels[p].findAll("p")
-	address = clean(contact[0])
-	phone = clean(contact[1]).replace('Phone:', '').strip()
-
-	print '\nAddress:', address 
-	print 'Phone:', phone
-
-	p += 1
-
-	# Specialties and qualifications - we only care about subspecialties, since these are all radiation oncologists
-	subspecialties = clean(content_panels[p].findAll(class_="block-taut")[1]).replace('Subspecialties: ', '')
-
-	print '\nSubspecialties:', subspecialties
-
-	p += 1
-
-	# Hospital affiliations
-	hospital_divs = content_panels[p].findAll(class_="block-slack sep")
-	hospitals = map(doctors_hospital_affiliation, hospital_divs)
-
-	print '\nHospital affiliations:'
-	if len(hospitals) > 0:
-		for hospital in hospitals:
-			print '\t', hospital['name']
-			print '\t', hospital['url']
-			print '\t', 'Awards:'
-			if len(hospital['awards']) > 0:
-				for award in hospital['awards']:
-					print '\t\t', award['title'], '\t', '\t'.join(award['details'])
-			else:
-				print '\t\tNone'
-			print
-	else:
-		print '\tNone'
-
-	p += 1
-
-	# Potentially! Other languages spoken
-	language_div = content_panels[p]
-	if language_div.find(id="other-languages-spoken"):
-		languages = map(lambda l: clean(l), language_div.findAll("li"))
-		p += 1
-	else:
-		languages = []
-
-	print '\nLanguages:'
-	if len(languages) > 0:
-		for language in languages:
-			print '\t', language 
-			print
-	else:
-		print '\tNone'
-
-	# Education and medical training
-	school_divs = content_panels[p].findAll("p")
-	education = map(doctors_education, school_divs)
-
-	print '\nEducation:'
-	for ed in education:
-		print '\tSchool:', ed['school']
-		print '\tDescription:', ed['description']
-		print
-
-	p += 1
-
-	# Certifications and licenses
-	cert_divs = content_panels[p].findAll("p")
-	licenses = map(doctors_license, cert_divs)
-
-	print '\nLicenses/certifications:'
-	if len(licenses) > 0:
-		for license in licenses:
-			print '\tName:', license['name']
-			print '\tDescription:', license['description']
-			print
-	else:
-		print '\tNone'
-
-	p += 1 
-
-	# Insurance accepted 
-	insurance_div = content_panels[p]
-	if insurance_div.find(id="insurances-accepted"):
-		insurances = map(lambda li: clean(li), insurance_div.findAll("li"))
-		p += 1
-	else:
-		insurances = []
-
-	print '\nInsurance:'
-	if len(insurances) > 0:
-		for insurance in insurances:
-			print '\t', insurance 
-	else:
-		print '\tNone'
-
-	# Awards, honors, recognition 
-	try:
-		award_div = content_panels[p]
-		if clean(award_div.find("h2")) == 'Awards, Honors & Recognition': 
-			awards = map(lambda p: clean(p), award_div.findAll(class_="block-taut"))
-			p += 1
+			# Add results to data obj
+			result = function(cp)
+			for k, v in result.iteritems():
+				data[k] = v
+		# We've encountered previously unseen data 
 		else:
-			awards = []
-	except IndexError:
-		awards = []
+			print 'NO FUNCTION FOUND FOR:', cp.find("h2")
+			new_data.write(dr_url + '\t' + ' '.join(sections) + '\n')
 
-	print '\nAwards:'
-	if len(awards) > 0:
-		for award in awards:
-			print '\t', award 
+	# Save json 
+	out.write(json.dumps(data) + '\n')
+
+
+''' Scrape all doctors from a city  ''' 
+def scrape_city_doctors(state, city, abbreviation, city_url, num_doctors):
+	# 10 doctors are displayed per page 
+	num_pages = int(math.ceil(num_doctors / 10.0))
+
+	# We will visit num_doctors number of pages to get all of the doctors for this city
+	for page in range(1, num_pages + 1):
+		print '\t\tPage', page 
+
+		url = doctor_page_url(city, state, abbreviation, page)
+		req = requests.get(url)
+		soup = BeautifulSoup(req.text)
+
+		# Find all the links to doctors' info 
+		dr_url_divs = soup.find("tbody").findAll('a', href=doctor_link_regex)
+
+		# Some of the urls appear multiple times, don't want to scrape same one again
+		seen = set()
+		for dr_url_div in dr_url_divs:
+			dr_url = doctor_url(dr_url_div.get('href'))
+			if dr_url not in seen:
+				seen.add(dr_url)
+
+				try:
+					doctor_content(dr_url)
+				except:
+					print 'PROBLEM WITH:', dr_url
+					missing.write(dr_url + '\n')
+
+		# Introduce some random lag...I think this is rate-limited 
+		time.sleep(random.random() * 4)
+
+
+''' Scrape all doctors from a state ''' 
+def scrape_state(state):
+	abbreviation = abbreviations[states.index(state)]
+	state = '-'.join(state.lower().split())
+
+	if state in hardcoded:
+		scrape_city_doctors(hardcoded[city])
 	else:
-		print '\tNone'
-
-	# Publications 
-	try:
-		publication_div = content_panels[p]
-		if clean(publication_div.find("h2")) == 'Publications & Presentations':
-			publications = map(lambda p: clean(p), content_panels[p].findAll(class_="block-close"))
-			doximity_link = content_panels[p].findAll('a')[-1].get('href')	# Where the rest of the publications are 
-			if doximity_link == 'javascript:void(0);':
-				doximity_link = None
-			p += 1
-		else:
-			publications = []
-			doximity_link = None 
-	except IndexError:
-		publications = []
-		doximity_link = None
-
-	print '\nPublications:'
-	if len(publications) > 0:
-		for publication in publications:
-			print '\t', publication 
-			print
-	else:
-		print '\tNone'
-	print 'Doximity link to more publications:', doximity_link
-
-	# Save all the data 
-	data = {
-		'name': name,
-		'location': location,
-		'overview': overview,
-		'address': address,
-		'phone': phone,
-		'subspecialties': subspecialties,
-		'hospitals': hospitals,
-		'languages': languages,
-		'education': education,
-		'certifications': licenses,
-		'insurances': insurances,
-		'awards': awards,
-		'publications': publications,
-		'doximity_link': doximity_link,
-		'url': dr_url
-	}
-
-	return data
-
-def scrape():
-	for state in states:
-		state = state.lower()
-
 		# Fetch all city links for this state 
 		req = requests.get(state_url(state))
 		soup = BeautifulSoup(req.text)
@@ -265,44 +322,26 @@ def scrape():
 		city_urls = soup.findAll('a', href=city_regex)
 
 		for atag in city_urls:
-			city_req = requests.get(city_url(atag.get('href')))
-			city_soup = BeautifulSoup(city_req.text)
+			url = city_url(atag.get('href'))
+			city = atag.text.split('(')[0].strip()
+			num_doctors = int(atag.text.split('(')[1].replace(')', '').strip())
 
-			# Find all the links to doctors' info 
-			dr_urls = soup.findAll('a', href=re.compile(r'^/doctors/.'))
+			print '\t', city, '\t', num_doctors
 
-			for dr_url in dr_urls:
-				doctor_content(doctor_url(dr_url))
+			scrape_city_doctors(state, city, abbreviation, url, num_doctors)
 
 
-''' Some basic tests '''
+''' Scrape everything ''' 
+def scrape():
+	for state in states:
+		print state
+		scrape_state(state)	
 
-def test_doctor_info():
-	james = 'http://health.usnews.com/doctors/james-bonner-3533'
-	martin = 'http://health.usnews.com/doctors/martin-ojong-ntui-566908'
-	astrid = 'http://health.usnews.com/doctors/astrid-peterson-378854'
-	joseph = 'http://health.usnews.com/doctors/joseph-cirrone-133783'
-	sun = 'http://health.usnews.com/doctors/sun-gim-642976'
+	out.close()
+	missing.close()
+	new_data.close()
 
-	print '==================James=================='
-	doctor_content(james)
-	print
+	print 'Done!'
 
-	print '==================Martin=================='
-	doctor_content(martin)
-	print
 
-	print '==================Astrid=================='
-	doctor_content(astrid)
-	print
-
-	print '==================Joseph=================='
-	doctor_content(joseph)
-	print
-
-	print '==================Sun=================='
-	doctor_content(sun)
-	print
-
-test_doctor_info()
-
+scrape()

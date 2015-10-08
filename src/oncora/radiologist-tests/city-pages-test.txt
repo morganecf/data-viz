@@ -1,0 +1,74 @@
+==================Portsmouth,New Hampshire==================
+State: New Hampshire
+City: Portsmouth
+URL: http://health.usnews.com/doctors/radiation-oncologists/new-hampshire/portsmouth
+Number of doctors: 4
+Number of pages: 1
+	Page: 1 	4 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/New Hampshire/portsmouth?sort=name&city=Portsmouth&loc=Portsmouth%2C+NH&specialty=radiation-oncologists&state=NH&page=1
+
+==================Los Alamitos,California==================
+State: California
+City: Los Alamitos
+URL: http://health.usnews.com/doctors/radiation-oncologists/california/los-alamitos
+Number of doctors: 97
+Number of pages: 10
+	Page: 1 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=1
+	Page: 2 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=2
+	Page: 3 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=3
+	Page: 4 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=4
+	Page: 5 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=5
+	Page: 6 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=6
+	Page: 7 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=7
+	Page: 8 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=8
+	Page: 9 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=9
+	Page: 10 	7 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/California/los-alamitos?sort=name&city=Los+Alamitos&loc=Los+Alamitos%2C+CA&specialty=radiation-oncologists&state=CA&page=10
+
+==================Sidney,Montana==================
+State: Montana
+City: Sidney
+URL: http://health.usnews.com/doctors/radiation-oncologists/montana/sidney
+Number of doctors: 1
+Number of pages: 1
+	Page: 1 	1 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/Montana/sidney?sort=name&city=Sidney&loc=Sidney%2C+MT&specialty=radiation-oncologists&state=MT&page=1
+
+==================Victor,New York==================
+State: New York
+City: Victor
+URL: http://health.usnews.com/doctors/radiation-oncologists/new-york/victor
+Number of doctors: 21
+Number of pages: 3
+	Page: 1 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/New York/victor?sort=name&city=Victor&loc=Victor%2C+NY&specialty=radiation-oncologists&state=NY&page=1
+	Page: 2 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/New York/victor?sort=name&city=Victor&loc=Victor%2C+NY&specialty=radiation-oncologists&state=NY&page=2
+	Page: 3 	1 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/New York/victor?sort=name&city=Victor&loc=Victor%2C+NY&specialty=radiation-oncologists&state=NY&page=3
+
+==================Pomona,New York==================
+State: New York
+City: Pomona
+URL: http://health.usnews.com/doctors/radiation-oncologists/new-york/pomona
+Number of doctors: 43
+Number of pages: 5
+	Page: 1 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/New York/pomona?sort=name&city=Pomona&loc=Pomona%2C+NY&specialty=radiation-oncologists&state=NY&page=1
+	Page: 2 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/New York/pomona?sort=name&city=Pomona&loc=Pomona%2C+NY&specialty=radiation-oncologists&state=NY&page=2
+	Page: 3 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/New York/pomona?sort=name&city=Pomona&loc=Pomona%2C+NY&specialty=radiation-oncologists&state=NY&page=3
+	Page: 4 	10 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/New York/pomona?sort=name&city=Pomona&loc=Pomona%2C+NY&specialty=radiation-oncologists&state=NY&page=4
+	Page: 5 	4 doctors on this page
+		URL: http://health.usnews.com/doctors/radiation-oncologists/New York/pomona?sort=name&city=Pomona&loc=Pomona%2C+NY&specialty=radiation-oncologists&state=NY&page=5

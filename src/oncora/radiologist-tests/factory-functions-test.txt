@@ -1,0 +1,58 @@
+==================James==================
+overview ====> overview <function doctors_overview at 0x1050d8320>
+office location & contact ====> office <function doctors_contact at 0x1050d82a8>
+specialties & qualifications ====> specialties <function doctors_specialties at 0x1050d8230>
+hospital affiliation ====> hospital <function doctors_hospital_affiliations at 0x1050d81b8>
+education & medical training ====> education <function doctors_education at 0x1050d80c8>
+certifications & licensure ====> certifications <function doctors_licenses at 0x1050d8050>
+insurance accepted ====> insurance <function doctors_insurances at 0x1050d7f50>
+publications & presentations ====> publications <function doctors_publications at 0x1050d7e60>
+
+==================Martin==================
+overview ====> overview <function doctors_overview at 0x1050d8320>
+office location & contact ====> office <function doctors_contact at 0x1050d82a8>
+specialties & qualifications ====> specialties <function doctors_specialties at 0x1050d8230>
+hospital affiliation ====> hospital <function doctors_hospital_affiliations at 0x1050d81b8>
+other languages spoken ====> languages <function doctors_languages at 0x1050d8140>
+education & medical training ====> education <function doctors_education at 0x1050d80c8>
+certifications & licensure ====> certifications <function doctors_licenses at 0x1050d8050>
+insurance accepted ====> insurance <function doctors_insurances at 0x1050d7f50>
+awards, honors & recognition ====> honors <function doctors_awards at 0x1050d7ed8>
+
+==================Astrid==================
+overview ====> overview <function doctors_overview at 0x1050d8320>
+office location & contact ====> office <function doctors_contact at 0x1050d82a8>
+specialties & qualifications ====> specialties <function doctors_specialties at 0x1050d8230>
+hospital affiliation ====> hospital <function doctors_hospital_affiliations at 0x1050d81b8>
+education & medical training ====> education <function doctors_education at 0x1050d80c8>
+certifications & licensure ====> certifications <function doctors_licenses at 0x1050d8050>
+insurance accepted ====> insurance <function doctors_insurances at 0x1050d7f50>
+
+==================Joseph==================
+overview ====> overview <function doctors_overview at 0x1050d8320>
+office location & contact ====> office <function doctors_contact at 0x1050d82a8>
+specialties & qualifications ====> specialties <function doctors_specialties at 0x1050d8230>
+hospital affiliation ====> hospital <function doctors_hospital_affiliations at 0x1050d81b8>
+education & medical training ====> education <function doctors_education at 0x1050d80c8>
+certifications & licensure ====> certifications <function doctors_licenses at 0x1050d8050>
+insurance accepted ====> insurance <function doctors_insurances at 0x1050d7f50>
+awards, honors & recognition ====> honors <function doctors_awards at 0x1050d7ed8>
+publications & presentations ====> publications <function doctors_publications at 0x1050d7e60>
+
+==================Sun==================
+overview ====> overview <function doctors_overview at 0x1050d8320>
+office location & contact ====> office <function doctors_contact at 0x1050d82a8>
+specialties & qualifications ====> specialties <function doctors_specialties at 0x1050d8230>
+hospital affiliation ====> hospital <function doctors_hospital_affiliations at 0x1050d81b8>
+education & medical training ====> education <function doctors_education at 0x1050d80c8>
+certifications & licensure ====> certifications <function doctors_licenses at 0x1050d8050>
+insurance accepted ====> insurance <function doctors_insurances at 0x1050d7f50>
+
+==================Nevine==================
+overview ====> overview <function doctors_overview at 0x1050d8320>
+office location & contact ====> office <function doctors_contact at 0x1050d82a8>
+specialties & qualifications ====> specialties <function doctors_specialties at 0x1050d8230>
+hospital affiliation ====> hospital <function doctors_hospital_affiliations at 0x1050d81b8>
+certifications & licensure ====> certifications <function doctors_licenses at 0x1050d8050>
+insurance accepted ====> insurance <function doctors_insurances at 0x1050d7f50>
+publications & presentations ====> publications <function doctors_publications at 0x1050d7e60>
