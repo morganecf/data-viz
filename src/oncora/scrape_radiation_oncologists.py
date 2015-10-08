@@ -28,13 +28,13 @@ hardcoded = {
 }
 
 # Save the data 
-out = open('radiation-oncologists.txt', 'a')
+out = open('radiation-oncologists.txt', 'w')
 
 # Save the urls that couldn't be scraped here 
-missing = open('missing-urls.txt', 'a')
+missing = open('missing-urls.txt', 'w')
 
 # Record any new data that we haven't encountered yet
-new_data = open('new-data.tsv', 'a')
+new_data = open('new-data.tsv', 'w')
 
 
 ''' URL/text formatting methods ''' 
@@ -227,15 +227,21 @@ def access_denied(soup):
 
 
 ''' Scrape a doctor's information ''' 
-def doctor_content(dr_url):
+def doctor_content(state, city, dr_url):
 	data = {}
 
 	dr_req = requests.get(dr_url)
 	dr_soup = BeautifulSoup(dr_req.text)
 
 	if access_denied(dr_soup):
+		print 'ACCESS DENIED:', dr_url
 		missing.write(dr_url + '\n')
 		return
+
+	# Initialize the data obj with the doctor's state/city 
+	data['state'] = state
+	data['city'] = city 
+	data['url'] = dr_url
 
 	# Now gather the doctor's data - all contained in these divs. Some may be missing 
 	content_panels = dr_soup.findAll(class_="separated-solid")
@@ -294,9 +300,9 @@ def scrape_city_doctors(state, city, abbreviation, city_url, num_doctors):
 				seen.add(dr_url)
 
 				try:
-					doctor_content(dr_url)
+					doctor_content(state, city, dr_url)
 				except:
-					print 'PROBLEM WITH:', dr_url
+					print 'PROBLEM WITH DOCTOR:', dr_url
 					missing.write(dr_url + '\n')
 
 		# Introduce some random lag...I think this is rate-limited 
@@ -328,20 +334,27 @@ def scrape_state(state):
 
 			print '\t', city, '\t', num_doctors
 
-			scrape_city_doctors(state, city, abbreviation, url, num_doctors)
+			try:
+				scrape_city_doctors(state, city, abbreviation, url, num_doctors)
+			except:
+				print 'PROBLEM WITH CITY:', url
+				missing.write(url + '\n')
 
 
 ''' Scrape everything ''' 
 def scrape():
 	for state in states:
-		print state
-		scrape_state(state)	
+		print state 
+		try:
+			scrape_state(state)
+		except:
+			print 'PROBLEM WITH STATE:', state
+			missing.write(state + '\n')
 
+	# Close all files
 	out.close()
 	missing.close()
 	new_data.close()
-
-	print 'Done!'
 
 
 scrape()
