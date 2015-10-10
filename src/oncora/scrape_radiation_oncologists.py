@@ -28,14 +28,29 @@ hardcoded = {
 }
 
 # Save the data 
-out = open('radiation-oncologists.txt', 'w')
+out = open('radiation-oncologists.txt', 'a')
 
 # Save the urls that couldn't be scraped here 
-missing = open('missing-urls.txt', 'w')
+missing = open('missing-urls.txt', 'a')
 
-# Record any new data that we haven't encountered yet
-new_data = open('new-data.tsv', 'w')
+# Record any new data types that we haven't encountered yet
+new_data = open('new-data.tsv', 'a')
 
+# Metadata on what's already been scraped
+done = open('done.tsv', 'a')
+
+# Store metadata on what's already been scraped 
+states_scraped = set()
+cities_scraped = {}
+doctors_scraped = {}
+
+# Keep track of how many rejections in a row we get 
+rejections = 0
+last_rejected = False
+
+# Stop scraping after this many rejections in a row
+# (indicates we probably tripped their security)
+max_rejections = 10
 
 ''' URL/text formatting methods ''' 
 
@@ -236,6 +251,15 @@ def doctor_content(state, city, dr_url):
 	if access_denied(dr_soup):
 		print 'ACCESS DENIED:', dr_url
 		missing.write(dr_url + '\n')
+		missing.flush()
+
+		if last_rejected:
+			rejected += 1
+			if rejected > max_rejections:
+				import sys 
+				print 'Max # of request denials reached, stopping scraping'
+				sys.exit()
+
 		return
 
 	# Initialize the data obj with the doctor's state/city 
@@ -271,9 +295,11 @@ def doctor_content(state, city, dr_url):
 		else:
 			print 'NO FUNCTION FOUND FOR:', cp.find("h2")
 			new_data.write(dr_url + '\t' + ' '.join(sections) + '\n')
+			new_data.flush()
 
 	# Save json 
 	out.write(json.dumps(data) + '\n')
+	out.flush()
 
 
 ''' Scrape all doctors from a city  ''' 
@@ -281,8 +307,22 @@ def scrape_city_doctors(state, city, abbreviation, city_url, num_doctors):
 	# 10 doctors are displayed per page 
 	num_pages = int(math.ceil(num_doctors / 10.0))
 
+	# Page to start at 
+	start_page = 1
+	# Doctor to start at
+	start_doctor = 0
+
+	# Get the number of doctors scraped so far for this city 
+	if abbreviation in doctors_scraped and city in doctors_scraped[abbreviation]:
+		nd = len(doctors_scraped[abbreviation][city])
+		start_page = int(math.ceil(nd / 10.0))
+		start_doctor = nd % 10
+
+		print '\t\t', nd, 'doctors from this city already scraped'
+		print '\t\t', start_page - 1, 'doctor pages already scraped out of', num_pages
+
 	# We will visit num_doctors number of pages to get all of the doctors for this city
-	for page in range(1, num_pages + 1):
+	for page in range(start_page, num_pages + 1):
 		print '\t\tPage', page 
 
 		url = doctor_page_url(city, state, abbreviation, page)
@@ -294,24 +334,27 @@ def scrape_city_doctors(state, city, abbreviation, city_url, num_doctors):
 
 		# Some of the urls appear multiple times, don't want to scrape same one again
 		seen = set()
-		for dr_url_div in dr_url_divs:
+		for dr_index in range(start_doctor, len(dr_url_divs)):
+			dr_url_div = dr_url_divs[dr_index]
 			dr_url = doctor_url(dr_url_div.get('href'))
 			if dr_url not in seen:
 				seen.add(dr_url)
 
 				try:
 					doctor_content(state, city, dr_url)
+					done.write(abbreviation + '\t' + city + '\t' + dr_url + '\n')
+					done.flush()
 				except:
 					print 'PROBLEM WITH DOCTOR:', dr_url
 					missing.write(dr_url + '\n')
+					missing.flush()
 
-		# Introduce some random lag...I think this is rate-limited 
-		time.sleep(random.random() * 4)
+			# Introduce some random lag...I think this is rate-limited 
+			time.sleep(random.random() * 2)
 
 
 ''' Scrape all doctors from a state ''' 
-def scrape_state(state):
-	abbreviation = abbreviations[states.index(state)]
+def scrape_state(state, abbreviation):
 	state = '-'.join(state.lower().split())
 
 	if state in hardcoded:
@@ -330,29 +373,69 @@ def scrape_state(state):
 		for atag in city_urls:
 			url = city_url(atag.get('href'))
 			city = atag.text.split('(')[0].strip()
+
+			if abbreviation in cities_scraped and city in cities_scraped[abbreviation]:
+				print '\t', city, '\t===>already scraped'
+				continue
+
 			num_doctors = int(atag.text.split('(')[1].replace(')', '').strip())
 
 			print '\t', city, '\t', num_doctors
 
 			try:
 				scrape_city_doctors(state, city, abbreviation, url, num_doctors)
+				done.write(abbreviation + '\t' + city + '\n')
+				done.flush()
 			except:
 				print 'PROBLEM WITH CITY:', url
 				missing.write(url + '\n')
+				missing.flush()
+
+
+''' Grab metadata on what's already been scraped, reference this in case script gets stopped '''
+def get_already_scraped():
+	donef = open('done.tsv').read().splitlines()
+	for line in donef:
+		info = line.split('\t')
+		# Must be a done state 
+		if len(info) == 1:
+			states_scraped.add(info[0])
+		# Must be a done city 
+		elif len(info) == 2:
+			try:
+				cities_scraped[info[0]].append(info[1])
+			except KeyError:
+				cities_scraped[info[0]] = [info[1]]
+		# Must be a done page/doctor
+		elif len(info) == 3:
+			try:
+				state = doctors_scraped[info[0]]
+				try:
+					state[info[1]].add(info[2])
+				except KeyError:
+					state[info[1]] = set(info[2])
+			except KeyError:
+				doctors_scraped[info[0]] = {info[1]: set([info[2]])}
 
 
 ''' Scrape everything ''' 
 def scrape():
+	get_already_scraped()
+
 	for state in states:
-		print state 
-		try:
-			scrape_state(state)
-		except:
-			print 'PROBLEM WITH STATE:', state
-			missing.write(state + '\n')
+		abbreviation = abbreviations[states.index(state)]
+
+		if abbreviation in states_scraped:
+			print state, '==> already scraped'
+		else:
+			print state 
+			scrape_state(state, abbreviation)
+			done.write(abbreviation + '\n')
+			done.flush()
 
 	# Close all files
 	out.close()
+	done.close()
 	missing.close()
 	new_data.close()
 

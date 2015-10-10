@@ -26,11 +26,11 @@ def test_doctor_info():
 	def test(url):
 		doctor = url.split('/')[-1].split('-')[0].capitalize()
 		print "==================" + doctor + "=================="
-		doctor_content(url)
+		doctor_content(None, None, url)
 		print 
 
-	# test(james)
-	# test(martin)
+	test(james)
+	test(martin)
 	# test(astrid)
 	# test(joseph)
 	# test(sun)
@@ -38,7 +38,7 @@ def test_doctor_info():
 	# test(afshin)
 	# test(marvin)
 	# test(regiane)
-	test(vijay)
+	# test(vijay)
 	# test(young)
 
 
@@ -48,15 +48,15 @@ def test_state_cities():
 	montana = "Montana"
 	ny = "New York"
 
-	def test(state):
+	def test(state, abbrev):
 		print "==================" + state + "=================="
-		scrape_state(state)
+		scrape_state(state, abbrev)
 		print 
 
-	test(nh)
-	test(ca)
-	test(montana)
-	test(ny)
+	test(nh, 'NH')
+	test(ca, 'CA')
+	test(montana, 'MT')
+	test(ny, 'NY')
 
 
 
@@ -72,11 +72,11 @@ def test_city_pages():
 		scrape_city_doctors(state, city, url, n)
 		print 
 
-	test('Portsmouth', 'New Hampshire', portsmouth, 4)
-	test('Los Alamitos', 'California', alamitos, 97)
-	test('Sidney', 'Montana', sidney, 1)
-	test('Victor', 'New York', victor, 21)
-	test('Pomona', 'New York', pomona, 43)
+	test('Portsmouth', 'New Hampshire', 'NH', portsmouth, 4)
+	test('Los Alamitos', 'California', 'CA', alamitos, 97)
+	test('Sidney', 'Montana', 'MT', sidney, 1)
+	test('Victor', 'New York', 'NY', victor, 21)
+	test('Pomona', 'New York', 'NY', pomona, 43)
 
 
 test_doctor_info()
