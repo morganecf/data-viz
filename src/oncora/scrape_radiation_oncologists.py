@@ -358,7 +358,10 @@ def scrape_state(state, abbreviation):
 	state = '-'.join(state.lower().split())
 
 	if state in hardcoded:
-		scrape_city_doctors(hardcoded[city])
+		#### FIX THISSSSSS -- NEED TO PASS CORRECT ARGUMENTS
+		#scrape_city_doctors(state, CITY, ABBREV, hardcoded[state], NUMDOCS)
+		# def scrape_city_doctors(state, city, abbreviation, city_url, num_doctors):
+		pass
 	else:
 		# Fetch all city links for this state 
 		req = requests.get(state_url(state))

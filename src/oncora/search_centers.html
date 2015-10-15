@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cancer Centers</title>
+  <!-- <link rel="stylesheet" href="./static/lib/css//bootstrap.min.css">
+  <link rel="stylesheet" href="./static/lib/css/keen-dashboards.css">
+  <link rel="stylesheet" href="./static/lib/css/dc.css">
+  <link rel="stylesheet" href="./static/css/custom.css"> -->
+
+  <!-- Bootstrap css --> 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+
+    
+/*
+ * Full-page application style
+ */
+
+body.application {
+  background: #f2f2f2;
+  padding: 60px 20px 0;
+}
+body.application > .container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+body.application div[class^="col-"] {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+body.application div[class^="col-"] div[class^="col-"] {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+body.application hr {
+  border-color: #d7d7d7;
+  margin: 10px 0;
+}
+
+
+
+.navbar-inverse {
+  background-color: #3d4a57;
+  border-color: #333;
+}
+.navbar-inverse .navbar-nav > li > a,
+.navbar a.navbar-brand {
+  color: #fbfbfb;
+  text-decoration: none;
+}
+
+.chart-wrapper {
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+.chart-wrapper .chart-title {
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 200;
+  padding: 7px 10px 4px;
+}
+
+.chart-wrapper .chart-stage {
+  /*min-height: 240px;*/
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.chart-wrapper .chart-notes {
+  background: #fbfbfb;
+  border-top: 1px solid #e2e2e2;
+  color: #808080;
+  font-size: 12px;
+  padding: 8px 10px 5px;
+}
+
+
+      .counties {
+        fill: none;
+      }
+
+      .states {
+        fill: none;
+        stroke: black;
+        stroke-linejoin: round;
+      }
+
+      .q0-9 { fill:rgb(247,251,255); }
+      .q1-9 { fill:rgb(222,235,247); }
+      .q2-9 { fill:rgb(198,219,239); }
+      .q3-9 { fill:rgb(158,202,225); }
+      .q4-9 { fill:rgb(107,174,214); }
+      .q5-9 { fill:rgb(66,146,198); }
+      .q6-9 { fill:rgb(33,113,181); }
+      .q7-9 { fill:rgb(8,81,156); }
+      .q8-9 { fill:rgb(8,48,107); }
+
+      #search {
+        width: 100%;
+        border: 0;
+        border-bottom: 2px solid #3d4a57;
+        margin-bottom: 5px;
+        background: none;
+        font-size: 20px;
+        text-align: center;
+      }
+      #search:focus {
+        outline: none;
+      }
+      #svg-container {
+        padding: 30px;
+      }
+
+      /* Customize the autocomplete */
+      .ui-widget-content {
+        color: #fff;
+        padding: 0;
+      }
+      .ui-menu-item {
+        background: #0089ff;
+        opacity: 0.75;
+        width: 100%;
+        list-style-type: none;
+        padding: 10px;
+      }
+      .ui-menu-item:hover {
+        background: #3d4a57;
+      }
+
+      /* Bubble tooltip */
+      .d3-tip {
+        line-height: 1;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        border-radius: 2px;
+        font-size: 9px;
+      }
+      .bubble-tooltip-title {
+        text-align: center;
+        margin-bottom: 3px;
+        font-style: bold;
+      }
+      .bubble-tooltip-value {
+        text-align: center;
+        margin-top: 3px;
+      }
+
+  </style>
+
+
+</head>
+<body class="application">
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="./">U.S. Cancer Centers</a>
+      </div>
+    </div>
+  </div>
+
+<div class="container-fluid"> 
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <input id="search" type="text" placeholder="Search cancer center"/>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+  <div class="chart-wrapper">
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <div id="svg-container"></div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- D3.js --> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+  <!-- TopoJSON --> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.js"></script>
+
+  <!-- Jquery --> 
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+  <!-- Data --> 
+  <script src="center-geocoordinates.geo.js" type="text/javascript"></script>
+  <script src="us-counties.js" type="text/javascript"></script>
+
+  <!-- Visualization --> 
+  <script src="search.js" type="text/javascript"></script>
+
+</body>
+</html>
