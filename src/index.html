@@ -1,9 +1,206 @@
-<html> 
+<html>
+	<head>
+		<title>Morgane Ciot</title>
+
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+		<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,200|Exo+2:400,200|Biryani:400,200|Ek+Mukta:400,200' rel='stylesheet' type='text/css'>
+
+		<style>
+			body {
+				font-family: 'Work Sans', sans-serif;
+				/*font-family: 'Exo 2', sans-serif;*/
+				/*font-family: 'Ek Mukta', sans-serif;*/
+				color: #fff;
+				background: #000022;
+			}
+			.container {
+				width: 40%;
+				background: #fff;
+				color: #333;
+				border-radius: 5px;
+				padding: 20px;
+			}
+			#header {
+				text-align: right;
+				color: #fff;
+				background: #000022;
+			}
+			img {
+				width: 100%;
+				height: 100%;
+			}
+
+			#modern-eve {
+				width: 100%;
+				height: 60%;
+			}
+
+		</style>
+
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	</head>
+
 	<body>
-		<p> A co-occurrence matrix of <a href="gates.html">stock market comentions</a> based on StockTwits data. </p>
-		<p> An <a href="journey.html">animation</a> of someone's journey through geographic space, using Facebook messaging geolocation </p> 
-		<p> A <a href="incarceration.html">visualization</a> of U.S. incarceration numbers by gender and ethnicity. </p>
-		<p> A <a href="dvh-editor.html">Dose-Volume Histogram editor</a>. </p>
-		<p> A tribute to my obsession with Buffy the Vampire Slayer, and also an exercise in figuring out how to fuse together a chord diagram and bubble layout. The <a href="buffy/BTVS_character_chord_diagram.html">result</a> shows how many lines each character had per season, among other inferences you can make while interacting with the visual.</p>
+		<br><br>
+		<div class="container" id="header"><h3>Morgane Ciot</h3></div>
+		<div class="container">
+			<!-- Data visualizations -->
+			<h4> Data visualizations </h4>
+			<p> Search for <a href="search_centers.html">cancer centers</a> in the United States (IN PROGRESS). Using BeautifulSoup, d3, topoJSON (for <a href="http://oncoramedical.com/">Oncora Medical</a>). Bubbles are proportional to the number of radiation devices each center has. </p>
+			<p> A tribute to my obsession with Buffy the Vampire Slayer, and also an exercise in figuring out how to fuse together a chord diagram and bubble layout. The <a href="buffy/BTVS_character_chord_diagram.html">result</a> shows how many lines each character had per season, among other inferences you can make while interacting with the visual.</p>
+			<p> A <a href="incarceration.html">visualization</a> of U.S. incarceration numbers by gender and ethnicity. </p>
+			<p> A co-occurrence matrix of <a href="gates.html">stock market comentions</a> based on StockTwits data. </p>
+			<p> An <a href="journey.html">animation</a> of someone's journey through geographic space, using Facebook messaging geolocation </p>
+		</div>
+		<br>
+
+		<div class="container">
+			<!-- Tools -->
+			<h4> Tools </h4>
+			<p> A <a href="dvh-editor.html">Dose-Volume Histogram editor</a> (for <a href="http://oncoramedical.com/">Oncora Medical</a>). Using d3.js </p>
+			<p> A <a href="https://github.com/morganecf/shell-messenger">way to chat with fb friends</a> without incurring the shame of being seen on fb. </p>
+			<p> A <a href="">sequence of chrome extensions</a> that visually overwhelm you with the time you've spent on fb/netflix/etc.</p>
+			<p> A <a href="http://pring.ca/haptic-device.html">portable, tablet-based haptic device</a>, presented at the <a href="http://haptics2015.org/">IEEE World Haptics Conference</a> (Chicago 2015). I worked on the demo app that was presented at the conference (not the actual machinery). </p>
+			<p> Python methods to programmatically <a href="https://github.com/morganecf/facebook">download</a> your fb data </p>
+		</div>
+		<br>
+
+		<div class="container">
+			<!-- Websites -->
+			<h4> Web dev </h4>
+			<p> <a href="http://www.haply.co/">Haply Robotics landing page</a> </p>
+			<p> <a href="http://elvisproject.ca/">Elvis:</a> music research with computers </p>
+			<p> <a href="http://www.apsimulations.com/">AlixPartners Case Simulations</a> </p>
+			<p> <a href="http://ffweb.ca/chodavarapu/wordpress/"> McGill professor </a> website </p>
+			<p> <a href="http://letsgetyouadate.com/">Let's get you a date</a> (coming soon)</p>
+		</div>
+		<br>
+
+		<div class="container">
+			<!-- Writing -->
+			<h4> Publications </h4>
+			<p> <a href="http://www.aclweb.org/anthology/D13-1114">Gender Inference on Twitter</a> </p>
+			<p> <a href="http://networkdynamics.org/2015/04/16/facebook-messenger-analytics-part-1-data-collection/">How to scrape your Facebook data</a> </p>
+		</div>
+		<br>
+
+		<div class="container">
+			<!-- Links -->
+			<h4> Other links </h4>
+			<p> My <a href="http://www.github.com/morganecf">github</a></p>
+			<p> My <a href="https://www.linkedin.com/pub/morgane-ciot/7b/949/931">LinkedIn</a></p>
+			<p> My <a href="http://www.baesrule.com">blog</a> (coming soon)</p>
+			<p> My <a href="http://networkdynamics.org/">research lab</a></p>
+			<p> Another <a href="http://grimes.mcgill.ca/">research lab</a> I've worked in </p>
+		</div>
+		<br>
+
+		<div class="container">
+			<!-- Drawing -->
+			<h4> Sketches </h4>
+			<p><a href="" data-toggle="modal" data-target="#birthday">birthday suit</a></p>
+			<p><a href="" data-toggle="modal" data-target="#vigilance">constant vigilance</a></p>
+			<p><a href="" data-toggle="modal" data-target="#graffiti">graffiti</a></p>
+			<p><a href=""  data-toggle="modal" data-target="#hopper">millenial drinking a glass of edward hopper</a></p>
+			<p><a href=""  data-toggle="modal" data-target="#melancholy">melancholy day</a></p>
+			<p><a href=""  data-toggle="modal" data-target="#voyeurism">voyeurism</a></p>
+			<p><a href=""  data-toggle="modal" data-target="#warren">warren's foot</a></p>
+			<p><a href=""  data-toggle="modal" data-target="#future">your future gf</a></p>
+			<p><a href=""  data-toggle="modal" data-target="#entertainment">modern eve flew too close to the entertainment</a></p>
+		</div>
+		<br>
+
+		<div class="container">
+			<!-- Interests -->
+			<h4> Interests </h4>
+			<ul>
+				<li> Data science </li>
+				<li> Data visualizations </li>
+				<li> Machine learning </li>
+				<li> Natural language processing </li>
+				<li> Reading, writing, drawing </li>
+				<li> Electroswing and jazz </li>
+				<li> Soccer </li>
+				<li> Buffy the Vampire Slayer (presently, obsession could and hopefully will evaporate) </li>
+			</ul>
+		</div>
+
+		<br><br><br>
+
+		<!-- Sketch modals -->
+		<div id="birthday" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body"> <img src="drawings/birthday suit.JPG"/> </div>
+		    </div>
+		  </div>
+		</div>
+		<div id="vigilance" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body"> <img src="drawings/constant vigilance.JPG"/> </div>
+		    </div>
+		  </div>
+		</div>
+		<div id="graffiti" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body"> <img src="drawings/graffiti.JPG"/> </div>
+		    </div>
+		  </div>
+		</div>
+		<div id="hopper" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body"> <img src="drawings/just another millenial drinking a glass of edward hopper.JPG"/> </div>
+		    </div>
+		  </div>
+		</div>
+		<div id="melancholy" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body"> <img src="drawings/melancholy day.JPG"/> </div>
+		    </div>
+		  </div>
+		</div>
+		<div id="voyeurism" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body"> <img src="drawings/voyeurism.JPG"/> </div>
+		    </div>
+		  </div>
+		</div>
+		<div id="future" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body"> <img src="drawings/your future gf.JPG"/> </div>
+		    </div>
+		  </div>
+		</div>
+		<div id="warren" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body"> <img src="drawings/warrens foot.JPG"/> </div>
+		    </div>
+		  </div>
+		</div>
+		<div id="entertainment" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body"> <img id="modern-eve" src="drawings/modern eve flew too close to the entertainment.JPG"/> </div>
+		    </div>
+		  </div>
+		</div>
+
 	</body>
+
+
+
+	<script type="text/javascript">
+		// $('#myModal').on('shown.bs.modal', function () {
+	 //  		$('#myInput').focus()
+		// });
+	</script>
+
 </html>
