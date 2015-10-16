@@ -3,9 +3,10 @@ An accumulation of data visualizations.
 
 ### My data visualizations
 - US incarcerations by gender and ethnicity: http://cs.mcgill.ca/~mciot/incarceration.html 
-- Personal geolocation based on facebook messages: http://cs.mcgill.ca/~mciot/journey.html
-- Dose-Volume histogram editor: http://cs.mcgill.ca/~mciot/dvh-editor.html
 - Buffy the Vampire Slayer characters by season breakdown: http://cs.mcgill.ca/~mciot/buffy/BTVS_character_chord_diagram.html
+- Personal geolocation based on facebook messages: http://cs.mcgill.ca/~mciot/journey.html
+- Search for US radiation oncology clinics (for Oncora Medical): http://cs.mcgill.ca/~mciot/search_centers.html
+- Dose-Volume histogram editor (for Oncora Medical): http://cs.mcgill.ca/~mciot/dvh-editor.html
 
 #### Data sources
 - Who doctors get bribed by: https://openpaymentsdata.cms.gov/dataset/Research-Payment-Data-Detailed-Dataset-2014-Report/b22s-cyfg
