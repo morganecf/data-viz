@@ -1,0 +1,79 @@
+https://basecamp.com/1930416/projects/4775815/messages/39130725
+
+I worked on improving these clusters by filtering edges based on the TF-IDF score between a subreddit and a url. The term frequency is the number of times the url appears in subreddit / total number of urls in subreddit. The inverse document frequency is ln(total number of subreddits / number of subreddits containing url). 
+
+Number of nodes (subreddits) in subdomain network: 149838
+Number of edges in subdomain network: 90101
+Total number of subdomains: 9247160
+Number of unique subdomains: 351940
+
+Top 20 subdomains by IDF:​
+0.791076947273 imgur.com
+3.38641115099 bbc.co.uk
+3.63761285558 docs.google.com
+3.64167893488 washingtonpost.com
+3.65320422573 24.media.tumblr.com
+3.71099926366 upload.wikimedia.org
+3.93489364263 buzzfeed.com
+4.01039450078 quickmeme.com
+4.07542406047 wired.com
+4.09406429877 reuters.com
+4.10169945742 bbc.com
+4.16111464551 usatoday.com
+4.19640473752 online.wsj.com
+4.23852099126 theverge.com
+4.26097282303 independent.co.uk
+4.34326498409 abcnews.go.com
+4.37192023985 mediucom
+4.42454968854 3.bp.blogspot.com
+4.54960141708 change.org
+4.70280557531 rawstory.com
+
+Clusters with tf-idf thresholding 
+I removed edges between subreddits and subdomains if the associated tf-idf score was lower than a certain threshold - the higher the tf-idf score, the more statistically important the URL is considered to this subreddit. There are 12991355 edges in the original network, and 44746 nodes (subreddits). 
+
+Keep edges with tf-idf >= .001 ==> ALLOW SOME UNIMPORTANT EDGES 
+	#connected components: 14
+	#nodes: 44746
+	#edges: 9344982 (28% of edges removed) 
+
+map.regular: 
+	515 clusters
+	largest three clusters: 20888, 4508, 3329 (largest one takes up almost 50% of subreddits)
+	#clusters that have size 1-2: 61
+map.normalized: 
+	66 clusters
+	largest three clusters: 43624, 338, 305 (largest one takes up 97% of subreddits))
+	#clusters that have size 1-2: 37
+
+Keep edges wtih tf-idf >= .01 ==> ALLOW SOMEWHAT IMPORTANT EDGES 
+	#connected components: 14
+	#edges: 6555804 (50% of edges removed)
+
+map.regular: 
+	573 clusters
+	largest three clusters: 12274, 3296, 2781 (largest one takes up 27% of subreddits)
+	#clusters that have size 1-2: 54
+map.normalized: 
+	45 clusters
+	largest two clusters: 42929, 291 (largest one takes up 96% of subreddits) 
+	#clusters that have size 1-2: 10
+
+Keep edges with tf-idf >= .1 ==> KEEP ONLY VERY IMPORTANT EDGES 
+	#connected components: 180
+	#edges: 1425443 (89% of edges removed)
+	#nodes: 36721 (18% of subreddits not connected to any edge)
+
+map.regular: 
+	189 clusters
+	largest two clusters: 35431, 311 (largest one takes up 96% of subreddits)
+	#clusters that have size 1-2: 92
+map.normalized: 
+	304 clusters
+	largest two clusters: 5455, 3321 (largest one takes up 15% of subreddits) 
+	#clusters that have size 1-2: 92
+
+
+we’re looking for a method that produces relatively small clusters (the intuition being that there isn’t a meaningful topic that involves 90+% of the subreddits. Only IDF > 0.01 map.regular and IDF > 0.1 map.normalized seem to get anywhere close to this. And I’m not confident that we can trust these results since there’s no rhyme or reason to when these low cluster sizes appear (e.g., IDF > 0.1 map.regular bumps back up to a largest cluster of 96%). Thoughts on what’s going on here?
+
+

@@ -1,0 +1,174 @@
+/* Potential palette: http://www.colourlovers.com/palette/301154/Influenza */
+
+body {
+	background: #480048; /* darker: 300030 */
+}
+
+.glyphicon {
+	font-size: 50px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.network-type {
+	font-size: 18px;
+}
+.explanation {
+	/*background: #FCE3D9;*/
+	padding: 0 10px 0 10px;
+}
+
+
+/* Based on: http://www.colourlovers.com/palette/215772/reddit */
+.glyphicon-link {
+	color: #F3723F;
+}
+.glyphicon-user {
+	color: #3F96F3;
+}
+.glyphicon-thumbs-up {
+	color: #FF4401;
+}
+.glyphicon-remove {
+	color: #99BEEB;
+}
+
+#intro {
+	width: 63%;
+	color: #fff;
+	text-align: center;
+
+	font-family: 'Quicksand', sans-serif;
+	/*font-family: 'PT Sans Caption', sans-serif;*/
+}
+
+.type-col {
+	border: 1px solid #480048;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.type-col:hover {
+	cursor: pointer;
+	border: 1px solid #7F4D7F;
+	border-radius: 5px;
+}
+.clicked {
+	border: 1px solid #7F4D7F;
+	border-radius: 5px;
+}
+
+#search {
+	width: 90%;
+	float: right;
+	background: none;
+	border: 0;
+	outline: 0;
+	border-bottom: 1px solid #fff;
+	margin-top: 30px;
+	margin-right: -15px;
+}
+#search:focus {
+	outline: none;
+}
+#search-link {
+	text-decoration: none;
+	color: #fff;
+	margin-left: -10px;
+}
+#search-link:hover {
+	color: #3F96F3;
+}
+
+#network-area {
+	display: none;
+	margin-top: 15%;
+	width: 100%;
+	height: 100%;
+}
+#graph-container {
+	width: 100%;
+	height: 100%;
+}
+
+/*.node {
+	stroke : #fff;
+	stroke-width : 1.5px;
+}*/
+
+.link {
+	stroke : #fff;
+	stroke-opacity : .8;
+}
+
+#side-navbar, #top-navbar {
+	list-style-type : none;
+	margin : 0;
+	padding : 0;
+}
+
+#top-navbar {
+	margin-top : -10px;
+	background-color : #d8d8f0;
+}
+
+#side-navbar {
+	margin-left : -10px;
+}
+
+.top-navitem {
+	display : inline;
+	float : left;
+	background-color : #9090ff;
+	height : 70px;
+	padding-top : 10px;
+}
+
+.side-navitem {
+	background-color : #9090ff;
+	width : 90px;
+	padding-left : 10px;
+	padding-top : 60px;
+	padding-bottom : 20px;
+}
+
+.side-navitem:hover {
+	background-color : #d8d8f0;
+}
+
+#last-top, #last-side {
+	border-bottom-right-radius: 10px;
+}
+#last-top {
+	width : 320px;
+}
+
+#reddit-alien {
+	margin-top : -10px;
+}
+
+a {
+	display : block;
+	width : 100px;
+}
+
+#state-search {
+	width : 300px;
+	height : 50px;
+	font-size : 40px;
+	font-family : sans-serif;
+	border-radius : 8px;
+	margin-left : 0px;
+}
+
+/*#title {
+	background-color : white;
+	font-size : 62px;
+	float : right;
+	font-family : verdana;
+	margin-top : -10px;
+	border-bottom : 3px solid #ff4800;
+}*/
+
+#svg_container {
+	margin-top : -270px;
+}

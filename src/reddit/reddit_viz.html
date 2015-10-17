@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+
+  <title> Reddit Networks </title>
+
+  <!-- Bootstrap css --> 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+
+  <link href='https://fonts.googleapis.com/css?family=Maven+Pro|Quicksand|Varela+Round|PT+Sans+Caption|Questrial|Didact+Gothic|Advent+Pro|Convergence' rel='stylesheet' type='text/css'>
+  <link href="reddit_graph.css" rel="stylesheet" />
+
+  <style>
+
+  </style>
+
+</head>
+
+<body>
+  <!-- The landing section --> 
+  <div class="container" id="intro">
+        <div class="row" id="title"><h1>Visualizing Reddit</h1></div>
+        <div class="row" id="network-def"><h3>A network is a system with <strong>edges</strong> and <strong>nodes</strong>. Nodes are participants in the network, and edges connect them.</h3> </div>
+        <div class="row"><h4>Subreddits are nodes that are interconnected in various ways:</h4></div>
+        <br>
+        <div class="row">
+          <div class="col-sm-3 type-col" id="user-col">
+            <div class="row network-type"><strong>Users</strong></div>
+            <div class="row"><span class="glyphicon glyphicon-user"></span></div>
+            <div class="row explanation">Two subreddits may be similar if a user frequently comments or posts to both. For example, you might often post to /r/squirrels and /r/chipmunks.</div>
+          </div>
+          <div class="col-sm-3 type-col" id="link-col">
+            <div class="row network-type"><strong>External Links</strong></div>
+            <div class="row"><span class="glyphicon glyphicon-link"></span></div>
+            <div class="row explanation">Specific domains can link different subreddits. For example, politico.com articles are posted to both /r/berniesanders and /r/hillaryclinton, suggesting a connection. </div>
+          </div>
+          <div class="col-sm-3 type-col" id="xpost-col">
+            <div class="row network-type"><strong>Cross-posts</strong></div>
+            <div class="row"><span class="glyphicon glyphicon-remove"></span></div>
+            <div class="row explanation">The same content is sometimes cross-posted, or submitted to more than one subreddits. This is a strong indicator that two subreddits are similar.</div>
+          </div>
+          <div class="col-sm-3 type-col" id="content-col">
+            <div class="row network-type"><strong>Content similarity</strong></div>
+            <div class="row"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+            <div class="row explanation">Reddit's moderators manually curate subreddits that are similar to each other and displays them in a "related subreddits" panel.</div>
+          </div>
+        </div>
+        <br>
+        <div class="row">To explore the network, pick a linking method and type in a subreddit (ex: dataisbeautiful): </div>
+        <br>
+        <div class="row">
+          <div class="col-md-10"><input id="search" type="text" placeholder="/r/dataisbeautiful"/></div>
+          <div class="col-md-2"><a href="#" id="search-link"><span class="glyphicon glyphicon-search"></span></a></div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container" id="network-area">
+    <div class="row" id="graph-container"> </div>
+  </div>
+
+</body>
+
+<!-- D3.js --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+<!-- Jquery --> 
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Data --> 
+<script type="text/javascript" src="../../data/reddit/networks/xpost/top125_100.js"></script>
+
+<!-- Viz script --> 
+<script type="text/javascript" src="reddit-networks.js"></script>
+
+<!-- Render the graph --> 
+<script type="text/javascript">
+
+window.onload = function () {
+
+  // Search parameters
+  var network_type, subreddit;
+
+  // Listen for network type click
+  $(".type-col").click(function () {
+    var network = $(this).attr("id").split("-")[0];
+    
+    for (var i = 0; i < $(".type-col").length; i++) {
+      $($(".type-col")[i]).removeClass("clicked");
+    }
+
+    if (network !== network_type) {
+      $(this).addClass("clicked"); 
+      network_type = network;
+    }
+
+  });
+
+  // Listen for subreddit click
+  $("#search-link").click(function () {
+    subreddit = $("#search").val();
+
+    if (subreddit === "") {
+      alert("Please enter a subreddit.");
+      return;
+    }
+    else if (!network_type) {
+      alert("Please choose a network type.");
+      return;
+    }
+
+    // Hide the intro section and show the graph 
+    $("#intro").hide();
+    $("#network-area").show();
+
+    // Initialize subnetwork 
+    visualization(subreddit, network_type);
+    
+  });
+
+};
+
+
+/* Used to test BFS */
+var test = {
+  a: {b: {count:1}, c: {count:1}, k: {count:1}, i: {count:1}},
+  b: {a: {count:1}, g: {count:1}},
+  c: {a: {count:1}},
+  e: {i: {count:1}, f: {count:1}},
+  f: {e: {count:1}, i: {count:1}, j: {count:1}},
+  i: {a: {count:1}, f: {count:1}, e: {count:1}},
+  j: {f: {count:1}},
+  g: {b: {count:1}}
+};
+
+
+</script>
+
+</html>
+
+
