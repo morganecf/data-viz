@@ -21,6 +21,7 @@ An accumulation of data visualizations.
 - NYC taxi trip data (2014-2015): http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml
   - This guy did a cool visualization using it: http://www.danielforsyth.me/mapping-nyc-taxi-data/
 - TONS more: http://www.kdnuggets.com/datasets/index.html
+- US gov't history (cables, declassified documents, etc): http://history-lab.org/tools
 
 #### Data visualizations I like
 - A day in the life of a NYC taxi: http://nyctaxi.herokuapp.com/
