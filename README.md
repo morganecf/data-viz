@@ -33,3 +33,4 @@ An accumulation of data visualizations.
 - Climate change factors: http://www.bloomberg.com/graphics/2015-whats-warming-the-world/
 - Halloween costume tracker: https://frightgeist.withgoogle.com/
 - Gun trafficking in the US: http://www.nytimes.com/interactive/2015/11/12/us/gun-traffickers-smuggling-state-gun-laws.html
+- Airport voronoi: https://www.jasondavies.com/maps/voronoi/airports/
