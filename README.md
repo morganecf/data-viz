@@ -34,3 +34,4 @@ An accumulation of data visualizations.
 - Halloween costume tracker: https://frightgeist.withgoogle.com/
 - Gun trafficking in the US: http://www.nytimes.com/interactive/2015/11/12/us/gun-traffickers-smuggling-state-gun-laws.html
 - Airport voronoi: https://www.jasondavies.com/maps/voronoi/airports/
+- Global winds: http://earth.nullschool.net/#current/wind/surface/level/orthographic=-88.50,40.29,1045
