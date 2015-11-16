@@ -12,6 +12,11 @@
 *
 *   NOTE: Mostly undirected?
 *   WHAT'S CONTENT??? edge weights are very high...  
+* 
+*   MAKING IT TIME-SENSITIVE WOULD BE REALLY COOL
+*
+*   CHECK THIS OUT: https://github.com/upphiminn/d3.ForceBundle
+*     this would be really beneficial when viewing larger clusters of nodes/edges
 */
 
 /* Helper functions */
@@ -58,6 +63,9 @@ function format (graph, subnetwork) {
 
   // Create node list 
   for (var node in subnetwork) {
+    // Selectors can't start with numeric character - just ignore these for now 
+    //if (!isNaN(parseInt(node[0]))) continue;
+
     dataset.nodes.push({'name': node, 'depth': subnetwork[node].depth});
     mapping[node] = nid;
     nid ++;
@@ -93,7 +101,10 @@ var distance = 3;
 
 
 /* Visualization function */
-var visualization = function (subreddit, network_type) {
+var visualization = function (subreddit, network_type, depth) {
+
+  // Initialize the max distance 
+  distance = depth;
 
   // Find the sub-network this node belongs in 
   var subnetwork = BFS(graph, subreddit, distance);
@@ -115,14 +126,16 @@ var visualization = function (subreddit, network_type) {
       .attr("id", "svg_container");
 
   // Generate the basic force layout 
-  var force = d3.layout.force()
+ // var force = d3.layout.force()
+  var force = d3.crystal()
       .gravity(1)
-      .charge(-3000)
-      .linkDistance(50)
+      .charge(-4000)
+      .linkDistance(30)
+      .friction(0.5)
       //.linkStrength(0.2)
       .size([width, height]);
   
-  force.nodes(data.nodes).links(data.links).start();
+  //force.nodes(data.nodes).links(data.links).start();
 
   // Render edge links
   var link = svg.selectAll("line")
@@ -130,35 +143,91 @@ var visualization = function (subreddit, network_type) {
     .enter()
     .append("line")
     .attr("class", "link")
-    .attr("id", function (d) { return d.source.name + "-" + d.source.target; })
-    .attr("stroke-width", 1);
+    .attr("id", function (d) { return d.source.name + "-" + d.target.name; })
+    .attr("stroke-width", 1)
+    .attr("stroke", "#7F4D7F");
     //.style("stroke-width", function (d) { return Math.sqrt(d.weight); });
 
   // Render nodes
-  var node = svg.selectAll("circle")
-    .data(data.nodes)
-    .enter()
-    .append("circle")
-    .attr("class", "node")
-    .attr("id", function (d) { return d.name; })
-    .attr("r", 10)
-    .attr("fill", function (d) { 
-      if (d.name === subreddit) return color_scale(0);
-      return color_scale(d.depth);
-    })
-    .attr("stroke", "#fff")
-    .attr("stroke-width", 1.5)
-    .call(force.drag);
+  // var node = svg.selectAll("circle")
+  //   .data(data.nodes)
+  //   .enter()
+  //   .append("circle")
+  //   .attr("class", "node")
+  //   .attr("id", function (d) { return d.name; })
+  //   .attr("r", 10)
+  //   .attr("fill", function (d) { 
+  //     if (d.name === subreddit) return color_scale(0);
+  //     return color_scale(d.depth);
+  //   })
+  //   .attr("stroke", "#fff")
+  //   .attr("stroke-width", 2)
+  //   //.attr("d", function (d) { if (d.name === subreddit) {d.x = width / 2; d.y = height / 2;} })
+  //   .call(force.drag);
 
-  // The ever-so crucial tick function!
-  force.on("tick", function() {
-    link.attr("x1", function (d) { return d.source.x; })
-        .attr("y1", function (d) { return d.source.y; })
-        .attr("x2", function (d) { return d.target.x; })
-        .attr("y2", function (d) { return d.target.y; });
 
-    node.attr("transform", function(d) { return 'translate(' + [d.x, d.y] + ')'; });
-  });
+  // TO DO  
+  // toggle depth 
+  // display current node being animated
+
+    var node = svg.selectAll(".node")
+      .data(data.nodes)
+      .enter()
+      .append("g")
+      .attr("class", "node")
+      .attr("id", function (d) { return d.name; })
+      .call(force.drag);
+
+    node.append("image")
+        .attr("xlink:href", function (d) {
+          if (d.name == subreddit) return "reddit4-red.png";
+          return "reddit4 copy.png";
+        })
+        .attr("x", -16)
+        .attr("y", -16)
+        .attr("id", function (d) { return d.name + '-img'; })
+        .attr("width", 32)
+        .attr("height", 32);
+
+    node.append("text")
+        .attr("dx", 18)
+        .attr("dy", ".35em")
+        .attr("class", "label")
+        .text(function(d) { return d.name });
+
+    force.nodes(data.nodes).links(data.links)
+      .crystallize_nodes(node)
+      .crystallize_links(link)
+      .crystallize({ start_node: subreddit, ms: 250 });
+
+    
+    // Hover functionality for nodes 
+    node.on("mouseover", function (d) {
+      // Highlight the current node 
+      d3.select("#" + d.name + "-img").attr("xlink:href", "reddit4-red.png");
+
+      // Also highlight its neighbors 
+      var neighbors = graph[d.name];
+      for (var neighbor in neighbors) {
+        if (neighbor !== subreddit) d3.select("#" + neighbor + "-img").attr("xlink:href", "reddit4-orange.png");
+      }
+      
+    }).on("mouseout", function (d) {
+      // Unhighlight current node 
+      if (d.name != subreddit) d3.select("#" + d.name + "-img").attr("xlink:href", "reddit4 copy.png");
+
+      // Unhighlight neighbors 
+      var neighbors = graph[d.name];
+      for (var neighbor in neighbors) {
+        if (neighbor !== subreddit) d3.select("#" + neighbor + "-img").attr("xlink:href", "reddit4 copy.png");
+      }
+    });
+
+    // Click functionality for nodes 
+    node.on("click", function (d) {
+      // how come didn't work the proper way...???
+      d3.select("#" + d.name)[0][0].__data__.fixed = true;
+    });
 
 };
 
