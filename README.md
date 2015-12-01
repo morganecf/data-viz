@@ -37,3 +37,4 @@ An accumulation of data visualizations.
 - Global winds: http://earth.nullschool.net/#current/wind/surface/level/orthographic=-88.50,40.29,1045
 - Beautiful, but sort of hard to interpret: http://www.evolutionoftheweb.com/
 - Really cool way of visualizing/animating a histogram: http://drones.pitchinteractive.com/
+- Nice way of highlighting a particular variable: http://www.brightpointinc.com/2015-nfl-predictions/
