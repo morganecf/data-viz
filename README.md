@@ -38,3 +38,8 @@ An accumulation of data visualizations.
 - Beautiful, but sort of hard to interpret: http://www.evolutionoftheweb.com/
 - Really cool way of visualizing/animating a histogram: http://drones.pitchinteractive.com/
 - Nice way of highlighting a particular variable: http://www.brightpointinc.com/2015-nfl-predictions/
+- Inspect how distribution of a variable affects mean and median: http://johnburnmurdoch.github.io/cityddj/averages.html
+- Good data journalism example (how relationship between price of oil vs. production has changed -- this does a good job of introducing a temporal dimension through animation/storytelling instead of a static third dimension which would have been confusing): http://www.nytimes.com/interactive/2015/09/30/business/how-the-us-and-opec-drive-oil-prices.html
+- Really cool and informative visualization of wikipedia, despite the umbridge-pink background: http://histography.io/
+- Interesting tax bracket visualization (go to last slide): http://www.vox.com/2015/10/26/9469793/tax-brackets
+- Useful: http://www.nytimes.com/interactive/2015/10/01/business/cost-of-mobile-ads.html
