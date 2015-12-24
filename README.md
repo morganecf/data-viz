@@ -43,3 +43,4 @@ An accumulation of data visualizations.
 - Really cool and informative visualization of wikipedia, despite the umbridge-pink background: http://histography.io/
 - Interesting tax bracket visualization (go to last slide): http://www.vox.com/2015/10/26/9469793/tax-brackets
 - Useful: http://www.nytimes.com/interactive/2015/10/01/business/cost-of-mobile-ads.html
+- Really beautiful visualizations/animations of your github repos!!!!!!!! https://github.com/acaudwell/Gource/wiki/Videos
