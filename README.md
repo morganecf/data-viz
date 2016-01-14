@@ -46,3 +46,4 @@ An accumulation of data visualizations.
 - Really beautiful visualizations/animations of your github repos!!!!!!!! https://github.com/acaudwell/Gource/wiki/Videos
 - Hard to take Justin Bieber seriously, but cool synesthetic art viz: http://www.nytimes.com/interactive/2015/08/25/arts/music/justin-bieber-diplo-skrillex-make-a-hit-song.html
 - Simulations for measles outbreak given % of population vaccinated: http://www.theguardian.com/society/ng-interactive/2015/feb/05/-sp-watch-how-measles-outbreak-spreads-when-kids-get-vaccinated
+- How Americans spend their day (Markov simulation of 1000 datapoints from American Time Use survey): http://flowingdata.com/2015/12/15/a-day-in-the-life-of-americans/
