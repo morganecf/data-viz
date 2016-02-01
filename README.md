@@ -22,6 +22,7 @@ An accumulation of data visualizations.
   - This guy did a cool visualization using it: http://www.danielforsyth.me/mapping-nyc-taxi-data/
 - TONS more: http://www.kdnuggets.com/datasets/index.html
 - US gov't history (cables, declassified documents, etc): http://history-lab.org/tools
+- 1.6TB of english sentences from common crawl: http://data.statmt.org/ngrams/sentences_en/
 
 #### Data visualizations I like
 - A day in the life of a NYC taxi: http://nyctaxi.herokuapp.com/
