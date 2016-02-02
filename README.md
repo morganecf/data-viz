@@ -48,3 +48,4 @@ An accumulation of data visualizations.
 - Hard to take Justin Bieber seriously, but cool synesthetic art viz: http://www.nytimes.com/interactive/2015/08/25/arts/music/justin-bieber-diplo-skrillex-make-a-hit-song.html
 - Simulations for measles outbreak given % of population vaccinated: http://www.theguardian.com/society/ng-interactive/2015/feb/05/-sp-watch-how-measles-outbreak-spreads-when-kids-get-vaccinated
 - How Americans spend their day (Markov simulation of 1000 datapoints from American Time Use survey) & complementary: http://flowingdata.com/2015/12/15/a-day-in-the-life-of-americans/, http://flowingdata.com/2015/11/10/counting-the-hours/, http://flowingdata.com/2015/11/30/most-common-use-of-time-by-age-and-sex/
+- I should be worrying about circulatory health: http://flowingdata.com/2016/01/05/causes-of-death/
