@@ -49,3 +49,4 @@ An accumulation of data visualizations.
 - Simulations for measles outbreak given % of population vaccinated: http://www.theguardian.com/society/ng-interactive/2015/feb/05/-sp-watch-how-measles-outbreak-spreads-when-kids-get-vaccinated
 - How Americans spend their day (Markov simulation of 1000 datapoints from American Time Use survey) & complementary: http://flowingdata.com/2015/12/15/a-day-in-the-life-of-americans/, http://flowingdata.com/2015/11/10/counting-the-hours/, http://flowingdata.com/2015/11/30/most-common-use-of-time-by-age-and-sex/
 - I should be worrying about circulatory health: http://flowingdata.com/2016/01/05/causes-of-death/
+- Who marries who by occupation: http://www.bloomberg.com/graphics/2016-who-marries-whom/
