@@ -24,6 +24,7 @@ An accumulation of data visualizations.
 - US gov't history (cables, declassified documents, etc): http://history-lab.org/tools
 - 1.6TB of english sentences from common crawl: http://data.statmt.org/ngrams/sentences_en/
 - Liberated private data: http://enigma.io/publicdata/
+- H1B visa database: http://h1bdata.info/
 
 #### Data visualizations I like
 - A day in the life of a NYC taxi: http://nyctaxi.herokuapp.com/
