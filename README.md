@@ -23,6 +23,7 @@ An accumulation of data visualizations.
 - TONS more: http://www.kdnuggets.com/datasets/index.html
 - US gov't history (cables, declassified documents, etc): http://history-lab.org/tools
 - 1.6TB of english sentences from common crawl: http://data.statmt.org/ngrams/sentences_en/
+- Liberated private data: http://enigma.io/publicdata/
 
 #### Data visualizations I like
 - A day in the life of a NYC taxi: http://nyctaxi.herokuapp.com/
