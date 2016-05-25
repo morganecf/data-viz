@@ -25,6 +25,7 @@ An accumulation of data visualizations.
 - 1.6TB of english sentences from common crawl: http://data.statmt.org/ngrams/sentences_en/
 - Liberated private data: http://enigma.io/publicdata/
 - H1B visa database: http://h1bdata.info/
+- Google trends data: http://googletrends.github.io/
 
 #### Data visualizations I like
 - A day in the life of a NYC taxi: http://nyctaxi.herokuapp.com/
@@ -53,3 +54,4 @@ An accumulation of data visualizations.
 - I should be worrying about circulatory health: http://flowingdata.com/2016/01/05/causes-of-death/
 - Who marries who by occupation: http://www.bloomberg.com/graphics/2016-who-marries-whom/
 - How tweets spread: https://interactive.twitter.com/tenyears/#?lang=EN
+- Pretty but kinda complicated: http://googletrends.github.io/brussels-attacks/
