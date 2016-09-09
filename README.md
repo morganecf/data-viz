@@ -26,6 +26,7 @@ An accumulation of data visualizations.
 - Liberated private data: http://enigma.io/publicdata/
 - H1B visa database: http://h1bdata.info/
 - Google trends data: http://googletrends.github.io/
+- Good list: https://www.reddit.com/r/webdev/comments/3wrswc/what_are_some_fun_apis_to_play_with/
 
 #### Data visualizations I like
 - A day in the life of a NYC taxi: http://nyctaxi.herokuapp.com/
