@@ -56,3 +56,4 @@ An accumulation of data visualizations.
 - Who marries who by occupation: http://www.bloomberg.com/graphics/2016-who-marries-whom/
 - How tweets spread: https://interactive.twitter.com/tenyears/#?lang=EN
 - Pretty but kinda complicated: http://googletrends.github.io/brussels-attacks/
+- Awesome bubble representations of kickstarter projects: http://polygraph.cool/kickstarter/
